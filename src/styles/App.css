@@ -1,0 +1,17 @@
+/* Globalne style dla Twojej aplikacji */
+
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f0f0f0; /* Jasnoszare tło */
+  color: #333; /* Ciemnoszary tekst */
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2 {
+  color: #333;
+}

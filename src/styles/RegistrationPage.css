@@ -1,0 +1,112 @@
+/* Główny kontener strony rejestracji */
+.registration-container {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Formularze */
+.registration-form,
+.photo-upload-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.registration-form h2,
+.photo-upload-form h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.submit-button,
+.skip-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-button:hover,
+.skip-button:hover {
+    background-color: #45a049;
+}
+
+/* Styl błędów walidacji */
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Styl wymagań hasła */
+.password-requirements {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.password-requirements li {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.password-requirements li.valid {
+    color: green;
+}
+
+.password-requirements li.invalid {
+    color: red;
+}
+
+.password-requirements li::before {
+    content: '•';
+    margin-right: 8px;
+}
+
+.password-match {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+
+.password-match.match {
+    color: green;
+}
+
+.password-match.no-match {
+    color: red;
+}
