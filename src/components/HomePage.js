@@ -11,6 +11,7 @@ function HomePage() {
         <div className="home-container">
             {/* Panel nawigacyjny z wyśrodkowanym logo i przyciskami po prawej stronie */}
             <nav className="navbar">
+                <div className="nav-left"></div>
                 <div className="nav-center">
                     <img src={logo} alt="Logo" className="logo" />
                 </div>

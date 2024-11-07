@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 
 function PrivateRoute({ children }) {
     const { isAuthenticated } = useContext(AuthContext);
-    return isAuthenticated ? children : <Navigate to="/home" />;
+    return isAuthenticated ? children : <Navigate to="/" />;
 }
 
 export default PrivateRoute;
