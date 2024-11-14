@@ -1,56 +1,60 @@
-import React, { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom'; // Dodano Link
-import { AuthContext } from '../context/AuthContext';
+import { loginUser } from '../api/authApi';
+import Swal from 'sweetalert2';
+import { useState } from 'react';
 import '../styles/LoginPage.css';
 
-function LoginPage() {
-    const [email, setEmail] = useState('');
+const LoginPage = () => {
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const { login } = useContext(AuthContext);
-    const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Tutaj dodaj logikę uwierzytelniania, np. wywołanie API
-        login(); // Aktualizuje stan uwierzytelnienia
-        navigate('/dashboard'); // Przekierowuje do panelu głównego
+        try {
+            await loginUser({ username, password });
+            Swal.fire({
+                icon: 'success',
+                title: 'Zalogowano pomyślnie!',
+                text: 'Zostałeś zalogowany do swojego konta.',
+            });
+        } catch (err) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Błąd logowania!',
+                text: err.message,
+            });
+        }
     };
 
     return (
         <div className="login-container">
-            <h2>Logowanie</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Email:
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </label>
-                <label>
-                    Hasło:
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </label>
-                <button type="submit">Zaloguj się</button>
-            </form>
-            {/* Dodane linki do rejestracji i strony głównej */}
-            <div className="login-links">
-                <p>
-                    Nie masz konta? <Link to="/register">Zarejestruj się</Link>
-                </p>
-                <p>
-                    <Link to="/">Powrót do strony głównej</Link>
-                </p>
+            <div className="login-form">
+                <h2>Logowanie</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="form-group">
+                        <label>Nazwa użytkownika:</label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Hasło:</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="submit-button">Zaloguj się</button>
+                </form>
             </div>
         </div>
     );
-}
+};
 
 export default LoginPage;

@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { registerUser } from '../api/authApi';
 import '../styles/RegistrationPage.css';
 
-function RegistrationPage() {
-    const navigate = useNavigate();
-
-    const [step, setStep] = useState(1);
+const RegistrationPage = () => {
+    const navigate = useNavigate(); // Ustawienie hooka do nawigacji
 
     const [formData, setFormData] = useState({
         username: '',
         email: '',
         password: '',
         confirmPassword: '',
+        verificationCode: '',
         photo: null,
     });
-
+    const [step, setStep] = useState(1);
     const [errors, setErrors] = useState({});
+    const [passwordsMatch, setPasswordsMatch] = useState(null);
     const [passwordValidity, setPasswordValidity] = useState({
         length: false,
         lowercase: false,
@@ -23,54 +25,29 @@ function RegistrationPage() {
         digit: false,
         specialChar: false,
     });
-    const [passwordsMatch, setPasswordsMatch] = useState(null); // Dodano stan
-
-    // Funkcja sprawdzająca poszczególne wymagania hasła
-    const checkPasswordValidity = (password) => {
-        const validity = {
-            length: password.length >= 8,
-            lowercase: /[a-z]/.test(password),
-            uppercase: /[A-Z]/.test(password),
-            digit: /\d/.test(password),
-            specialChar: /[@$!%*?#&^_-]/.test(password),
-        };
-        setPasswordValidity(validity);
-    };
-
-    // Funkcja walidująca hasło przy wysyłaniu formularza
-    const validatePassword = (password) => {
-        const errors = {};
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&^_-])[A-Za-z\d@$!%*?#&^_-]{8,}$/;
-
-        if (!passwordRegex.test(password)) {
-            errors.password = 'Hasło musi spełniać wszystkie wymagania.';
-        }
-
-        if (password !== formData.confirmPassword) {
-            errors.confirmPassword = 'Hasła nie są identyczne.';
-        }
-
-        return errors;
-    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        const updatedFormData = { ...formData, [name]: value };
-        setFormData(updatedFormData);
-        setErrors({ ...errors, [name]: '' });
+        setFormData({ ...formData, [name]: value });
 
-        if (name === 'password') {
-            checkPasswordValidity(value);
-        }
-
-        // Sprawdź, czy hasła są identyczne
+        // Sprawdzenie zgodności hasła i potwierdzenia tylko wtedy, gdy oba pola są wypełnione
         if (name === 'password' || name === 'confirmPassword') {
-            const { password, confirmPassword } = updatedFormData;
-            if (password && confirmPassword) {
-                setPasswordsMatch(password === confirmPassword);
+            if (formData.password && formData.confirmPassword) {
+                setPasswordsMatch(formData.password === formData.confirmPassword);
             } else {
                 setPasswordsMatch(null);
             }
+        }
+
+        // Aktualizacja walidacji hasła
+        if (name === 'password') {
+            setPasswordValidity({
+                length: value.length >= 8,
+                lowercase: /[a-z]/.test(value),
+                uppercase: /[A-Z]/.test(value),
+                digit: /\d/.test(value),
+                specialChar: /[@$!%*?#&^_-]/.test(value),
+            });
         }
     };
 
@@ -78,30 +55,55 @@ function RegistrationPage() {
         setFormData({ ...formData, photo: e.target.files[0] });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-
+        
         if (step === 1) {
-            // Walidacja hasła
-            const validationErrors = validatePassword(formData.password);
-            if (Object.keys(validationErrors).length > 0) {
-                setErrors(validationErrors);
-            } else {
-                setStep(2);
+            try {
+                await registerUser(formData);
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sukces!',
+                    text: 'Rejestracja zakończona pomyślnie! Sprawdź swój e-mail w celu potwierdzenia.',
+                });
+                setStep(2); 
+            } catch (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Błąd!',
+                    text: err.message,
+                });
             }
-        } else {
-            // Tutaj można dodać logikę wysyłania danych na serwer
-            console.log(formData);
-            alert('Rejestracja zakończona sukcesem!');
-            // Przekierowanie użytkownika na stronę logowania
-            navigate('/login');
+        } else if (step === 2) {
+            if (formData.verificationCode === '123456') { 
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Zweryfikowano!',
+                    text: 'Email został zweryfikowany.',
+                });
+                setStep(3);
+            } else {
+                setErrors({ verificationCode: 'Nieprawidłowy kod weryfikacyjny.' });
+            }
+        } else if (step === 3) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Rejestracja zakończona!',
+                text: 'Twoje konto zostało utworzone.',
+            }).then(() => {
+                navigate('/dashboard'); // Przekierowanie na stronę Dashboard po zakończeniu
+            });
         }
     };
 
     const skipPhotoUpload = () => {
-        // Użytkownik zdecydował się pominąć dodawanie zdjęcia
-        alert('Rejestracja zakończona sukcesem!');
-        navigate('/login');
+        Swal.fire({
+            icon: 'success',
+            title: 'Rejestracja zakończona!',
+            text: 'Twoje konto zostało utworzone.',
+        }).then(() => {
+            navigate('/dashboard'); // Przekierowanie na stronę Dashboard po pominięciu zdjęcia
+        });
     };
 
     return (
@@ -140,8 +142,8 @@ function RegistrationPage() {
                                 value={formData.password}
                                 onChange={handleChange}
                                 required
+                                autoComplete="new-password"
                             />
-                            {errors.password && <span className="error">{errors.password}</span>}
                         </div>
                         <div className="form-group">
                             <label>Potwierdź hasło:</label>
@@ -151,43 +153,48 @@ function RegistrationPage() {
                                 value={formData.confirmPassword}
                                 onChange={handleChange}
                                 required
+                                autoComplete="new-password"
                             />
-                            {/* Komunikat o zgodności haseł */}
-                            {passwordsMatch !== null && (
-                                <span className={`password-match ${passwordsMatch ? 'match' : 'no-match'}`}>
-                                    {passwordsMatch ? 'Hasła są identyczne.' : 'Hasła nie są identyczne.'}
-                                </span>
-                            )}
-                            {errors.confirmPassword && (
-                                <span className="error">{errors.confirmPassword}</span>
-                            )}
                         </div>
-                        {/* Lista wymagań hasła pod polem potwierdzenia hasła */}
+                        
                         <ul className="password-requirements">
-                            <li className={passwordValidity.length ? 'valid' : 'invalid'}>
-                                Minimum 8 znaków
-                            </li>
-                            <li className={passwordValidity.lowercase ? 'valid' : 'invalid'}>
-                                Co najmniej jedna mała litera
-                            </li>
-                            <li className={passwordValidity.uppercase ? 'valid' : 'invalid'}>
-                                Co najmniej jedna duża litera
-                            </li>
-                            <li className={passwordValidity.digit ? 'valid' : 'invalid'}>
-                                Co najmniej jedna cyfra
-                            </li>
-                            <li className={passwordValidity.specialChar ? 'valid' : 'invalid'}>
-                                Co najmniej jeden znak specjalny (@$!%*?#&^_-)
-                            </li>
+                            <li className={passwordValidity.length ? 'valid' : 'invalid'}>Minimum 8 znaków</li>
+                            <li className={passwordValidity.lowercase ? 'valid' : 'invalid'}>Co najmniej jedna mała litera</li>
+                            <li className={passwordValidity.uppercase ? 'valid' : 'invalid'}>Co najmniej jedna duża litera</li>
+                            <li className={passwordValidity.digit ? 'valid' : 'invalid'}>Co najmniej jedna cyfra</li>
+                            <li className={passwordValidity.specialChar ? 'valid' : 'invalid'}>Co najmniej jeden znak specjalny (@$!%*?#&^_-)</li>
+                            <li className={passwordsMatch === true ? 'valid' : 'invalid'}>Hasła są identyczne</li>
                         </ul>
-                        <button type="submit" className="submit-button">
-                            Dalej
-                        </button>
+
+                        <button type="submit" className="submit-button">Dalej</button>
                     </form>
                 </div>
             )}
 
             {step === 2 && (
+                <div className="confirm-email-form">
+                    <h2>Zweryfikuj email</h2>
+                    <p>Wprowadzony adres e-mail: {formData.email}</p>
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label>Kod weryfikacyjny:</label>
+                            <input
+                                type="text"
+                                name="verificationCode"
+                                value={formData.verificationCode}
+                                onChange={handleChange}
+                                required
+                            />
+                            {errors.verificationCode && (
+                                <span className="error">{errors.verificationCode}</span>
+                            )}
+                        </div>
+                        <button type="submit" className="submit-button">Zweryfikuj</button>
+                    </form>
+                </div>
+            )}
+
+            {step === 3 && (
                 <div className="photo-upload-form">
                     <h2>Dodaj zdjęcie (opcjonalnie)</h2>
                     <form onSubmit={handleSubmit}>
@@ -200,17 +207,13 @@ function RegistrationPage() {
                                 onChange={handleFileChange}
                             />
                         </div>
-                        <button type="submit" className="submit-button">
-                            Zarejestruj się
-                        </button>
+                        <button type="submit" className="submit-button">Zarejestruj się</button>
                     </form>
-                    <button onClick={skipPhotoUpload} className="skip-button">
-                        Pomiń
-                    </button>
+                    <button onClick={skipPhotoUpload} className="skip-button">Pomiń</button>
                 </div>
             )}
         </div>
     );
-}
+};
 
 export default RegistrationPage;
