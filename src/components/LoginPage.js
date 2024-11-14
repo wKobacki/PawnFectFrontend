@@ -1,11 +1,13 @@
 import { loginUser } from '../api/authApi';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import '../styles/LoginPage.css';
 
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate(); 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,6 +17,8 @@ const LoginPage = () => {
                 icon: 'success',
                 title: 'Zalogowano pomyślnie!',
                 text: 'Zostałeś zalogowany do swojego konta.',
+            }).then(() => {
+                navigate('/dashboard'); 
             });
         } catch (err) {
             Swal.fire({
