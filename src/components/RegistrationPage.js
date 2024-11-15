@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate, Link } from 'react-router-dom'; 
 import { registerUser } from '../api/authApi';
 import '../styles/RegistrationPage.css';
 
 const RegistrationPage = () => {
-    const navigate = useNavigate(); // Ustawienie hooka do nawigacji
+    const navigate = useNavigate(); 
 
     const [formData, setFormData] = useState({
         username: '',
@@ -28,18 +28,18 @@ const RegistrationPage = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-
-        // Sprawdzenie zgodności hasła i potwierdzenia tylko wtedy, gdy oba pola są wypełnione
+        const updatedFormData = { ...formData, [name]: value };
+        setFormData(updatedFormData);
+    
         if (name === 'password' || name === 'confirmPassword') {
-            if (formData.password && formData.confirmPassword) {
-                setPasswordsMatch(formData.password === formData.confirmPassword);
+            const { password, confirmPassword } = updatedFormData;
+            if (password && confirmPassword) {
+                setPasswordsMatch(password === confirmPassword);
             } else {
-                setPasswordsMatch(null);
+                setPasswordsMatch(null); 
             }
         }
-
-        // Aktualizacja walidacji hasła
+    
         if (name === 'password') {
             setPasswordValidity({
                 length: value.length >= 8,
@@ -50,6 +50,7 @@ const RegistrationPage = () => {
             });
         }
     };
+    
 
     const handleFileChange = (e) => {
         setFormData({ ...formData, photo: e.target.files[0] });
@@ -91,7 +92,7 @@ const RegistrationPage = () => {
                 title: 'Rejestracja zakończona!',
                 text: 'Twoje konto zostało utworzone.',
             }).then(() => {
-                navigate('/dashboard'); // Przekierowanie na stronę Dashboard po zakończeniu
+                navigate('/dashboard'); 
             });
         }
     };
@@ -102,7 +103,7 @@ const RegistrationPage = () => {
             title: 'Rejestracja zakończona!',
             text: 'Twoje konto zostało utworzone.',
         }).then(() => {
-            navigate('/dashboard'); // Przekierowanie na stronę Dashboard po pominięciu zdjęcia
+            navigate('/dashboard'); 
         });
     };
 
@@ -120,6 +121,7 @@ const RegistrationPage = () => {
                                 value={formData.username}
                                 onChange={handleChange}
                                 required
+                                autoComplete="username"
                             />
                             {errors.username && <span className="error">{errors.username}</span>}
                         </div>
@@ -131,6 +133,7 @@ const RegistrationPage = () => {
                                 value={formData.email}
                                 onChange={handleChange}
                                 required
+                                autoComplete="email"
                             />
                             {errors.email && <span className="error">{errors.email}</span>}
                         </div>
@@ -168,6 +171,9 @@ const RegistrationPage = () => {
 
                         <button type="submit" className="submit-button">Dalej</button>
                     </form>
+                    <p className="login-register-link">
+                        Masz już konto? <Link to="/login">Zaloguj się</Link>
+                    </p>
                 </div>
             )}
 

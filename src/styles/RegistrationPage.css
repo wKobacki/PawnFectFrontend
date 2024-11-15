@@ -103,14 +103,6 @@
     font-size: 0.9em;
 }
 
-.password-match.match {
-    color: green;
-}
-
-.password-match.no-match {
-    color: red;
-}
-
 /* Formularz weryfikacji email */
 .confirm-email-form {
     width: 100%;
@@ -165,4 +157,19 @@
 
 .confirm-email-form .submit-button:hover {
     background-color: #45a049;
+}
+
+.login-register-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-register-link a {
+    color: #4caf50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.login-register-link a:hover {
+    text-decoration: underline;
 }

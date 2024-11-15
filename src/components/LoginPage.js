@@ -1,7 +1,7 @@
 import { loginUser } from '../api/authApi';
 import Swal from 'sweetalert2';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, Link } from 'react-router-dom'; 
 import '../styles/LoginPage.css';
 
 const LoginPage = () => {
@@ -17,9 +17,8 @@ const LoginPage = () => {
                 icon: 'success',
                 title: 'Zalogowano pomyślnie!',
                 text: 'Zostałeś zalogowany do swojego konta.',
-            }).then(() => {
-                navigate('/dashboard'); 
-            });
+            })
+            navigate('/dashboard'); 
         } catch (err) {
             Swal.fire({
                 icon: 'error',
@@ -42,6 +41,7 @@ const LoginPage = () => {
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                             required
+                            autoComplete="username"
                         />
                     </div>
                     <div className="form-group">
@@ -52,10 +52,14 @@ const LoginPage = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
+                            autoComplete="current-password"
                         />
                     </div>
                     <button type="submit" className="submit-button">Zaloguj się</button>
                 </form>
+                <p className="login-register-link">
+                    Nie masz konta? <Link to="/register">Zarejestruj się</Link>
+                </p>
             </div>
         </div>
     );
