@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
 import { useNavigate, Link } from 'react-router-dom'; 
-import { registerUser } from '../api/authApi';
+import { registerUser, verifyUser } from '../api/authApi';
 import '../styles/RegistrationPage.css';
 
 const RegistrationPage = () => {
@@ -60,8 +60,11 @@ const RegistrationPage = () => {
         e.preventDefault();
         
         if (step === 1) {
+            const { username, email, password } = formData;
+            const registerData = { username, email, password };
+
             try {
-                await registerUser(formData);
+                await registerUser(registerData);
                 Swal.fire({
                     icon: 'success',
                     title: 'Sukces!',
@@ -76,14 +79,21 @@ const RegistrationPage = () => {
                 });
             }
         } else if (step === 2) {
-            if (formData.verificationCode === '123456') { 
+            const { email, verificationCode } = formData;
+            try {
+                await verifyUser({ email, code: verificationCode });
                 Swal.fire({
                     icon: 'success',
                     title: 'Zweryfikowano!',
                     text: 'Email został zweryfikowany.',
                 });
                 setStep(3);
-            } else {
+            } catch (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Błąd!',
+                    text: err.message,
+                });
                 setErrors({ verificationCode: 'Nieprawidłowy kod weryfikacyjny.' });
             }
         } else if (step === 3) {

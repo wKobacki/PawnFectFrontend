@@ -53,3 +53,26 @@ export const loginUser = async (loginData) => {
         throw error;
     }
 };
+
+//funkcja do weryfikownaia 
+export const verifyUser = async (verificationData) => {
+    try {
+        const response = await fetch(`${BASE_URL}/api/v1/verify`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(verificationData),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Verification failed');
+        }
+
+        return response.json();
+    } catch (error) {
+        console.error('Error during verification:', error);
+        throw error;
+    }
+};
