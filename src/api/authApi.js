@@ -1,78 +1,64 @@
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3300';
+import axios from 'axios';
 
-//funkcja rejstrowania
+const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3300/api/v1';
+
+// Funkcja do rejestracji użytkownika
 export const registerUser = async (userData) => {
     try {
-        const response = await fetch(`${BASE_URL}/api/v1/register`, { 
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(userData),
-        });
+        const response = await axios.post(`${BASE_URL}/register`, userData);  
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error('Server response:', errorData); 
-            throw new Error(errorData.message || 'Registration failed');
+        localStorage.setItem('userId', response.data.userId); 
+        localStorage.setItem('verificationCode', response.data.verificationCode); 
+
+        if (response.data.accessToken) {
+            localStorage.setItem('accessToken', response.data.accessToken);  
         }
 
-        return response.json();
+        return response.data;  
     } catch (error) {
-        console.error('Error during registration:', error);
-        throw error;
+        throw new Error(error.response?.data?.message || 'Błąd rejestracji użytkownika.');
     }
 };
 
-//funkcja logowania 
+
+export const verifyUser = async ({ email, code }) => {
+    try {
+        const response = await axios.post(`${BASE_URL}/verify`, { email, code });  
+
+        return response.data; 
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Błąd weryfikacji e-mail.');
+    }
+};
+
+// Funkcja logowania użytkownika
 export const loginUser = async (loginData) => {
     try {
-        const response = await fetch(`${BASE_URL}/api/v1/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(loginData),
-        });
+        const response = await axios.post(`${BASE_URL}/login`, loginData); 
 
-        if (!response.ok) {
-            if (response.headers.get('Content-Type')?.includes('application/json')) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || 'Login failed');
-            } else {
-                throw new Error('Internal Server Error');
-            }
+        
+        if (response.status !== 200) {
+            throw new Error(response.data.message || 'Login failed');
         }
 
-        const data = await response.json();
-        localStorage.setItem('accessToken', data.accessToken);
+        const data = response.data;
+        localStorage.setItem('accessToken', data.accessToken);  
 
-        return data;
+        return data;  
     } catch (error) {
         console.error('Error during login:', error);
         throw error;
     }
 };
 
-//funkcja do weryfikownaia 
-export const verifyUser = async (verificationData) => {
-    try {
-        const response = await fetch(`${BASE_URL}/api/v1/verify`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(verificationData),
-        });
+// Wyślij link resetujący
+export const sendResetEmail = async (email) => {
+    const response = await axios.post(`${BASE_URL}/password-reset`, { email });
+    return response.data;
+};
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Verification failed');
-        }
-
-        return response.json();
-    } catch (error) {
-        console.error('Error during verification:', error);
-        throw error;
-    }
+// Zresetuj hasło
+export const resetPassword = async (verificationCode, newPassword) => {
+    const response = await axios.post(`${BASE_URL}/password-reset/confirm`, { verificationCode, newPassword });
+    return response.data;
 };

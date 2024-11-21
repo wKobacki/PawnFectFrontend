@@ -1,19 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Swal from 'sweetalert2';
-import { useNavigate, Link } from 'react-router-dom'; 
+import { useNavigate, Link } from 'react-router-dom';
 import { registerUser, verifyUser } from '../api/authApi';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';  // Importowanie ikon
 import '../styles/RegistrationPage.css';
 
 const RegistrationPage = () => {
-    const navigate = useNavigate(); 
-
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: '',
         email: '',
         password: '',
         confirmPassword: '',
         verificationCode: '',
-        photo: null,
     });
     const [step, setStep] = useState(1);
     const [errors, setErrors] = useState({});
@@ -25,21 +24,27 @@ const RegistrationPage = () => {
         digit: false,
         specialChar: false,
     });
+    const [passwordVisible, setPasswordVisible] = useState(false); 
+    const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false); 
+    const [userId, setUserId] = useState(null);
+
+    useEffect(() => {
+        const storedUserId = localStorage.getItem('userId');
+        if (storedUserId) {
+            setUserId(storedUserId);
+        }
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         const updatedFormData = { ...formData, [name]: value };
         setFormData(updatedFormData);
-    
+
         if (name === 'password' || name === 'confirmPassword') {
             const { password, confirmPassword } = updatedFormData;
-            if (password && confirmPassword) {
-                setPasswordsMatch(password === confirmPassword);
-            } else {
-                setPasswordsMatch(null); 
-            }
+            setPasswordsMatch(password === confirmPassword);
         }
-    
+
         if (name === 'password') {
             setPasswordValidity({
                 length: value.length >= 8,
@@ -50,71 +55,57 @@ const RegistrationPage = () => {
             });
         }
     };
-    
-
-    const handleFileChange = (e) => {
-        setFormData({ ...formData, photo: e.target.files[0] });
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (step === 1) {
-            const { username, email, password } = formData;
-            const registerData = { username, email, password };
+            if (!formData.username || !formData.email || !formData.password || !formData.confirmPassword) {
+                Swal.fire('Błąd!', 'Proszę wypełnić wszystkie pola.', 'error');
+                return;
+            }
+
+            if (formData.password !== formData.confirmPassword) {
+                Swal.fire('Błąd!', 'Hasła muszą być identyczne.', 'error');
+                return;
+            }
+
+            if (!passwordValidity.length || !passwordValidity.lowercase || !passwordValidity.uppercase || !passwordValidity.digit || !passwordValidity.specialChar) {
+                Swal.fire('Błąd!', 'Hasło musi spełniać wszystkie wymagania.', 'error');
+                return;
+            }
 
             try {
-                await registerUser(registerData);
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Sukces!',
-                    text: 'Rejestracja zakończona pomyślnie! Sprawdź swój e-mail w celu potwierdzenia.',
+                const response = await registerUser({
+                    username: formData.username,
+                    email: formData.email,
+                    password: formData.password,
                 });
-                setStep(2); 
+
+                if (response && response.userId) {
+                    setUserId(response.userId);
+                    localStorage.setItem('userId', response.userId);
+                }
+
+                Swal.fire('Sukces!', 'Sprawdź swój e-mail, aby potwierdzić rejestrację.', 'success');
+                setStep(2);
             } catch (err) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Błąd!',
-                    text: err.message,
-                });
+                Swal.fire('Błąd!', err.message, 'error');
             }
         } else if (step === 2) {
-            const { email, verificationCode } = formData;
             try {
-                await verifyUser({ email, code: verificationCode });
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Zweryfikowano!',
-                    text: 'Email został zweryfikowany.',
+                await verifyUser({
+                    email: formData.email,
+                    code: formData.verificationCode,
                 });
+                Swal.fire('Sukces!', 'Email został zweryfikowany.', 'success');
                 setStep(3);
+                navigate('/login');
             } catch (err) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Błąd!',
-                    text: err.message,
-                });
+                Swal.fire('Błąd!', err.message, 'error');
                 setErrors({ verificationCode: 'Nieprawidłowy kod weryfikacyjny.' });
             }
-        } else if (step === 3) {
-            Swal.fire({
-                icon: 'success',
-                title: 'Rejestracja zakończona!',
-                text: 'Twoje konto zostało utworzone.',
-            }).then(() => {
-                navigate('/dashboard'); 
-            });
         }
-    };
-
-    const skipPhotoUpload = () => {
-        Swal.fire({
-            icon: 'success',
-            title: 'Rejestracja zakończona!',
-            text: 'Twoje konto zostało utworzone.',
-        }).then(() => {
-            navigate('/dashboard'); 
-        });
     };
 
     return (
@@ -149,27 +140,45 @@ const RegistrationPage = () => {
                         </div>
                         <div className="form-group">
                             <label>Hasło:</label>
-                            <input
-                                type="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                required
-                                autoComplete="new-password"
-                            />
+                            <div className="password-input-container">
+                                <input
+                                    type={passwordVisible ? "text" : "password"}
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                    required
+                                    autoComplete="new-password"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setPasswordVisible(!passwordVisible)}
+                                    className="password-toggle-btn"
+                                >
+                                    {passwordVisible ? <FaEye /> : <FaEyeSlash/>}
+                                </button>
+                            </div>
                         </div>
                         <div className="form-group">
                             <label>Potwierdź hasło:</label>
-                            <input
-                                type="password"
-                                name="confirmPassword"
-                                value={formData.confirmPassword}
-                                onChange={handleChange}
-                                required
-                                autoComplete="new-password"
-                            />
+                            <div className="password-input-container">
+                                <input
+                                    type={confirmPasswordVisible ? "text" : "password"}
+                                    name="confirmPassword"
+                                    value={formData.confirmPassword}
+                                    onChange={handleChange}
+                                    required
+                                    autoComplete="new-password"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setConfirmPasswordVisible(!confirmPasswordVisible)}
+                                    className="password-toggle-btn"
+                                >
+                                    {confirmPasswordVisible ? <FaEye/> : <FaEyeSlash/>}
+                                </button>
+                            </div>
                         </div>
-                        
+
                         <ul className="password-requirements">
                             <li className={passwordValidity.length ? 'valid' : 'invalid'}>Minimum 8 znaków</li>
                             <li className={passwordValidity.lowercase ? 'valid' : 'invalid'}>Co najmniej jedna mała litera</li>
@@ -201,31 +210,11 @@ const RegistrationPage = () => {
                                 onChange={handleChange}
                                 required
                             />
-                            {errors.verificationCode && (
-                                <span className="error">{errors.verificationCode}</span>
-                            )}
+                            {errors.verificationCode && <span className="error">{errors.verificationCode}</span>}
                         </div>
+
                         <button type="submit" className="submit-button">Zweryfikuj</button>
                     </form>
-                </div>
-            )}
-
-            {step === 3 && (
-                <div className="photo-upload-form">
-                    <h2>Dodaj zdjęcie (opcjonalnie)</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label>Wybierz zdjęcie:</label>
-                            <input
-                                type="file"
-                                name="photo"
-                                accept="image/*"
-                                onChange={handleFileChange}
-                            />
-                        </div>
-                        <button type="submit" className="submit-button">Zarejestruj się</button>
-                    </form>
-                    <button onClick={skipPhotoUpload} className="skip-button">Pomiń</button>
                 </div>
             )}
         </div>

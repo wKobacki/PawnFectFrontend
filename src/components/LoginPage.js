@@ -60,6 +60,9 @@ const LoginPage = () => {
                 <p className="login-register-link">
                     Nie masz konta? <Link to="/register">Zarejestruj się</Link>
                 </p>
+                <p className="password-reset-link">
+                    Zapominałeś hasła? <Link to="/resetPass">Zresetuj tutaj</Link>
+                </p>
             </div>
         </div>
     );
