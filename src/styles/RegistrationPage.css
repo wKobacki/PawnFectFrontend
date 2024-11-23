@@ -173,3 +173,17 @@
 .login-register-link a:hover {
     text-decoration: underline;
 }
+
+.password-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.password-toggle-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    color: #007bff;
+    font-size: 14px;
+}

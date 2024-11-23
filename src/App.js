@@ -8,6 +8,7 @@ import RegistrationPage from "./components/RegistrationPage";
 import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
 import AddAnimal from "./components/AddAnimal";
+import ResetPassword from "./components/ResetPasPage";
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route path="/resetPass" element={<ResetPassword />} />
       </Routes>
     </Router>
   );
