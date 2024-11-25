@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/AddAnimal.css";
 
-function AddAnimal() {
+function AddAnimal({ onClose, onSubmit }) {
   const [formData, setFormData] = useState({
     name: "",
     birthDate: "",
@@ -22,101 +22,93 @@ function AddAnimal() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Dane zwierzaka:", formData);
-    // Tu dodaj logikę przesyłania danych na serwer
+    if (!formData.name) {
+      alert("Imię zwierzaka jest wymagane.");
+      return;
+    }
+    onSubmit(formData); // Przekazanie danych do komponentu rodzica
   };
 
   return (
-    <div className="add-animal-container">
-      <h2>Dodaj nowego zwierzaka</h2>
-      <form className="add-animal-form" onSubmit={handleSubmit}>
-        {/* Imię */}
-        <div className="form-group">
-          <label htmlFor="name">Imię</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            placeholder="Wpisz imię"
-            required
-          />
-        </div>
-
-        {/* Data urodzenia */}
-        <div className="form-group">
-          <label htmlFor="birthDate">Data urodzenia</label>
-          <input
-            type="date"
-            id="birthDate"
-            name="birthDate"
-            value={formData.birthDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        {/* Imiona rodziców */}
-        <div className="form-group">
-          <label htmlFor="parentNames">Imiona rodziców</label>
-          <input
-            type="text"
-            id="parentNames"
-            name="parentNames"
-            value={formData.parentNames}
-            onChange={handleChange}
-            placeholder="Wpisz imiona rodziców"
-            required
-          />
-        </div>
-
-        {/* Rasa */}
-        <div className="form-group">
-          <label htmlFor="breed">Rasa</label>
-          <input
-            type="text"
-            id="breed"
-            name="breed"
-            value={formData.breed}
-            onChange={handleChange}
-            placeholder="Wpisz rasę"
-            required
-          />
-        </div>
-
-        {/* Odcień koloru */}
-        <div className="form-group">
-          <label htmlFor="colorShade">Odcień koloru</label>
-          <input
-            type="text"
-            id="colorShade"
-            name="colorShade"
-            value={formData.colorShade}
-            onChange={handleChange}
-            placeholder="Wpisz odcień koloru"
-            required
-          />
-        </div>
-
-        {/* Zdjęcie */}
-        <div className="form-group">
-          <label htmlFor="photo">Zdjęcie</label>
-          <input
-            type="file"
-            id="photo"
-            name="photo"
-            accept="image/*"
-            onChange={handlePhotoChange}
-            required
-          />
-        </div>
-
-        {/* Przyciski */}
-        <button type="submit" className="submit-button">
-          Dodaj zwierzaka
-        </button>
-      </form>
+    <div className="add-animal-modal">
+      <div className="add-animal-content">
+        <h2>Dodaj nowego zwierzaka</h2>
+        <form className="add-animal-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="name">Imię</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="Wpisz imię"
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="birthDate">Data urodzenia</label>
+            <input
+              type="date"
+              id="birthDate"
+              name="birthDate"
+              value={formData.birthDate}
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="parentNames">Imiona rodziców</label>
+            <input
+              type="text"
+              id="parentNames"
+              name="parentNames"
+              value={formData.parentNames}
+              onChange={handleChange}
+              placeholder="Wpisz imiona rodziców"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="breed">Rasa</label>
+            <input
+              type="text"
+              id="breed"
+              name="breed"
+              value={formData.breed}
+              onChange={handleChange}
+              placeholder="Wpisz rasę"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="colorShade">Odcień koloru</label>
+            <input
+              type="text"
+              id="colorShade"
+              name="colorShade"
+              value={formData.colorShade}
+              onChange={handleChange}
+              placeholder="Wpisz odcień koloru"
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="photo">Zdjęcie</label>
+            <input
+              type="file"
+              id="photo"
+              name="photo"
+              accept="image/*"
+              onChange={handlePhotoChange}
+            />
+          </div>
+          <div className="form-buttons">
+            <button type="submit" className="submit-button">
+              Dodaj zwierzaka
+            </button>
+            <button type="button" className="cancel-button" onClick={onClose}>
+              Anuluj
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

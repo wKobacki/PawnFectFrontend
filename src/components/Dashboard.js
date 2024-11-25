@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import "../styles/Dashboard.css";
 import { useNavigate } from "react-router-dom";
+import AddAnimal from "./AddAnimal"; // Import komponentu AddAnimal
 
 function Dashboard() {
   const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [animals, setAnimals] = useState([]); // Lista zwierząt
+  const [isAddAnimalOpen, setIsAddAnimalOpen] = useState(false); // Czy formularz jest otwarty?
 
   const handleLogout = () => {
     logout();
@@ -17,13 +20,20 @@ function Dashboard() {
   };
 
   const handleAddAnimalClick = () => {
-    navigate("/add-animal"); // Trasa do dodania nowego zwierzaka
+    setIsAddAnimalOpen(true); // Otwieranie formularza
   };
 
-  const animals = [
-    { id: 1, name: "Pies", image: "https://via.placeholder.com/100" },
-    { id: 2, name: "Kot", image: "https://via.placeholder.com/100" },
-  ];
+  const handleAddAnimalSubmit = (newAnimal) => {
+    const updatedAnimal = {
+      ...newAnimal,
+      id: animals.length + 1,
+      image: newAnimal.photo
+        ? URL.createObjectURL(newAnimal.photo)
+        : "https://via.placeholder.com/100", // Przykładowy obrazek
+    };
+    setAnimals((prevAnimals) => [...prevAnimals, updatedAnimal]); // Dodanie nowego zwierzaka do listy
+    setIsAddAnimalOpen(false); // Zamknięcie formularza
+  };
 
   return (
     <div className="dashboard-layout">
@@ -70,11 +80,21 @@ function Dashboard() {
           </button>
         </header>
 
-        <div className="dashboard-container">
-          <h2>Panel główny</h2>
-          <p>Witaj w aplikacji</p>
-          <button onClick={handleLogout}>Wyloguj się</button>
-        </div>
+        {!isAddAnimalOpen && (
+          <div className="dashboard-container">
+            <h2>Panel główny</h2>
+            <p>Witaj w aplikacji</p>
+            <button onClick={handleLogout}>Wyloguj się</button>
+          </div>
+        )}
+
+        {/* Formularz dodawania zwierzaka */}
+        {isAddAnimalOpen && (
+          <AddAnimal
+            onClose={() => setIsAddAnimalOpen(false)}
+            onSubmit={handleAddAnimalSubmit}
+          />
+        )}
       </div>
     </div>
   );

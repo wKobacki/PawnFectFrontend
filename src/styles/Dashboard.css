@@ -3,6 +3,7 @@
   display: flex;
   height: 100vh;
   overflow: hidden;
+  gap: 20px; /* Dodaje przestrzeń między menu bocznym a zawartością */
 }
 
 /* Menu boczne */
@@ -87,6 +88,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  padding: 15px 50px; /* Dodano padding, aby dać przestrzeń wokół */
   background-color: #f9f9f9;
 }
 
@@ -136,6 +138,7 @@
 .dashboard-container {
   max-width: 800px;
   margin: 50px auto;
+  padding: 0px;
   text-align: center;
   color: #333;
 }
@@ -156,4 +159,20 @@
 
 .dashboard-container button:hover {
   background-color: #d32f2f;
+}
+
+/* Maska przyciemnienia */
+.dashboard-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 5;
+  display: none;
+}
+
+.dashboard-mask.active {
+  display: block;
 }
