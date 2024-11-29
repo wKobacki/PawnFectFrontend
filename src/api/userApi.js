@@ -8,7 +8,6 @@ export const uploadUserAvatar = async (userId, photo) => {
         formData.append('image', photo);  
 
         const token = localStorage.getItem('accessToken');  
-        console.log(token);
         const response = await axios.post(`${BASE_URL}/users/${userId}/avatar`, formData, {
             headers: {
                 'Authorization': `Bearer ${token}`,

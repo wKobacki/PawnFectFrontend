@@ -12,13 +12,23 @@ const LoginPage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await loginUser({ username, password });
-            Swal.fire({
-                icon: 'success',
-                title: 'Zalogowano pomyślnie!',
-                text: 'Zostałeś zalogowany do swojego konta.',
-            })
-            navigate('/dashboard'); 
+            const userData = await loginUser({ username, password });
+
+            if (userData.accessToken && userData.uid) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Zalogowano pomyślnie!',
+                    text: 'Zostałeś zalogowany do swojego konta.',
+                });
+
+                navigate('/dashboard');
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Błąd logowania!',
+                    text: 'Wystąpił problem podczas logowania. Spróbuj ponownie.',
+                });
+            }
         } catch (err) {
             Swal.fire({
                 icon: 'error',
@@ -61,7 +71,7 @@ const LoginPage = () => {
                     Nie masz konta? <Link to="/register">Zarejestruj się</Link>
                 </p>
                 <p className="password-reset-link">
-                    Zapominałeś hasła? <Link to="/resetPass">Zresetuj tutaj</Link>
+                    Zapomniałeś hasła? <Link to="/resetPass">Zresetuj tutaj</Link>
                 </p>
             </div>
         </div>

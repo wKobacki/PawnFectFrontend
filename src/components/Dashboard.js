@@ -1,67 +1,106 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
-import "../styles/Dashboard.css";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import AddAnimal from "./AddAnimal"; // Import komponentu AddAnimal
+import { getPets, createNewPet } from "../api/petApi"; 
+import AddAnimal from "./AddAnimal"; 
+import "../styles/Dashboard.css";
 
 function Dashboard() {
-  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [animals, setAnimals] = useState([]); // Lista zwierząt
-  const [isAddAnimalOpen, setIsAddAnimalOpen] = useState(false); // Czy formularz jest otwarty?
+  const [animals, setAnimals] = useState([]);
+  const [isAddAnimalOpen, setIsAddAnimalOpen] = useState(false); 
+  const [loading, setLoading] = useState(false); 
+  const [error, setError] = useState(null);
+
+  // Pobieramy token i userId z localStorage
+  const token = localStorage.getItem('accessToken');
+  const userId = localStorage.getItem('userId');
+
+  useEffect(() => {
+    const fetchPets = async () => {
+      setLoading(true);
+      setError(null);
+    
+      if (!token || !userId) {
+        setError("Brak tokena dostępu lub userId.");
+        setLoading(false);
+        return;
+      }
+    
+      try {
+        const pets = await getPets(userId, token);
+        setAnimals(pets);
+      } catch (error) {
+        setError(error.message || "Błąd podczas pobierania zwierząt.");
+      } finally {
+        setLoading(false);
+      }
+    };    
+
+    if (token && userId) {
+      fetchPets();
+    }
+  }, [token, userId]); 
 
   const handleLogout = () => {
-    logout();
-    navigate("/");
-  };
-
-  const handleAnimalClick = (animalId) => {
-    navigate(`/animal/${animalId}`); // Przykładowa trasa dla zwierzaka
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('userId');
+    navigate("/"); 
   };
 
   const handleAddAnimalClick = () => {
-    setIsAddAnimalOpen(true); // Otwieranie formularza
+    setIsAddAnimalOpen(true); 
   };
 
-  const handleAddAnimalSubmit = (newAnimal) => {
-    const updatedAnimal = {
-      ...newAnimal,
-      id: animals.length + 1,
-      image: newAnimal.photo
-        ? URL.createObjectURL(newAnimal.photo)
-        : "https://via.placeholder.com/100", // Przykładowy obrazek
-    };
-    setAnimals((prevAnimals) => [...prevAnimals, updatedAnimal]); // Dodanie nowego zwierzaka do listy
-    setIsAddAnimalOpen(false); // Zamknięcie formularza
+  const handleAddAnimalSubmit = async (newAnimal) => {
+    try {
+        const addedAnimal = await createNewPet({...newAnimal, userId}, token);
+        setAnimals((prevAnimals) => [...prevAnimals, addedAnimal]); 
+        setIsAddAnimalOpen(false);
+    } catch (error) {
+        setError(error.message || "Błąd podczas dodawania zwierzęcia.");
+    }
   };
+
+  const handleAnimalClick = (animalId) => {
+    navigate(`/animal/${animalId}`); 
+  };  
 
   return (
     <div className="dashboard-layout">
-      {/* Menu boczne */}
       <nav className="sidebar">
         <h1 className="sidebar-title">Pawfect</h1>
         <hr className="sidebar-divider" />
         <div className="animal-gallery">
-          {animals.map((animal) => (
-            <div
-              key={animal.id}
-              className="animal-circle"
-              onClick={() => handleAnimalClick(animal.id)}
-            >
-              <img src={animal.image} alt={animal.name} />
-              <span className="animal-name">{animal.name}</span>
-            </div>
-          ))}
+          {loading ? (
+            <p>Ładowanie zwierząt...</p> 
+          ) : error ? (
+            <p>{error}</p> 
+          ) : (
+            // Renderowanie zwierząt
+            animals.length === 0 ? (
+              <p>Brak zwierząt w bazie danych</p>
+            ) : (
+              animals.map((animal) => (
+                <div
+                  key={animal.id}
+                  className="animal-circle"
+                  onClick={() => handleAnimalClick(animal.id)} 
+                >
+                  <img src={animal.image} alt={animal.name} />
+                  <span className="animal-name">{animal.name}</span>
+                </div>
+              ))
+            )
+          )}
           <div
             className="animal-circle add-animal"
-            onClick={handleAddAnimalClick}
+            onClick={handleAddAnimalClick} 
           >
             <span className="add-icon">+</span>
           </div>
         </div>
       </nav>
 
-      {/* Główna sekcja */}
       <div className="main-content">
         <header className="topbar">
           <div className="profile-section" onClick={() => navigate("/profile")}>
@@ -74,7 +113,7 @@ function Dashboard() {
           </div>
           <button
             className="settings-button"
-            onClick={() => navigate("/settings")}
+            onClick={() => navigate("/settings")} 
           >
             ⚙️
           </button>
@@ -88,10 +127,9 @@ function Dashboard() {
           </div>
         )}
 
-        {/* Formularz dodawania zwierzaka */}
         {isAddAnimalOpen && (
           <AddAnimal
-            onClose={() => setIsAddAnimalOpen(false)}
+            onClose={() => setIsAddAnimalOpen(false)} 
             onSubmit={handleAddAnimalSubmit}
           />
         )}
