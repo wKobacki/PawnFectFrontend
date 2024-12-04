@@ -7,7 +7,8 @@ const AnimalGallery = () => {
   const [loading, setLoading] = useState(false); 
   const [error, setError] = useState(null);
   const userId = localStorage.getItem('userId');
-  
+  const token = localStorage.getItem('accessToken');
+
   useEffect(() => {
     const fetchPets = async () => {
       setLoading(true);
@@ -22,9 +23,9 @@ const AnimalGallery = () => {
       };
       
     }
-    
+    if(userId && token)
     fetchPets();
-  })
+  }, [userId, token])
   return (
     <div className="animal-gallery">
       {animals.length === 0 ? (
