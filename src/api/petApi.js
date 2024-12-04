@@ -1,6 +1,11 @@
 import axios from "axios";
 const BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3300/api/v1";
 
+function convertDateFormat(dateString) {
+    const [year, month, day] = dateString.split('-');
+    return `${day}-${month}-${year}`;
+}
+
 // Funkcja do tworzenia nowego zwierzęcia
 export const createNewPet = async (petData, token) => {
     if (!token) {
@@ -12,7 +17,7 @@ export const createNewPet = async (petData, token) => {
             `${BASE_URL}/pets`, 
             {
                 gender: petData.gender,
-                dateOfBirth: petData.dateOfBirth,
+                dateOfBirth: convertDateFormat(petData.dateOfBirth),
                 description: petData.description,
                 name: petData.name,
                 userId: petData.userId 
@@ -37,7 +42,7 @@ export const createNewPet = async (petData, token) => {
 // Funkcja do pobierania listy zwierząt 
 export const getPets = async (userId, token) => {
     try {
-        const response = await fetch(`${BASE_URL}/pets?userId=${userId}`, {
+        const response = await fetch(`${BASE_URL}/pets?userid=${userId}`, {
             method: 'GET',
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -50,6 +55,10 @@ export const getPets = async (userId, token) => {
         }
 
         const pets = await response.json();
+        pets?.map(element => {
+            element.image = element.avatar_filename != null ? `${BASE_URL}/pets/avatars/${element.avatar_filename}` : null;
+            return element;
+        });
         return pets;
     } catch (error) {
         console.error("Błąd podczas pobierania zwierząt: ", error.message);

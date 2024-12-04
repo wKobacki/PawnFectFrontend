@@ -82,9 +82,9 @@ function Dashboard() {
             ) : (
               animals.map((animal) => (
                 <div
-                  key={animal.id}
+                  key={animal.pet_id}
                   className="animal-circle"
-                  onClick={() => handleAnimalClick(animal.id)} 
+                  onClick={() => handleAnimalClick(animal.pet_id)} 
                 >
                   <img src={animal.image} alt={animal.name} />
                   <span className="animal-name">{animal.name}</span>
