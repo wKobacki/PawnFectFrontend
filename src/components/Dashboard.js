@@ -27,7 +27,7 @@ function Dashboard() {
       }
     
       try {
-        const pets = await getPets(userId, token);
+        const pets = await getPets(userId);
         setAnimals(pets);
       } catch (error) {
         setError(error.message || "Błąd podczas pobierania zwierząt.");
@@ -53,7 +53,8 @@ function Dashboard() {
 
   const handleAddAnimalSubmit = async (newAnimal) => {
     try {
-        const addedAnimal = await createNewPet({...newAnimal, userId}, token);
+        const response = await createNewPet({...newAnimal, userId});
+        const addedAnimal = response.newPet;
         setAnimals((prevAnimals) => [...prevAnimals, addedAnimal]); 
         setIsAddAnimalOpen(false);
     } catch (error) {
@@ -64,7 +65,6 @@ function Dashboard() {
   const handleAnimalClick = (animalId) => {
     navigate(`/animal/${animalId}`); 
   };  
-
   return (
     <div className="dashboard-layout">
       <nav className="sidebar">
@@ -82,9 +82,9 @@ function Dashboard() {
             ) : (
               animals.map((animal) => (
                 <div
-                  key={animal.pet_id}
+                  key={animal.id}
                   className="animal-circle"
-                  onClick={() => handleAnimalClick(animal.pet_id)} 
+                  onClick={() => handleAnimalClick(animal.id)} 
                 >
                   <img src={animal.image} alt={animal.name} />
                   <span className="animal-name">{animal.name}</span>

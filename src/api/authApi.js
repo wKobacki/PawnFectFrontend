@@ -1,10 +1,11 @@
-import axios from 'axios';
+import apiClient from './apiClient';
+
 const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3300/api/v1';
 
 // Funkcja do rejestracji użytkownika
 export const registerUser = async (userData) => {
     try {
-        const response = await axios.post(`${BASE_URL}/register`, userData);  
+        const response = await apiClient.post('/register', userData);  
 
         // Zapisywanie danych w localStorage
         localStorage.setItem('userId', response.data.userId); 
@@ -24,7 +25,7 @@ export const registerUser = async (userData) => {
 // Funkcja weryfikacji użytkownika
 export const verifyUser = async ({ email, code }) => {
     try {
-        const response = await axios.post(`${BASE_URL}/verify`, { email, code });  
+        const response = await apiClient.post('/verify', { email, code });  
         return response.data; 
     } catch (error) {
         throw new Error(error.response?.data?.message || 'Błąd weryfikacji e-mail.');
@@ -34,7 +35,7 @@ export const verifyUser = async ({ email, code }) => {
 // Funkcja logowania użytkownika
 export const loginUser = async (loginData) => {
     try {
-        const response = await axios.post(`${BASE_URL}/login`, loginData); 
+        const response = await apiClient.post('/login', loginData); 
 
         if (response.status !== 200) {
             throw new Error(response.data.message || 'Login failed');
@@ -57,14 +58,30 @@ export const loginUser = async (loginData) => {
     }
 };
 
+export const refreshAccesToken = async () => {
+    try{
+        const response = await apiClient.post('/refresh');
+
+        const newAccessToken = response.data.accessToken;
+        
+        if (newAccessToken) {
+            localStorage.setItem('accessToken', newAccessToken); 
+        }
+
+        return newAccessToken;
+    } catch (error) {
+        console.error('Error while refreshing acces token: ', error);
+    }
+} 
+
 // Wyślij link resetujący
 export const sendResetEmail = async (email) => {
-    const response = await axios.post(`${BASE_URL}/password-reset`, { email });
+    const response = await apiClient.post(`${BASE_URL}/password-reset`, { email });
     return response.data;
 };
 
 // Zresetuj hasło
 export const resetPassword = async (verificationCode, newPassword) => {
-    const response = await axios.post(`${BASE_URL}/password-reset/confirm`, { verificationCode, newPassword });
+    const response = await apiClient.post(`${BASE_URL}/password-reset/confirm`, { verificationCode, newPassword });
     return response.data;
 };
