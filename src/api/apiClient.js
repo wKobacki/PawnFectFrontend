@@ -1,17 +1,20 @@
 import axios from 'axios';
-import { refreshAccesToken } from './authApi';
+import { refreshAccessToken } from './authApi';
 
 const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3300/api/v1';
 
 const apiClient = axios.create({
     baseURL: BASE_URL,
     withCredentials: true,
+    headers: {
+        Authorization: `Bearer ${localStorage.getItem('accessToken')}`
+    }
 })
 
 apiClient.interceptors.request.use((config) => {
-    const accesToken = localStorage.getItem('accesToken');
-    if(accesToken){
-        config.headers.Authorization = `Bearer ${accesToken}`;
+    const accessToken = localStorage.getItem('accessToken');
+    if(accessToken){
+        config.headers.Authorization = `Bearer ${accessToken}`;
     }
     return config;
 }, (error) => {
@@ -21,9 +24,9 @@ apiClient.interceptors.request.use((config) => {
 apiClient.interceptors.response.use(
     response => response, 
     async (error) => {
-        if(error.response?.status === 403 || error.response?.status === 401){
+        if(error.response?.status === 403){
             try{
-                const newToken = await refreshAccesToken();
+                const newToken = await refreshAccessToken();
                 if(newToken){
                     const originalRequest = error.config;
                     originalRequest.headers.Authorization = `Bearer ${newToken}`;

@@ -58,7 +58,7 @@ export const loginUser = async (loginData) => {
     }
 };
 
-export const refreshAccesToken = async () => {
+export const refreshAccessToken = async () => {
     try{
         const response = await apiClient.post('/refresh');
 

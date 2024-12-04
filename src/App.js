@@ -6,9 +6,9 @@ import { AuthProvider } from "./context/AuthContext"; // Importuj AuthProvider
 import HomePage from "./components/HomePage";
 import LoginPage from "./components/LoginPage";
 import RegistrationPage from "./components/RegistrationPage";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute"; // Komponent PrivateRoute
-import AddAnimal from "./components/AddAnimal";
+import AddAnimal from "./components/dashboard/AddAnimal";
 import ResetPassword from "./components/ResetPasPage";
 import AnimalProfile from "./components/AnimalProfile"; // Komponent profilu zwierzęcia
 

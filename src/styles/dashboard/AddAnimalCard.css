@@ -1,0 +1,10 @@
+.add-animal {
+    background-color: #f44336;
+    color: white;
+    font-size: 36px;
+    justify-content: center;
+}
+  
+.add-animal .add-icon {
+    font-weight: bold;
+}

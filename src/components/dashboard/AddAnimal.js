@@ -1,7 +1,20 @@
 import React, { useState } from "react";
-import "../styles/AddAnimal.css";
+import "../../styles/dashboard/AddAnimal.css";
+import { createNewPet } from "../../api/petApi";
+import { useNavigate } from "react-router-dom";
 
-const AddAnimal = ({ onSubmit, onClose }) => {
+const AddAnimal = () => {
+  const onSubmit = async (newAnimal) => {
+    const userId = localStorage.getItem('userId');
+    try {
+        await createNewPet({...newAnimal, userId});
+    } catch (error) {
+        console.error(error.message || "Błąd podczas dodawania zwierzęcia.");
+    }
+  };
+
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
@@ -41,11 +54,12 @@ const AddAnimal = ({ onSubmit, onClose }) => {
       onSubmit(formData); 
       setFormData({ name: "", gender: "", dateOfBirth: "", description: "" });
     }
+    navigate('/dashboard');
   };
 
   const handleClose = () => {
-    setFormData({ name: "", gender: "", dateOfBirth: "", description: "" }); 
-    onClose(); 
+    setFormData({ name: "", gender: "", dateOfBirth: "", description: "" });
+    navigate('/dashboard'); 
   };
 
   return (
