@@ -1,11 +1,6 @@
 import axios from "axios";
 const BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3300/api/v1";
 
-function convertDateFormat(dateString) {
-    const [year, month, day] = dateString.split('-');
-    return `${day}-${month}-${year}`;
-}
-
 // Funkcja do tworzenia nowego zwierzęcia
 export const createNewPet = async (petData, token) => {
     if (!token) {
@@ -17,7 +12,7 @@ export const createNewPet = async (petData, token) => {
             `${BASE_URL}/pets`, 
             {
                 gender: petData.gender,
-                dateOfBirth: convertDateFormat(petData.dateOfBirth),
+                dateOfBirth: petData.dateOfBirth,
                 description: petData.description,
                 name: petData.name,
                 userId: petData.userId 
