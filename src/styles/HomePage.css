@@ -1,4 +1,21 @@
 /* Główny kontener strony */
+
+body {
+  background-color: #f0f0f0; /* Jasne tło (marginesy) */
+  margin: 0; /* Usuń domyślne marginesy */
+  padding: 0; /* Usuń domyślne padding */
+}
+
+/* Motyw ciemny */
+.home-container.dark {
+  background-color: #676565; /* Tło głównej zawartości w trybie ciemnym */
+}
+
+/* Zmiana tła "marginesów" w trybie ciemnym */
+.home-container.dark body {
+  background-color: #575656; /* Ciemne tło dla marginesów */
+}
+
 .home-container {
   font-family: "Roboto", sans-serif;
   background-color: #f0f0f0;
@@ -6,10 +23,21 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Kontener dla głównej zawartości strony */
+.main-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f7f7f7;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
 /* Styl dla ciemnego motywu */
-.home-container.dark {
-  background-color: #333;
-  color: #f0f0f0;
+.home-container.dark .main-content {
+  background-color: #2e2e2e;
+  border-color: #555;
 }
 
 /* Pasek nawigacyjny */
@@ -23,6 +51,7 @@
   padding: 15px 30px;
   color: #fff;
   z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
@@ -68,13 +97,15 @@
 }
 
 .nav-button {
-  padding: 8px 16px;
+  padding: 10px 20px;
   background-color: #fff;
   color: #000;
   border-radius: 5px;
   text-decoration: none;
   font-weight: bold;
-  transition: background-color 0.3s, color 0.3s;
+  font-size: 16px;
+  border: 2px solid transparent;
+  transition: background-color 0.3s, color 0.3s, border 0.3s;
 }
 
 .home-container.dark .nav-button {
@@ -83,11 +114,14 @@
 }
 
 .nav-button:hover {
-  background-color: #e0e0e0;
+  background-color: transparent;
+  color: #4caf50;
+  border: 2px solid #4caf50;
 }
 
 .home-container.dark .nav-button:hover {
-  background-color: #555;
+  color: #1b521d;
+  border-color: #1b521d;
 }
 
 /* Przycisk przełączania motywu */
@@ -122,34 +156,54 @@
 /* Sekcja psa */
 .dog-section .section-content {
   display: flex;
-  flex-direction: row;
+  flex-direction: row; /* Obraz po lewej, tekst po prawej */
   align-items: center;
   justify-content: space-between;
-  padding: 0px 250px;
+  gap: 30px;
+  margin-bottom: 70px; /* Większy odstęp poniżej sekcji psa */
+  flex-wrap: nowrap; /* Upewniamy się, że obraz i opis są w jednej linii */
 }
 
 /* Sekcja kota */
 .cat-section .section-content {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row-reverse; /* Obraz po prawej, tekst po lewej */
   align-items: center;
   justify-content: space-between;
-  padding: 0px 250px;
+  gap: 30px;
+  flex-wrap: nowrap; /* Upewniamy się, że obraz i opis są w jednej linii */
 }
 
 .section-image-dog,
 .section-image-cat {
-  width: 50%;
+  width: 50%; /* Obraz zajmuje połowę szerokości kontenera */
   max-width: 550px;
   height: auto;
   object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.section-image-dog:hover,
+.section-image-cat:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .section-text-dog,
 .section-text-cat {
-  width: 65%;
-  padding: 90px;
-  text-align: center;
+  width: 50%; /* Opis zajmuje połowę szerokości kontenera */
+  padding: 20px;
+  text-align: left; /* Wyrównanie tekstu do lewej */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  background-color: #f9f9f9; /* Opcjonalne tło dla tekstu */
+}
+
+.home-container.dark .section-text-dog,
+.home-container.dark .section-text-cat {
+  background-color: #444; /* Tło dla ciemnego motywu */
+  color: #ccc;
 }
 
 .section-text-dog h2,
@@ -175,15 +229,6 @@
 .home-container.dark .section-text-cat p {
   color: #ccc;
 }
-
-.section-content img {
-  transition: filter 0.3s ease;
-}
-
-.home-container.dark .section-content img {
-  filter: brightness(0.8);
-}
-
 /* Sekcja "O aplikacji" */
 .about-section {
   background-color: #fafafa;
@@ -193,6 +238,13 @@
   margin: 30px auto;
   max-width: 800px;
   text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-section:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .home-container.dark .about-section {

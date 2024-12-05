@@ -9,7 +9,10 @@ import RegistrationPage from "./components/RegistrationPage";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute"; // Komponent PrivateRoute
 import AddAnimal from "./components/dashboard/AddAnimal";
+import ResetPasswordNotLoged from "./components/ResetPassAsNotLoged";
+import ResetPasswordLoged from "./components/ResetPassAsLoged";
 import ResetPassword from "./components/ResetPasPage";
+import AnimalProfile from "./components/AnimalProfile"; // Komponent profilu zwierzęcia
 import { AnimalProvider } from "./context/AnimalContext";
 
 function App() {
@@ -39,10 +42,10 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/resetPass" element={<ResetPassword />} />
+          <Route path="/resetPass" element={<ResetPasswordNotLoged />} />
 
           {/* <Route
-            path="/animal/:animalId" 
+            path="/animal/:animalId" // Dynamiczna trasa dla profilu zwierzęcia
             element={
               <PrivateRoute> 
                 <AnimalProfile />  

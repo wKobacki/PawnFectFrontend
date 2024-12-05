@@ -1,0 +1,105 @@
+/* ChangePasswordPage.css */
+
+.change-password-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.change-password-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.password-input-container {
+    display: flex;
+    align-items: center;
+}
+
+.password-input-container input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.password-toggle-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 14px;
+    cursor: pointer;
+    color: #007bff;
+}
+
+.password-toggle-btn:hover {
+    text-decoration: underline;
+}
+
+.error {
+    display: block;
+    margin-top: 10px;
+    color: #d9534f;
+    font-size: 14px;
+    text-align: center;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.submit-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.submit-button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+/* Responsywność */
+@media (max-width: 480px) {
+    .change-password-container {
+        padding: 15px;
+        border-radius: 6px;
+    }
+
+    .form-group label {
+        font-size: 14px;
+    }
+
+    .password-input-container input {
+        font-size: 13px;
+    }
+
+    .submit-button {
+        font-size: 14px;
+    }
+}

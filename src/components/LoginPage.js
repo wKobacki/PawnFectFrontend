@@ -7,6 +7,7 @@ import '../styles/LoginPage.css';
 const LoginPage = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false); // Stan do kontrolowania widoczności hasła
     const navigate = useNavigate(); 
 
     const handleSubmit = async (e) => {
@@ -56,14 +57,23 @@ const LoginPage = () => {
                     </div>
                     <div className="form-group">
                         <label>Hasło:</label>
-                        <input
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                            autoComplete="current-password"
-                        />
+                        <div className="password-input-container">
+                            <input
+                                type={showPassword ? 'text' : 'password'} // Zmieniamy typ pola na tekst, gdy hasło ma być widoczne
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                autoComplete="current-password"
+                            />
+                            <button
+                                type="button"
+                                className="password-toggle"
+                                onClick={() => setShowPassword(!showPassword)} // Przełączamy stan widoczności hasła
+                            >
+                                {showPassword ? 'Ukryj' : 'Pokaż'}
+                            </button>
+                        </div>
                     </div>
                     <button type="submit" className="submit-button">Zaloguj się</button>
                 </form>
