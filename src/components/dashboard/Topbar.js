@@ -8,7 +8,7 @@ const Topbar = () => {
       <header className="topbar">
         <div className="profile-section" onClick={() => navigate("/profile")}>
           <img
-            src={avatarUrl ? avatarUrl : "https://via.placeholder.com/40"}
+            src={ avatarUrl ? avatarUrl : "https://via.placeholder.com/40" }
             alt="Profil"
             className="profile-picture"
           />
