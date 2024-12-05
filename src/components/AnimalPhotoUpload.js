@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
-import { useNavigate } from 'react-router-dom'; // Importujemy hook useNavigate
+import { useNavigate, useParams } from 'react-router-dom'; // Importujemy hook useNavigate
 import Swal from 'sweetalert2';
-import { uploadUserAvatar } from '../api/userApi'; 
+import { uploadPetAvatar } from '../api/petApi'; 
 import '../styles/ProfilePhotoUpload.css'; 
 
 const ProfilePhotoUpload = () => {
@@ -11,6 +11,7 @@ const ProfilePhotoUpload = () => {
     const [photo, setPhoto] = useState(null);  // Stan wybranego zdjęcia
     const navigate = useNavigate(); // Hook do nawigacji
     const [preview, setPreview] = useState(null);
+    const { animalId } = useParams();
     // Hook Dropzone
     const { getRootProps, getInputProps } = useDropzone({
         accept: 'image/*', // Akceptujemy tylko obrazy
@@ -28,10 +29,9 @@ const ProfilePhotoUpload = () => {
     });
 
     const handleUpload = async () => {
-        const userId = localStorage.getItem('userId'); // Pobieramy ID użytkownika z localStorage
         if (photo) {
             try {
-                const response = await uploadUserAvatar(userId, photo); // Funkcja do wysłania zdjęcia
+                const response = await uploadPetAvatar(animalId, photo); // Funkcja do wysłania zdjęcia
                 Swal.fire({
                     icon: 'success',
                     title: 'Zdjęcie przesłane!',
@@ -62,7 +62,7 @@ const ProfilePhotoUpload = () => {
     return (
         <div className="profile-photo-container">
             <Button variant="primary" onClick={() => setShow(true)}>
-                Dodaj zdjęcie profilowe
+                Dodaj zdjęcie profilowe zwierzaka
             </Button>
 
             {/* Modal z formularzem przesyłania zdjęcia */}

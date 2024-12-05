@@ -59,3 +59,15 @@ export const deleteAnimal = async (animalId) => {
         throw new Error('blad poczas usuwania zwierzaka');
     }
 };
+
+export const uploadPetAvatar = async (petId, photo) => {
+    try {
+        const formData = new FormData();
+        formData.append('image', photo);  
+        const response = await apiClient.post(`/pets/${petId}/avatar`, formData);
+        // const avatarUrl = `${apiClient.defaults.baseURL}/pets/avatars/${response.data.fileName}`;
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Błąd przesyłania zdjęcia.');
+    }
+};

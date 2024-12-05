@@ -59,10 +59,10 @@
     color: #333;
 }
 
-/* Styl rozwijanego menu */
+
 .settings-menu {
     position: absolute;
-    top: 50px; /* Wysokość, aby menu znajdowało się pod przyciskiem */
+    top: 3em; 
     right: 0;
     background-color: white;
     border: 1px solid #ddd;
@@ -75,7 +75,6 @@
     width: 200px;
 }
 
-/* Elementy menu */
 .settings-menu li {
     padding: 10px 20px;
     cursor: pointer;
@@ -92,5 +91,10 @@
 /* Ukrycie menu po zamknięciu */
 .settings-menu.hidden {
     display: none;
+}
+
+.settings-menu-logout{
+    color: red !important;
+    font-weight: bold;
 }
 

@@ -24,7 +24,7 @@ body {
 }
 
 /* Kontener dla głównej zawartości strony */
-.main-content {
+.main-content-homepage {
   max-width: 1200px;
   margin: 0 auto;
   background-color: #f7f7f7;

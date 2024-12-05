@@ -1,9 +1,11 @@
 import Swal from 'sweetalert2';
 import '../styles/AnimalTools.css';
 import { useAnimal } from '../context/AnimalContext';
+import { useNavigate } from 'react-router-dom';
 
 const AnimalTools = () => {
     const { removeAnimal, selectedAnimal, selectAnimal, animals } = useAnimal();
+    const navigate = useNavigate();
     const showAnimalDeletionDialog = async () => {
         const dialogResult = await Swal.fire({
             title: 'Czy na pewno chcesz usunac zwierzaka?',
@@ -20,7 +22,7 @@ const AnimalTools = () => {
         <div className="animal-tools-container">
             <button className="animal-tools-remove-btn" onClick={()=>showAnimalDeletionDialog()}>🗑️</button>
             <button className="animal-tools-edit-btn">✏️</button>
-            <button className="animal-tools-upload-avatar-btn">⬆️</button>
+            <button className="animal-tools-upload-avatar-btn" onClick={() => navigate(`/animals/${selectedAnimal}/avatar`)}>⬆️</button>
         </div>
     );
 }

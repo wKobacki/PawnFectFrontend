@@ -38,8 +38,8 @@ function AnimalProfile({ animalId }) {
                 <h1>{animal.name}</h1>
                 <p><strong>Opis:</strong> {animal.description}</p>
                 <p><strong>Płeć:</strong> {animal.gender}</p>
-                <p><strong>Data urodzenia:</strong> {animal.date_of_birth}</p>
-                <img src={animal.image} alt={animal.name} />
+                <p><strong>Data urodzenia:</strong> {new Date(animal.date_of_birth).toISOString().split("T")[0]}</p>
+                <img src={animal.image ? animal.image : 'https://placehold.co/100'} alt={animal.name} />
                 <AnimalTools/>
             </div>
         </div>

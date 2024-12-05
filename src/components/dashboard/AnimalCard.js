@@ -10,7 +10,7 @@ const AnimalCard = ({ animal }) => {
       className="animal-circle"
       onClick={() => selectAnimal(animal.id)} 
     >
-      <img src={animal.image} alt={animal.name} />
+      <img src={animal.image ? animal.image : 'https://placehold.co/100'} alt={animal.name} />
       <span className="animal-name">{animal.name}</span>
     </div>
   );

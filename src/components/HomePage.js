@@ -53,7 +53,7 @@ function HomePage() {
         </div>
       </nav>
 
-      <div className="main-content">
+      <div className="main-content-homepage">
         <div className="main-message">Aby twoim zwierzakom żyło się lepiej</div>
 
         <section className="section dog-section">
