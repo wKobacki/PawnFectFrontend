@@ -1,7 +1,5 @@
 import apiClient from './apiClient';
 
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:3300/api/v1';
-
 // Funkcja do rejestracji użytkownika
 export const registerUser = async (userData) => {
     try {
@@ -36,10 +34,6 @@ export const verifyUser = async ({ email, code }) => {
 export const loginUser = async (loginData) => {
     try {
         const response = await apiClient.post('/login', loginData); 
-
-        if (response.status !== 200) {
-            throw new Error(response.data.message || 'Login failed');
-        }
 
         const data = response.data;
         
@@ -76,12 +70,31 @@ export const refreshAccessToken = async () => {
 
 // Wyślij link resetujący
 export const sendResetEmail = async (email) => {
-    const response = await apiClient.post(`${BASE_URL}/password-reset`, { email });
-    return response.data;
+    try {
+        const response = await apiClient.post(`/password-reset`, { email });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Nie udało się wysłać e-maila resetującego.');
+    }
 };
 
 // Zresetuj hasło
 export const resetPassword = async (verificationCode, newPassword) => {
-    const response = await apiClient.post(`${BASE_URL}/password-reset/confirm`, { verificationCode, newPassword });
-    return response.data;
+    try {
+        const response = await apiClient.post(`/password-reset/confirm`, { verificationCode, newPassword });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Nie udało się zresetować hasła.');
+    }
+};
+
+// reset hasla dla zalogowanego 
+export const updatePassword = async (currentPassword, newPassword) => {
+    const userId = localStorage.getItem("userId");
+    try {
+        const response = await apiClient.post('/change-password', { userId, currentPassword, newPassword }); 
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Nied udało się zresetować hasła.');
+    }
 };

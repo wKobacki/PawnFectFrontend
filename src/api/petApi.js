@@ -41,8 +41,7 @@ export const getPets = async (userId) => {
 export const getAnimalDetails = async (animalId) => {
     try {
         const response = await apiClient.get(`/pets/${animalId}`);
-
-        console.log("Odpowiedź serwera:", response);
+        
         return response.data;
     } catch (error) {
         console.error("Błąd podczas pobierania szczegółów zwierzęcia:", error.message);
