@@ -3,14 +3,17 @@ import { useNavigate } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import "../../styles/dashboard/Dashboard.css";
 import Topbar from "./Topbar";
+import { useAuth } from "../../context/AuthContext";
+import { useAnimal } from "../../context/AnimalContext";
 
 function Dashboard() {
   const navigate = useNavigate();
-
+  const { logout } = useAuth();
+  const { setAnimals } = useAnimal();
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('userId');
-    navigate("/"); 
+    logout();
+    navigate("/");
+    setAnimals([]);
   };
  
   return (

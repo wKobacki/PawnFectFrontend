@@ -3,11 +3,12 @@ import "../../styles/dashboard/Topbar.css"
 
 const Topbar = () => {
     const navigate = useNavigate();
+    const avatarUrl = localStorage.getItem('avatar_url');
     return (
       <header className="topbar">
         <div className="profile-section" onClick={() => navigate("/profile")}>
           <img
-            src="https://via.placeholder.com/40"
+            src={avatarUrl ? avatarUrl : "https://via.placeholder.com/40"}
             alt="Profil"
             className="profile-picture"
           />

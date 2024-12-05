@@ -2,6 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
-    width: 100%;
+    justify-content: center;
+    gap: 2em;
 }

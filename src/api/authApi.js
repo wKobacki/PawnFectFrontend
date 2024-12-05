@@ -37,10 +37,6 @@ export const loginUser = async (loginData) => {
     try {
         const response = await apiClient.post('/login', loginData); 
 
-        if (response.status !== 200) {
-            throw new Error(response.data.message || 'Login failed');
-        }
-
         const data = response.data;
         
         if (data.accessToken) {
@@ -49,6 +45,11 @@ export const loginUser = async (loginData) => {
 
         if (data.uid) {
             localStorage.setItem('userId', data.uid);  
+        }
+
+        if (data.avatar_filename !== null && data.avatar_filename !== undefined){
+            const avatar_url = `${apiClient.defaults.baseURL}/users/avatars/${data.avatar_filename}`
+            localStorage.setItem('avatar_url', avatar_url);
         }
 
         return data;  

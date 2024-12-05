@@ -11,17 +11,19 @@ import PrivateRoute from "./components/PrivateRoute"; // Komponent PrivateRoute
 import AddAnimal from "./components/dashboard/AddAnimal";
 import ResetPassword from "./components/ResetPasPage";
 import AnimalProfile from "./components/AnimalProfile"; // Komponent profilu zwierzęcia
+import { AnimalProvider } from "./context/AnimalContext";
 
 function App() {
   return (
     <AuthProvider> {/* Opakowujemy całą aplikację w AuthProvider */}
+    <AnimalProvider> 
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
           
-          {/* Chronione trasy */}
+            {/* Chronione trasy */}
           <Route
             path="/dashboard"
             element={
@@ -51,6 +53,7 @@ function App() {
           />
         </Routes>
       </Router>
+    </AnimalProvider>
     </AuthProvider>
   );
 }
