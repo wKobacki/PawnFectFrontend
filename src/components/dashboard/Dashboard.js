@@ -5,11 +5,16 @@ import "../../styles/dashboard/Dashboard.css";
 import Topbar from "./Topbar";
 import { useAuth } from "../../context/AuthContext";
 import { useAnimal } from "../../context/AnimalContext";
+import AnimalProfile from "../AnimalProfile";
 
 function Dashboard() {
   const navigate = useNavigate();
   const { logout } = useAuth();
-  const { setAnimals } = useAnimal();
+  const { setAnimals, animals } = useAnimal();
+  const { selectedAnimal, selectAnimal } = useAnimal();
+  if(selectedAnimal == null && animals?.length > 0){
+    selectAnimal(animals[0].id);
+  }
   const handleLogout = () => {
     logout();
     navigate("/");
@@ -21,14 +26,12 @@ function Dashboard() {
       <Sidebar />
 
       <div className="main-content">
-      <Topbar />
+        <Topbar />
 
-        
-      <div className="dashboard-container">
-        <h2>Panel główny</h2>
-        <p>Witaj w aplikacji</p>
-        <button onClick={handleLogout}>Wyloguj się</button>
-      </div>
+          
+        <div className="dashboard-container">
+          <AnimalProfile animalId={selectedAnimal}/>
+        </div>
       </div>
     </div>
   );

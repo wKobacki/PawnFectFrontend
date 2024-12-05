@@ -1,0 +1,7 @@
+.animal-tools-container{
+    display: flex;
+    border: 0.125em solid black;
+    height: auto;
+    gap: 0.125em;
+    margin: 0.125em;
+}

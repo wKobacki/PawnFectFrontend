@@ -41,11 +41,21 @@ export const getPets = async (userId) => {
 export const getAnimalDetails = async (animalId) => {
     try {
         const response = await apiClient.get(`/pets/${animalId}`);
-
-        console.log("Odpowiedź serwera:", response);
-        return response.data;
+        const animal = response.data;
+        animal.image = animal.avatar_filename != null ? `${apiClient.defaults.baseURL}/pets/avatars/${animal.avatar_filename}` : null;
+        // console.log("Odpowiedź serwera:", response);
+        return animal;
     } catch (error) {
         console.error("Błąd podczas pobierania szczegółów zwierzęcia:", error.message);
         throw new Error('blad podczas pobierania szczegolow zwierzaka');
+    }
+};
+
+export const deleteAnimal = async (animalId) => {
+    try{
+        const response = await apiClient.delete(`pets/${animalId}`);
+    } catch(error) {
+        console.error('Blad podczas usuwania zwierzaka', error.message);
+        throw new Error('blad poczas usuwania zwierzaka');
     }
 };

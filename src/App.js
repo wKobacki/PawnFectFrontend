@@ -10,7 +10,6 @@ import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute"; // Komponent PrivateRoute
 import AddAnimal from "./components/dashboard/AddAnimal";
 import ResetPassword from "./components/ResetPasPage";
-import AnimalProfile from "./components/AnimalProfile"; // Komponent profilu zwierzęcia
 import { AnimalProvider } from "./context/AnimalContext";
 
 function App() {
@@ -42,15 +41,14 @@ function App() {
           />
           <Route path="/resetPass" element={<ResetPassword />} />
 
-          {/* Trasa do profilu zwierzęcia */}
-          <Route
-            path="/animal/:animalId" // Dynamiczna trasa dla profilu zwierzęcia
+          {/* <Route
+            path="/animal/:animalId" 
             element={
-              <PrivateRoute> {/* Tylko zalogowani użytkownicy mogą oglądać szczegóły zwierzęcia */}
+              <PrivateRoute> 
                 <AnimalProfile />  
               </PrivateRoute>
             }
-          />
+          /> */}
         </Routes>
       </Router>
     </AnimalProvider>

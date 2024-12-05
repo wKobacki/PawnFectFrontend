@@ -20,6 +20,7 @@
 }
   
 .sidebar-divider {
+    display: flex;
     width: 100%;
     border: 0.125em solid white;
     margin-bottom: 1em;
