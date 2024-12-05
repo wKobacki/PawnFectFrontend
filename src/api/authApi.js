@@ -45,6 +45,11 @@ export const loginUser = async (loginData) => {
             localStorage.setItem('userId', data.uid);  
         }
 
+        if (data.avatar_filename !== null && data.avatar_filename !== undefined){
+            const avatar_url = `${apiClient.defaults.baseURL}/users/avatars/${data.avatar_filename}`
+            localStorage.setItem('avatar_url', avatar_url);
+        }
+
         return data;  
     } catch (error) {
         console.error('Error during login:', error);

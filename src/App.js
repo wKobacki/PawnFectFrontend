@@ -15,17 +15,19 @@ import ResetPasswordLoged from "./components/ResetPassAsLoged";
 
 // Import nowego komponentu
 import ProfilePage from "./components/ProfilePhotoUpload"; // Nowy komponent
+import { AnimalProvider } from "./context/AnimalContext";
 
 function App() {
   return (
     <AuthProvider> {/* Opakowujemy całą aplikację w AuthProvider */}
+    <AnimalProvider> 
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
           
-          {/* Chronione trasy */}
+            {/* Chronione trasy */}
           <Route
             path="/dashboard"
             element={
@@ -59,6 +61,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </Router>
+    </AnimalProvider>
     </AuthProvider>
   );
 }

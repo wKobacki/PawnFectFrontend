@@ -2,16 +2,21 @@ import React, { useState } from "react";
 import "../../styles/dashboard/AddAnimal.css";
 import { createNewPet } from "../../api/petApi";
 import { useNavigate } from "react-router-dom";
+import { useAnimal } from "../../context/AnimalContext";
 
 const AddAnimal = () => {
+  const { animals, updateAnimals } = useAnimal();
+
   const onSubmit = async (newAnimal) => {
     const userId = localStorage.getItem('userId');
     try {
-        await createNewPet({...newAnimal, userId});
+        const response = await createNewPet({...newAnimal, userId});
+        const newPet = response.newPet;
+        updateAnimals(newPet);
     } catch (error) {
         console.error(error.message || "Błąd podczas dodawania zwierzęcia.");
     }
-  };
+};
 
   const navigate = useNavigate();
 

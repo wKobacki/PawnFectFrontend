@@ -5,7 +5,7 @@ const AddAnimalCard = () => {
     const navigate = useNavigate();
     return (
         <div
-            className="animal-circle add-animal"
+            className="add-animal animal-circle"
             onClick={() => navigate('/add-animal')} 
         >
             <span className="add-icon">+</span>
