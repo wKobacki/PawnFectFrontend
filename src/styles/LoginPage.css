@@ -1,4 +1,8 @@
 .login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-family: 'Roboto', sans-serif;
     background-color: #f0f0f0;
     color: #333;
@@ -44,6 +48,32 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+}
+
+.password-input-container {
+    position: relative;
+}
+
+.password-input-container input {
+    width: calc(100% - 50px); /* Leave space for the button */
+    padding: 10px;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: #4caf50;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+.password-toggle:hover {
+    color: #45a049;
 }
 
 .submit-button {

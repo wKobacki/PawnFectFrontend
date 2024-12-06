@@ -3,7 +3,7 @@ import AddAnimalCard from "./AddAnimalCard";
 
 import "../../styles/dashboard/Sidebar.css";
 
-const Sidebar = ({handleAddAnimalClick}) => {
+const Sidebar = () => {
   return (
     <nav className="sidebar">
         <h1 className="sidebar-title">Pawfect</h1>

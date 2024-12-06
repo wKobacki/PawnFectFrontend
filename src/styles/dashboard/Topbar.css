@@ -2,23 +2,23 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    padding: 10px 20px;
+    padding: 1.125em 0.5em;
     background-color: white;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0em 0.2em 0.4em rgba(0, 0, 0, 0.1);
 }
   
 .profile-section {
     display: flex;
     align-items: center;
     cursor: pointer;
-    margin-right: 15px;
+    margin-right: 1em;
 }
   
 .profile-picture {
-    width: 40px;
-    height: 40px;
+    width: 4em;
+    height: 4em;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 1em;
 }
   
 .profile-name {
@@ -38,3 +38,63 @@
 .settings-button:hover {
     color: #333;
 }
+/* Sekcja z ustawieniami */
+.settings-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Przycisk ⚙️ */
+.settings-button {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.3s ease;
+}
+
+.settings-button:hover {
+    color: #333;
+}
+
+
+.settings-menu {
+    position: absolute;
+    top: 3em; 
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    list-style: none;
+    padding: 10px 0;
+    margin: 0;
+    z-index: 1000;
+    width: 200px;
+}
+
+.settings-menu li {
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.settings-menu li:hover {
+    background-color: #f5f5f5;
+    color: #000;
+}
+
+/* Ukrycie menu po zamknięciu */
+.settings-menu.hidden {
+    display: none;
+}
+
+.settings-menu-logout{
+    color: red !important;
+    font-weight: bold;
+}
+

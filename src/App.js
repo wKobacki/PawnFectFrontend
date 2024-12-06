@@ -9,19 +9,24 @@ import RegistrationPage from "./components/RegistrationPage";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/PrivateRoute"; // Komponent PrivateRoute
 import AddAnimal from "./components/dashboard/AddAnimal";
-import ResetPassword from "./components/ResetPasPage";
+import ResetPasswordNotLoged from "./components/ResetPassAsNotLoged";
+import ResetPasswordLoged from "./components/ResetPassAsLoged";
 import AnimalProfile from "./components/AnimalProfile"; // Komponent profilu zwierzęcia
+import { AnimalProvider } from "./context/AnimalContext";
+import ProfilePhotoUpload from "./components/ProfilePhotoUpload"
+import AnimalPhotoUpload from "./components/AnimalPhotoUpload"
 
 function App() {
   return (
     <AuthProvider> {/* Opakowujemy całą aplikację w AuthProvider */}
+    <AnimalProvider> 
       <Router>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegistrationPage />} />
           
-          {/* Chronione trasy */}
+            {/* Chronione trasy */}
           <Route
             path="/dashboard"
             element={
@@ -38,19 +43,29 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route path="/resetPass" element={<ResetPassword />} />
-
-          {/* Trasa do profilu zwierzęcia */}
-          <Route
+          <Route path="/resetPass" element={<ResetPasswordNotLoged />} />
+          <Route path="/profile" element={
+            <PrivateRoute>
+              <ProfilePhotoUpload />
+            </PrivateRoute>
+            } />
+          <Route path="/animals/:animalId/avatar" element={
+            <PrivateRoute>
+              <AnimalPhotoUpload/>
+            </PrivateRoute>
+          }/>
+          <Route path="/resetPass/Loged" element={<ResetPasswordLoged />} />
+          {/* <Route
             path="/animal/:animalId" // Dynamiczna trasa dla profilu zwierzęcia
             element={
-              <PrivateRoute> {/* Tylko zalogowani użytkownicy mogą oglądać szczegóły zwierzęcia */}
+              <PrivateRoute> 
                 <AnimalProfile />  
               </PrivateRoute>
             }
-          />
+          /> */}
         </Routes>
       </Router>
+    </AnimalProvider>
     </AuthProvider>
   );
 }

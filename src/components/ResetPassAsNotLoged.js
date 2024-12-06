@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import Swal from 'sweetalert2';
-import { sendResetEmail, resetPassword } from '../api/authApi'; 
+import { sendResetEmail, resetPassword } from '../api/authApi'; // Import funkcji z api
 import { useNavigate } from 'react-router-dom';
 import '../styles/ResetPasswordPage.css';
 
 const ResetPasswordPage = () => {
     const navigate = useNavigate();
-    const [step, setStep] = useState(1); 
+    const [step, setStep] = useState(1);  // Stan kontrolujący etap resetowania
     const [formData, setFormData] = useState({
         email: '',
         verificationCode: '',
@@ -18,17 +18,20 @@ const ResetPasswordPage = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
     const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
+    // Obsługuje zmianę wartości w formularzu
     const handleChange = (e) => {
         const { name, value } = e.target;
         const updatedFormData = { ...formData, [name]: value };
         setFormData(updatedFormData);
 
+        // Sprawdzenie, czy hasła pasują
         if (name === 'newPassword' || name === 'confirmPassword') {
             const { newPassword, confirmPassword } = updatedFormData;
             setPasswordsMatch(newPassword === confirmPassword);
         }
     };
 
+    // Obsługuje pierwszą część formularza (wysyłanie linku resetującego)
     const handleSubmitStep1 = async (e) => {
         e.preventDefault();
         if (!formData.email) {
@@ -37,7 +40,7 @@ const ResetPasswordPage = () => {
         }
 
         try {
-            await sendResetEmail(formData.email); 
+            await sendResetEmail(formData.email); // Wywołanie funkcji do wysyłania e-maila
 
             Swal.fire({
                 icon: 'success',
@@ -45,7 +48,7 @@ const ResetPasswordPage = () => {
                 text: 'Sprawdź swoją skrzynkę e-mail, aby zresetować hasło.',
             });
 
-            setStep(2); 
+            setStep(2);  // Przejście do drugiego kroku
         } catch (err) {
             Swal.fire({
                 icon: 'error',
@@ -55,6 +58,7 @@ const ResetPasswordPage = () => {
         }
     };
 
+    // Obsługuje drugą część formularza (weryfikacja kodu i zmiana hasła)
     const handleSubmitStep2 = async (e) => {
         e.preventDefault();
         if (!formData.verificationCode || !formData.newPassword || !formData.confirmPassword) {
@@ -68,7 +72,7 @@ const ResetPasswordPage = () => {
         }
 
         try {
-            await resetPassword(formData.verificationCode, formData.newPassword); 
+            await resetPassword(formData.verificationCode, formData.newPassword); // Wywołanie funkcji do resetowania hasła
 
             Swal.fire({
                 icon: 'success',
@@ -76,7 +80,7 @@ const ResetPasswordPage = () => {
                 text: 'Możesz teraz zalogować się na swoje konto.',
             });
 
-            navigate('/login'); 
+            navigate('/login');  // Przekierowanie do strony logowania
         } catch (err) {
             Swal.fire({
                 icon: 'error',
