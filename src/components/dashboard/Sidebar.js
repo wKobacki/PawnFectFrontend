@@ -3,14 +3,22 @@ import AddAnimalCard from "./AddAnimalCard";
 
 import "../../styles/dashboard/Sidebar.css";
 
-const Sidebar = () => {
+const Sidebar = ({ isVisible, toggleSidebar }) => {
   return (
-    <nav className="sidebar">
-        <h1 className="sidebar-title">Pawfect</h1>
-        <hr className="sidebar-divider" />
-        <AnimalGallery/>
-        <AddAnimalCard/>
-    </nav>
+    <div className={`sidebar-container ${isVisible ? "show" : ""}`}>
+      <nav className="sidebar">
+          <h1 className="sidebar-title">Pawfect</h1>
+          <hr className="sidebar-divider" />
+        <button 
+            className={`sidebar-close-button ${!isVisible ? "hidden" : ""}`} 
+            onClick={toggleSidebar}
+          >
+          ✖️
+        </button>
+          <AnimalGallery/>
+          <AddAnimalCard/>
+      </nav>
+    </div>
   );
 }
 
