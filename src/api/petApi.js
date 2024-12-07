@@ -39,6 +39,10 @@ export const getPets = async (userId) => {
 };
 
 export const getAnimalDetails = async (animalId) => {
+    if(!animalId){
+        console.error('Brak petid do getanimaldetails');
+        throw new Error('animalid jest wymagany');
+    }
     try {
         const response = await apiClient.get(`/pets/${animalId}`);
         const animal = response.data;
@@ -53,7 +57,11 @@ export const getAnimalDetails = async (animalId) => {
 
 export const deleteAnimal = async (animalId) => {
     try{
-        const response = await apiClient.delete(`pets/${animalId}`);
+        if(!animalId){
+            console.error('Brak petid do getanimaldetails');
+            throw new Error('animalid jest wymagany');
+        }
+        await apiClient.delete(`pets/${animalId}`);
     } catch(error) {
         console.error('Blad podczas usuwania zwierzaka', error.message);
         throw new Error('blad poczas usuwania zwierzaka');
@@ -61,6 +69,10 @@ export const deleteAnimal = async (animalId) => {
 };
 
 export const uploadPetAvatar = async (petId, photo) => {
+    if(!petId){
+        console.error('Brak petid do getanimaldetails');
+        throw new Error('animalid jest wymagany');
+    }
     try {
         const formData = new FormData();
         formData.append('image', photo);  
