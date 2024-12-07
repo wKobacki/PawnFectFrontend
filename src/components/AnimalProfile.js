@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAnimalDetails } from "../api/petApi";  
-import "../styles/AnimalProfile.css";  
+import "../styles/dashboard/AnimalProfile.css";  
 import AnimalTools from "./AnimalTools";
 
 function AnimalProfile({ animalId }) { 
@@ -35,15 +35,21 @@ function AnimalProfile({ animalId }) {
     return (
         <div className="animal-profile-container">
             <div className="animal-basic-info-container">
-                <h1>{animal.name}</h1>
-                <p><strong>Opis:</strong> {animal.description}</p>
-                <p><strong>Płeć:</strong> {animal.gender}</p>
-                <p><strong>Data urodzenia:</strong> {new Date(animal.date_of_birth).toISOString().split("T")[0]}</p>
-                <img src={animal.image ? animal.image : 'https://placehold.co/100'} alt={animal.name} />
-                <AnimalTools/>
+                <img 
+                    src={animal.image ? animal.image : 'https://placehold.co/300x300'} 
+                    alt={animal.name} 
+                    className="animal-image"
+                />
+                <h1 className="animal-name">{animal.name}</h1>
+                <p className="animal-description"><strong>Opis:</strong> {animal.description}</p>
+                <p className="animal-gender"><strong>Płeć:</strong> {animal.gender}</p>
+                <p className="animal-dob">
+                    <strong>Data urodzenia:</strong> {new Date(animal.date_of_birth).toISOString().split("T")[0]}
+                </p>
+                <AnimalTools />
             </div>
         </div>
-    );
+    );    
 }
 
 export default AnimalProfile;
