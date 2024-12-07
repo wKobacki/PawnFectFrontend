@@ -23,7 +23,9 @@ function Dashboard() {
     <div className="dashboard-layout">
       <Sidebar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar}/>
       <Topbar toggleSidebar={toggleSidebar} isSidebarVisible={isSidebarVisible}/>
-      <AnimalProfile animalId={selectedAnimal}/>
+      <div className="dashboard-content">
+        <AnimalProfile animalId={selectedAnimal}/>
+      </div>
     </div>
   );
 }

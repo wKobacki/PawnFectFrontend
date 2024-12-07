@@ -26,17 +26,24 @@ const Topbar = ({ isSidebarVisible, toggleSidebar }) => {
         <div className="topbar-container">
             <header className="topbar">
                 {!isSidebarVisible && (
-                    <button className="menu-button" onClick={toggleSidebar}>
-                    ☰
-                    </button>
+                    <div className="menu-button">
+                        <button onClick={toggleSidebar}>
+                        ☰
+                        </button>
+                    </div>
                  )}
-                <div className="profile-section" onClick={() => navigate("/profile")}>
+                <div className="profile-picture">
                     <img
                         src={avatarUrl ? avatarUrl : "https://via.placeholder.com/40"}
                         alt="Profil"
-                        className="profile-picture"
-                        />
-                    <span className="profile-name">Twój Profil</span>
+                    />
+                </div>
+                <div className="profile-name">
+                    <span 
+                        onClick={() => navigate("/profile")}
+                    >
+                        Twój Profil
+                    </span>
                 </div>
 
                 <div className="settings-section">

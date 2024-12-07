@@ -1,0 +1,123 @@
+@keyframes rotateIn {
+    0% {
+        transform: rotate(-360deg) translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: rotate(0deg) translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Container dla całego profilu */
+.animal-profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 0.125em solid #ccc;
+    border-radius: 1em;
+    padding: 2em;
+    height: 100%;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
+}
+
+.animal-profile-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5em;
+    margin-bottom: 1em;
+}
+
+/* Główna sekcja informacji */
+.animal-basic-info-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+    border: 0.125em solid #ccc;
+    border-radius: 1em;
+    padding: 1em;
+    background-color: #f9f9f9;
+    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.8s ease-out;
+}
+
+/* Zdjęcie - animowane obracanie */
+.animal-image {
+    width: 10em;
+    height: 10em;
+    border-radius: 50%;
+    margin-bottom: 1em;
+    animation: rotateIn 1s ease-out;
+}
+
+/* Nagłówek - animacja z lewej strony */
+.animal-name {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5em;
+    animation: slideInLeft 0.6s ease-out;
+}
+
+/* Opis - animacja z prawej strony */
+.animal-description {
+    font-size: 1em;
+    color: #555;
+    margin: 0.25em 0;
+    animation: slideInRight 0.6s ease-out;
+}
+
+/* Płeć - animacja z lewej strony */
+.animal-gender {
+    font-size: 1em;
+    color: #555;
+    margin: 0.25em 0;
+    animation: slideInLeft 0.6s ease-out;
+}
+
+/* Data urodzenia - animacja z prawej strony */
+.animal-dob {
+    font-size: 1em;
+    color: #555;
+    margin: 0.25em 0;
+    animation: slideInRight 0.6s ease-out;
+}
+
+.animal-tools-container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* Nagłówki sekcji w opisach */
+.animal-description strong,
+.animal-gender strong,
+.animal-dob strong {
+    color: #000;
+}
