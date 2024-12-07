@@ -10,7 +10,6 @@
     position: absolute;
     left: 0;
     top: 0;
-    height: 100vh;
     z-index: 100;
 }
 
@@ -34,7 +33,6 @@
     background-color: #4caf50; /* Zielony kolor */
     color: white;
     padding: 1em 0.25em;
-    overflow-y: auto;
     transition: width 0.3s ease; /* Płynna zmiana szerokości */
 }
   
@@ -66,13 +64,15 @@
 @media (min-width: 769px) {
     .sidebar-container {
       transform: translateX(0); 
-      position: relative;
-      width: auto;
     }
 }
 
 @media (max-width: 768px) {
     .sidebar-close-button {
-      display: block;
+      display: flex;
+    }
+    
+    .sidebar-container{
+        height: 100vh;
     }
 }

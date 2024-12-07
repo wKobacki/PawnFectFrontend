@@ -25,13 +25,13 @@ const Topbar = ({ isSidebarVisible, toggleSidebar }) => {
     return (
         <div className="topbar-container">
             <header className="topbar">
-                {!isSidebarVisible && (
-                    <div className="menu-button">
-                        <button onClick={toggleSidebar}>
-                        ☰
-                        </button>
-                    </div>
-                 )}
+                
+                <div className="menu-button">
+                    <button onClick={toggleSidebar}>
+                    ☰
+                    </button>
+                </div>
+                 
                 <div className="profile-picture">
                     <img
                         src={avatarUrl ? avatarUrl : "https://via.placeholder.com/40"}

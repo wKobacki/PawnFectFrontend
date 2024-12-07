@@ -6,15 +6,6 @@
   height: 100vh;
 }
 
-/* Główna sekcja */
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background-color: #f9f9f9;
-}
-
 /* Główna zawartość */
 .dashboard-content {
   grid-row: 2 / 3;
@@ -24,7 +15,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
   padding: 1em;
   color: #333;
   box-sizing: border-box;
