@@ -5,18 +5,18 @@ import { useNavigate } from "react-router-dom";
 import { useAnimal } from "../../context/AnimalContext";
 
 const AddAnimal = () => {
-  const { animals, updateAnimals } = useAnimal();
+  const { updateAnimals } = useAnimal();
 
   const onSubmit = async (newAnimal) => {
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem("userId");
     try {
-        const response = await createNewPet({...newAnimal, userId});
-        const newPet = response.newPet;
-        updateAnimals(newPet);
+      const response = await createNewPet({ ...newAnimal, userId });
+      const newPet = response.newPet;
+      updateAnimals(newPet);
     } catch (error) {
-        console.error(error.message || "Błąd podczas dodawania zwierzęcia.");
+      console.error(error.message || "Błąd podczas dodawania zwierzęcia.");
     }
-};
+  };
 
   const navigate = useNavigate();
 
@@ -25,9 +25,10 @@ const AddAnimal = () => {
     gender: "",
     dateOfBirth: "",
     description: "",
+    feeding: "", // Pole dla diety
   });
 
-  const [errors, setErrors] = useState({}); 
+  const [errors, setErrors] = useState({});
 
   // Funkcja obsługująca zmiany w polach formularza
   const handleChange = (e) => {
@@ -49,22 +50,37 @@ const AddAnimal = () => {
       newErrors.dateOfBirth = "Data urodzenia nie może być w przyszłości.";
     }
     if (!formData.description) newErrors.description = "Opis jest wymagany.";
+    if (formData.feeding && formData.feeding.length < 3) {
+      newErrors.feeding = "Dieta musi zawierać co najmniej 3 znaki.";
+    }
     setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; 
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-      onSubmit(formData); 
-      setFormData({ name: "", gender: "", dateOfBirth: "", description: "" });
+      onSubmit(formData);
+      setFormData({
+        name: "",
+        gender: "",
+        dateOfBirth: "",
+        description: "",
+        feeding: "",
+      });
+      navigate("/dashboard");
     }
-    navigate('/dashboard');
   };
 
   const handleClose = () => {
-    setFormData({ name: "", gender: "", dateOfBirth: "", description: "" });
-    navigate('/dashboard'); 
+    setFormData({
+      name: "",
+      gender: "",
+      dateOfBirth: "",
+      description: "",
+      feeding: "",
+    });
+    navigate("/dashboard");
   };
 
   return (
@@ -110,7 +126,7 @@ const AddAnimal = () => {
             name="dateOfBirth"
             value={formData.dateOfBirth}
             onChange={handleChange}
-            max={new Date().toISOString().split("T")[0]} 
+            max={new Date().toISOString().split("T")[0]}
             required
             aria-describedby="dateOfBirth-error"
           />
@@ -129,6 +145,19 @@ const AddAnimal = () => {
             aria-describedby="description-error"
           />
           {errors.description && <span id="description-error" className="error-text">{errors.description}</span>}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="feeding">Dieta</label>
+          <textarea
+            id="feeding"
+            name="feeding"
+            value={formData.feeding}
+            onChange={handleChange}
+            rows="2"
+            aria-describedby="feeding-error"
+          />
+          {errors.feeding && <span id="feeding-error" className="error-text">{errors.feeding}</span>}
         </div>
 
         <div className="button-group">

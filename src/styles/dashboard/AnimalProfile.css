@@ -1,37 +1,38 @@
-@keyframes rotateIn {
+@keyframes animal-slideInFromBottom {
     0% {
-        transform: rotate(-360deg) translateX(-100%);
+        transform: translateY(100%) scale(0.9);
         opacity: 0;
     }
+
     100% {
-        transform: rotate(0deg) translateX(0);
+        transform: translateY(0) scale(1);
         opacity: 1;
     }
 }
 
-@keyframes slideInLeft {
+@keyframes animal-fadeIn {
     0% {
-        transform: translateX(-100%);
         opacity: 0;
     }
+
     100% {
-        transform: translateX(0);
         opacity: 1;
     }
 }
 
-@keyframes slideInRight {
+@keyframes animal-slideDown {
     0% {
-        transform: translateX(100%);
+        max-height: 0;
         opacity: 0;
     }
+
     100% {
-        transform: translateX(0);
+        max-height: 500px;
         opacity: 1;
     }
 }
 
-/* Container dla całego profilu */
+/* Kontener dla całego profilu */
 .animal-profile-container {
     display: flex;
     flex-direction: column;
@@ -42,20 +43,30 @@
     border-radius: 1em;
     padding: 2em;
     box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
+    max-width: 80%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    opacity: 1;
+    transition: padding-bottom 0.3s ease;
 }
 
-.animal-profile-container img {
+/* Styl dla zdjęcia zwierzaka */
+.animal-profile-image {
     width: 100%;
     height: auto;
+    max-width: 350px;
     border-radius: 0.5em;
     margin-bottom: 1em;
+    animation: animal-slideInFromBottom 1.5s ease-out forwards;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Główna sekcja informacji */
 .animal-basic-info-container {
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
     align-items: center;
     text-align: center;
     border: 0.125em solid #ccc;
@@ -63,16 +74,10 @@
     padding: 1em;
     background-color: #f9f9f9;
     box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.8s ease-out;
-}
-
-/* Zdjęcie - animowane obracanie */
-.animal-image {
-    width: 10em;
-    height: 10em;
-    border-radius: 50%;
-    margin-bottom: 1em;
-    animation: rotateIn 1s ease-out;
+    animation: animal-fadeIn 2s ease-out forwards;
+    opacity: 0;
+    max-width: 90%;
+    animation-delay: 1s;
 }
 
 /* Nagłówek - animacja z lewej strony */
@@ -81,42 +86,128 @@
     font-weight: bold;
     color: #333;
     margin-bottom: 0.5em;
-    animation: slideInLeft 0.6s ease-out;
+    animation: animal-fadeIn 1.5s ease-out forwards;
+    opacity: 0;
+    animation-delay: 1.5s;
 }
 
-/* Opis - animacja z prawej strony */
-.animal-description {
-    font-size: 1em;
-    color: #555;
-    margin: 0.25em 0;
-    animation: slideInRight 0.6s ease-out;
-}
-
-/* Płeć - animacja z lewej strony */
-.animal-gender {
-    font-size: 1em;
-    color: #555;
-    margin: 0.25em 0;
-    animation: slideInLeft 0.6s ease-out;
-}
-
-/* Data urodzenia - animacja z prawej strony */
+/* Opis zwierzaka */
+.animal-description,
+.animal-gender,
 .animal-dob {
     font-size: 1em;
     color: #555;
     margin: 0.25em 0;
-    animation: slideInRight 0.6s ease-out;
+    animation: animal-fadeIn 2s ease-out forwards;
+    opacity: 0;
+    animation-delay: 2s;
 }
 
-.animal-tools-container{
+/* Kontener narzędzi */
+.animal-tools-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    gap: 1em;
+    margin-top: 1em;
 }
 
-/* Nagłówki sekcji w opisach */
-.animal-description strong,
-.animal-gender strong,
-.animal-dob strong {
+/* Przyciski narzędziowe */
+.animal-tools-button {
+    font-size: 0.9em;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.animal-tools-button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+.animal-tools-button:active {
+    background-color: #004080;
+    transform: scale(0.95);
+}
+
+/* Ikony w przyciskach */
+.animal-tools-button i {
+    margin-right: 0.5em;
+}
+
+/* Wyróżnienie nagłówka w sekcji karmienia */
+.animal-feeding strong {
     color: #000;
+}
+
+/* Kontener dla sekcji karmienia */
+.animal-feeding {
+    font-size: 1em;
+    color: #555;
+    margin: 0.5em 0;
+    animation: animal-slideInFromBottom 1.5s ease-out;
+    padding: 0.5em;
+    background-color: #f4f4f4;
+    border: 0.125em solid #ddd;
+    border-radius: 0.5em;
+    width: 90%;
+    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+}
+
+/* Animacja rozwijania */
+.animal-additional-info {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, max-height 0.6s ease-out; 
+    max-height: 0;
+    overflow: hidden;
+}
+
+/* Otwarta sekcja z dodatkowymi informacjami */
+.animal-additional-info.open {
+    opacity: 1;
+    max-height: 500px;
+}
+
+/* Sekcja narzędzi w rozwiniętej sekcji */
+.animal-profile-container.open-details {
+    padding-bottom: 2em;
+}
+
+/* Responsywność */
+@media screen and (max-width: 768px) {
+    .animal-profile-container {
+        padding: 1.5em;
+        max-width: 95%;
+    }
+
+    .animal-profile-image {
+        max-width: 80%;
+    }
+
+    .animal-basic-info-container {
+        padding: 0.5em;
+    }
+
+    .animal-name {
+        font-size: 1.25em;
+    }
+
+    .animal-description,
+    .animal-gender,
+    .animal-dob {
+        font-size: 0.9em;
+    }
+
+    .animal-tools-container {
+        gap: 0.5em;
+    }
+
+    .animal-tools-button {
+        font-size: 0.8em;
+        padding: 0.4em 0.8em;
+    }
 }
