@@ -52,6 +52,7 @@ export const getPets = async (userId) => {
     }
 };
 
+// fun pobierajaca dane konkretnego zwierzaka
 export const getAnimalDetails = async (animalId) => {
     if (!animalId) {
         console.error('Brak petid do getanimaldetails');
@@ -61,7 +62,6 @@ export const getAnimalDetails = async (animalId) => {
         const response = await apiClient.get(`/pets/${animalId}`);
         const animal = response.data;
         animal.image = animal.avatar_filename != null ? `${apiClient.defaults.baseURL}/pets/avatars/${animal.avatar_filename}` : null;
-        // console.log("Odpowiedź serwera:", response);
         return animal;
     } catch (error) {
         console.error("Błąd podczas pobierania szczegółów zwierzęcia:", error.message);
@@ -69,6 +69,8 @@ export const getAnimalDetails = async (animalId) => {
     }
 };
 
+
+//usuwanie zwierzaka
 export const deleteAnimal = async (animalId) => {
     try {
         if (!animalId) {
@@ -82,6 +84,7 @@ export const deleteAnimal = async (animalId) => {
     }
 };
 
+//dod zdjecia
 export const uploadPetAvatar = async (petId, photo) => {
     if (!petId) {
         console.error('Brak petid do getanimaldetails');
