@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getAnimalDetails } from "../api/petApi";
 import { addPetVisit } from "../api/petApi"; // Dodaj import funkcji do dodawania wizyty
 import "../styles/dashboard/AnimalProfile.css";
+import AnimalTools from "./AnimalTools";
 
 function AnimalProfile({ animalId }) {
     const [animal, setAnimal] = useState(null);
@@ -11,7 +12,7 @@ function AnimalProfile({ animalId }) {
     const [visitData, setVisitData] = useState({
         visitDate: "",
         visitDescription: "",
-        visitReason: ""
+        visitType: ""
     });
     const [visitError, setVisitError] = useState("");
     
@@ -61,9 +62,9 @@ function AnimalProfile({ animalId }) {
     };
 
     const handleAddVisit = async () => {
-        const { visitDate, visitDescription, visitReason } = visitData;
+        const { visitDate, visitDescription, visitType } = visitData;
 
-        if (!visitDate || !visitDescription || !visitReason) {
+        if (!visitDate || !visitDescription || !visitType) {
             setVisitError("Wszystkie pola muszą być wypełnione.");
             return;
         }
@@ -74,7 +75,7 @@ function AnimalProfile({ animalId }) {
             setVisitData({
                 visitDate: "",
                 visitDescription: "",
-                visitReason: ""
+                visitType: ""
             });
             setVisitError("");
             alert("Wizyta została dodana!");
@@ -153,7 +154,7 @@ function AnimalProfile({ animalId }) {
                                     <li key={index}>
                                         <strong>Data wizyty:</strong> {visit.visitDate}<br />
                                         <strong>Opis:</strong> {visit.visitDescription}<br />
-                                        <strong>Powód:</strong> {visit.visitReason}
+                                        <strong>Powód:</strong> {visit.visitType}
                                     </li>
                                 )) : <p>Brak wizyt w historii.</p>}
                             </ul>
@@ -190,8 +191,8 @@ function AnimalProfile({ animalId }) {
                                     <label className="animal-visit-form-label">Powód wizyty:</label>
                                     <input
                                         type="text"
-                                        name="visitReason"
-                                        value={visitData.visitReason}
+                                        name="visitType"
+                                        value={visitData.visitType}
                                         onChange={handleVisitInputChange}
                                         className="animal-visit-form-input"
                                     />
@@ -226,10 +227,11 @@ function AnimalProfile({ animalId }) {
                     className="animal-animal-profile-image"
                 />
                 <h1 className="animal-animal-name">{animal?.name || 'Brak nazwy'}</h1>
-                <div className="animal-animal-tools-container">
+                {/* <div className="animal-animal-tools-container">
                     <button className="animal-animal-tools-button">Dodaj zdjęcie</button>
                     <button className="animal-animal-tools-button">Usuń zwierzaka</button>
-                </div>
+                </div> */}
+                <AnimalTools />
             </div>
             <div className="animal-animal-sidebar-menu">
                 <div className="animal-animal-tabs">

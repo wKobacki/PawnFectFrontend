@@ -108,19 +108,26 @@ export const addPetVisit = async (petId, visitData) => {
         throw new Error('petId jest wymagany');
     }
     try {
-        // Konwertowanie daty na format 'YYYY-MM-DD HH:MM:SS'
-        const visitDate = new Date(visitData.visitDate).toISOString().slice(0, 19).replace('T', ' ');
-
-        // Przygotowanie danych do wysłania
+        const formatToPostgresTimestamp = (dateInput) => {
+            const date = new Date(dateInput);
+            const offset = -date.getTimezoneOffset();  // różnica w minutach od UTC
+            const sign = offset >= 0 ? "+" : "-";
+            const hours = String(Math.floor(Math.abs(offset) / 60)).padStart(1, "0");
+            const minutes = String(Math.abs(offset) % 60).padStart(2, "0");
+        
+            const formattedDate = date.toISOString().slice(0, 19); // "YYYY-MM-DDTHH:MM:SS"
+            return `${formattedDate}${sign}${hours}:${minutes}`.replace('T', ' ');
+        }
+        const visitDate = formatToPostgresTimestamp(visitData.visitDate);
+        console.log(visitDate)
         const requestData = {
             visitDate, // Format: 'YYYY-MM-DD HH:MM:SS'
             visitDescription: visitData.visitDescription, // Opis wizyty
-            visitType: visitData.visitType || null // Typ wizyty (zmiana nazwy z visitReason na visitType)
+            visitType: visitData.visitType // Typ wizyty (zmiana nazwy z visitReason na visitType)
         };
 
         console.log("Dane wysyłane do API:", requestData);
 
-        // Wysyłanie danych do API
         const response = await apiClient.post(`/pets/${petId}/visits`, requestData);
 
         if (!response || !response.data) {
