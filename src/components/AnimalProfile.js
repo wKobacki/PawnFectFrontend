@@ -1,13 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { getAnimalDetails } from "../api/petApi";
+import { addPetVisit } from "../api/petApi"; // Dodaj import funkcji do dodawania wizyty
 import "../styles/dashboard/AnimalProfile.css";
 
 function AnimalProfile({ animalId }) {
     const [animal, setAnimal] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [activeTab, setActiveTab] = useState("dieta"); 
+    const [activeTab, setActiveTab] = useState("dieta");
+    const [visitData, setVisitData] = useState({
+        visitDate: "",
+        visitDescription: "",
+        visitReason: ""
+    });
+    const [visitError, setVisitError] = useState("");
+    
+    // Zmienne dla alergii i dobrego jedzenia
+    const [allergies, setAllergies] = useState([]);
+    const [goodFoods, setGoodFoods] = useState([]);
+    const [showAddForm, setShowAddForm] = useState(false);
+    const [newFoodData, setNewFoodData] = useState({
+        foodType: "",
+        isAllergen: false
+    });
 
+    // Stan przechowujący istniejące wizyty
+    const [visits, setVisits] = useState([]);
+    
     useEffect(() => {
         const fetchAnimalDetails = async () => {
             if (!animalId) {
@@ -19,6 +38,9 @@ function AnimalProfile({ animalId }) {
             try {
                 const data = await getAnimalDetails(animalId);
                 setAnimal(data);
+                setAllergies(data.allergies || []);
+                setGoodFoods(data.goodFoods || []);
+                setVisits(data.visits || []); // Załadowanie wizyt
                 setError(null);
             } catch (err) {
                 setError("Błąd podczas ładowania danych zwierzęcia.");
@@ -30,16 +52,158 @@ function AnimalProfile({ animalId }) {
         fetchAnimalDetails();
     }, [animalId]);
 
+    const handleVisitInputChange = (e) => {
+        const { name, value } = e.target;
+        setVisitData((prevData) => ({
+            ...prevData,
+            [name]: value
+        }));
+    };
+
+    const handleAddVisit = async () => {
+        const { visitDate, visitDescription, visitReason } = visitData;
+
+        if (!visitDate || !visitDescription || !visitReason) {
+            setVisitError("Wszystkie pola muszą być wypełnione.");
+            return;
+        }
+
+        try {
+            await addPetVisit(animalId, visitData);
+            setVisits([...visits, visitData]); // Dodanie nowej wizyty do stanu
+            setVisitData({
+                visitDate: "",
+                visitDescription: "",
+                visitReason: ""
+            });
+            setVisitError("");
+            alert("Wizyta została dodana!");
+        } catch (error) {
+            setVisitError("Błąd podczas dodawania wizyty.");
+        }
+    };
+
+    // Funkcja obsługująca dodanie nowego produktu
+    const handleAddFood = () => {
+        if (newFoodData.foodType) {
+            if (newFoodData.isAllergen) {
+                setAllergies([...allergies, newFoodData.foodType]);
+            } else {
+                setGoodFoods([...goodFoods, newFoodData.foodType]);
+            }
+            setNewFoodData({ foodType: "", isAllergen: false });
+            setShowAddForm(false);
+        }
+    };
+
     const renderTabContent = () => {
         switch (activeTab) {
             case "dieta":
-                return <p>{animal?.feeding || "Brak danych o diecie."}</p>;
+                return (
+                    <div className="diet-info-container">
+                        <div className="diet-column">
+                            <h3>Alergeny</h3>
+                            <ul>
+                                {allergies.length > 0 ? allergies.map((item, index) => (
+                                    <li key={index}>{item}</li>
+                                )) : <p>Brak danych o alergiach.</p>}
+                            </ul>
+                        </div>
+                        <div className="diet-column">
+                            <h3>Dobry Pokarm</h3>
+                            <ul>
+                                {goodFoods.length > 0 ? goodFoods.map((item, index) => (
+                                    <li key={index}>{item}</li>
+                                )) : <p>Brak danych o dobrym pokarmie.</p>}
+                            </ul>
+                        </div>
+                        <button onClick={() => setShowAddForm(true)} className="add-food-button">
+                            Dodaj produkt
+                        </button>
+                        {showAddForm && (
+                            <div className="add-food-form">
+                                <h3>Dodaj nowy produkt</h3>
+                                <input
+                                    type="text"
+                                    placeholder="Nazwa produktu"
+                                    value={newFoodData.foodType}
+                                    onChange={(e) => setNewFoodData({ ...newFoodData, foodType: e.target.value })}
+                                />
+                                <label>
+                                    Alergen
+                                    <input
+                                        type="checkbox"
+                                        checked={newFoodData.isAllergen}
+                                        onChange={() => setNewFoodData({ ...newFoodData, isAllergen: !newFoodData.isAllergen })}
+                                    />
+                                </label>
+                                <button onClick={handleAddFood}>Dodaj</button>
+                            </div>
+                        )}
+                    </div>
+                );
             case "weterynarz":
-                return <p>{"Brak zapisanych wizyt u weterynarza."}</p>;
-            case "odrobaczenie":
-                return <p>{"Informacje o odrobaczeniach będą tutaj."}</p>;
-            case "historia":
-                return <p>{"Historia zdrowia zwierzęcia."}</p>;
+                return (
+                    <div className="animal-visit-form-container">
+                        <h2>Wizyty u weterynarza</h2>
+                        <div className="existing-visits">
+                            <h3>Dotychczasowe wizyty:</h3>
+                            <ul>
+                                {visits.length > 0 ? visits.map((visit, index) => (
+                                    <li key={index}>
+                                        <strong>Data wizyty:</strong> {visit.visitDate}<br />
+                                        <strong>Opis:</strong> {visit.visitDescription}<br />
+                                        <strong>Powód:</strong> {visit.visitReason}
+                                    </li>
+                                )) : <p>Brak wizyt w historii.</p>}
+                            </ul>
+                        </div>
+
+                        {!showAddForm && (
+                            <button onClick={() => setShowAddForm(true)} className="add-visit-button">
+                                Dodaj wizytę
+                            </button>
+                        )}
+
+                        {showAddForm && (
+                            <form>
+                                <div>
+                                    <label className="animal-visit-form-label">Data wizyty:</label>
+                                    <input
+                                        type="datetime-local"
+                                        name="visitDate"
+                                        value={visitData.visitDate}
+                                        onChange={handleVisitInputChange}
+                                        className="animal-visit-form-input"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="animal-visit-form-label">Opis wizyty:</label>
+                                    <textarea
+                                        name="visitDescription"
+                                        value={visitData.visitDescription}
+                                        onChange={handleVisitInputChange}
+                                        className="animal-visit-form-textarea"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="animal-visit-form-label">Powód wizyty:</label>
+                                    <input
+                                        type="text"
+                                        name="visitReason"
+                                        value={visitData.visitReason}
+                                        onChange={handleVisitInputChange}
+                                        className="animal-visit-form-input"
+                                    />
+                                </div>
+                                {visitError && <p className="error-message">{visitError}</p>}
+                                <button type="button" onClick={handleAddVisit} className="animal-visit-form-button">
+                                    Dodaj wizytę
+                                </button>
+                            </form>
+                        )}
+                    </div>
+                );
             default:
                 return null;
         }
@@ -54,52 +218,40 @@ function AnimalProfile({ animalId }) {
     }
 
     return (
-        <div className="animal-profile-layout">
-            <div className="animal-details-container">
+        <div className="animal-animal-profile-layout">
+            <div className="animal-animal-details-container">
                 <img
                     src={animal?.image || 'https://placehold.co/300x300'}
                     alt={animal?.name || 'Zwierzę'}
-                    className="animal-profile-image"
+                    className="animal-animal-profile-image"
                 />
-                <h1 className="animal-name">{animal?.name || 'Brak nazwy'}</h1>
-                <div className="animal-tools-container">
-                    <button className="animal-tools-button">Dodaj zdjęcie</button>
-                    <button className="animal-tools-button">Usuń zwierzaka</button>
+                <h1 className="animal-animal-name">{animal?.name || 'Brak nazwy'}</h1>
+                <div className="animal-animal-tools-container">
+                    <button className="animal-animal-tools-button">Dodaj zdjęcie</button>
+                    <button className="animal-animal-tools-button">Usuń zwierzaka</button>
                 </div>
             </div>
-            <div className="animal-sidebar-menu">
-                <div className="animal-tabs">
+            <div className="animal-animal-sidebar-menu">
+                <div className="animal-animal-tabs">
                     <button
-                        className={`animal-menu-item ${activeTab === "dieta" ? "active" : ""}`}
+                        className={`animal-animal-menu-item ${activeTab === "dieta" ? "active" : ""}`}
                         onClick={() => setActiveTab("dieta")}
                     >
                         Dieta
                     </button>
                     <button
-                        className={`animal-menu-item ${activeTab === "weterynarz" ? "active" : ""}`}
+                        className={`animal-animal-menu-item ${activeTab === "weterynarz" ? "active" : ""}`}
                         onClick={() => setActiveTab("weterynarz")}
                     >
                         Wizyty u weterynarza
                     </button>
-                    <button
-                        className={`animal-menu-item ${activeTab === "odrobaczenie" ? "active" : ""}`}
-                        onClick={() => setActiveTab("odrobaczenie")}
-                    >
-                        Odrobaczenia
-                    </button>
-                    <button
-                        className={`animal-menu-item ${activeTab === "historia" ? "active" : ""}`}
-                        onClick={() => setActiveTab("historia")}
-                    >
-                        Historia
-                    </button>
                 </div>
-                <div className="animal-tab-content">
+                <div className="animal-animal-tab-content">
                     {renderTabContent()}
                 </div>
             </div>
         </div>
-    );    
+    );
 }
 
 export default AnimalProfile;

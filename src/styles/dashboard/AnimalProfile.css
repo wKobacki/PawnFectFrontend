@@ -1,5 +1,5 @@
 /* --- ANIMACJE --- */
-@keyframes animal-slideInFromBottom {
+@keyframes animal-animal-slideInFromBottom {
     0% {
         transform: translateY(100%) scale(0.9);
         opacity: 0;
@@ -10,7 +10,7 @@
     }
 }
 
-@keyframes animal-fadeIn {
+@keyframes animal-animal-fadeIn {
     0% {
         opacity: 0;
     }
@@ -19,7 +19,7 @@
     }
 }
 
-@keyframes animal-slideDown {
+@keyframes animal-animal-slideDown {
     0% {
         max-height: 0;
         opacity: 0;
@@ -31,7 +31,7 @@
 }
 
 /* --- GŁÓWNE KONTENERY --- */
-.animal-profile-container {
+.animal-animal-profile-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -48,24 +48,30 @@
     transition: padding-bottom 0.3s ease;
 }
 
-.animal-profile-layout {
+.animal-animal-profile-layout {
     display: flex;
     flex-direction: row;
     width: 100%;
     padding: 1em;
+    border-bottom: 2px solid #ccc;
 }
 
-.animal-sidebar-menu {
+.animal-animal-sidebar-menu,
+.animal-animal-details-container {
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.animal-animal-sidebar-menu {
     flex: 5;
     display: flex;
     flex-direction: column;
     background-color: #f4f4f4;
     padding: 1em;
-    border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.animal-details-container {
+.animal-animal-details-container {
     flex: 3;
     display: flex;
     flex-direction: column;
@@ -73,25 +79,25 @@
     padding: 1em;
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     margin-right: 1em;
 }
 
 /* --- ZDJĘCIE ZWIERZAKA --- */
-.animal-profile-image {
+.animal-animal-profile-image {
     width: 100%;
     height: auto;
     max-width: 350px;
     border-radius: 0.5em;
     margin-bottom: 1em;
-    animation: animal-slideInFromBottom 1.5s ease-out forwards;
+    animation: animal-animal-slideInFromBottom 1.5s ease-out forwards;
     display: block;
     margin-left: auto;
     margin-right: auto;
+    border: 2px solid #ccc;
 }
 
 /* --- INFORMACJE PODSTAWOWE --- */
-.animal-basic-info-container {
+.animal-animal-basic-info-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -101,41 +107,43 @@
     padding: 1em;
     background-color: #f9f9f9;
     box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
-    animation: animal-fadeIn 2s ease-out forwards;
+    animation: animal-animal-fadeIn 2s ease-out forwards;
     opacity: 0;
     max-width: 90%;
     animation-delay: 1s;
+    margin-bottom: 1em;
 }
 
-.animal-name {
+.animal-animal-name {
     font-size: 2em;
     font-weight: bold;
     color: #333;
     text-align: center;
     margin-bottom: 1em;
-    animation: animal-fadeIn 1.5s ease-out forwards;
+    animation: animal-animal-fadeIn 1.5s ease-out forwards;
 }
 
-.animal-description,
-.animal-gender,
-.animal-dob {
+.animal-animal-description,
+.animal-animal-gender,
+.animal-animal-dob {
     font-size: 1em;
     color: #555;
     margin: 0.25em 0;
-    animation: animal-fadeIn 2s ease-out forwards;
+    animation: animal-animal-fadeIn 2s ease-out forwards;
     opacity: 0;
     animation-delay: 2s;
 }
 
 /* --- NARZĘDZIA --- */
-.animal-tools-container {
+.animal-animal-tools-container {
     display: flex;
     justify-content: center;
     gap: 1em;
     margin-top: 1em;
+    border-top: 2px solid #ddd;
 }
 
-.animal-tools-button {
+.animal-animal-tools-button {
     font-size: 0.9em;
     color: white;
     background-color: #007bff;
@@ -146,22 +154,22 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.animal-tools-button:hover {
+.animal-animal-tools-button:hover {
     background-color: #0056b3;
     transform: scale(1.05);
 }
 
-.animal-tools-button:active {
+.animal-animal-tools-button:active {
     background-color: #004080;
     transform: scale(0.95);
 }
 
 /* --- KARMIENIE --- */
-.animal-feeding {
+.animal-animal-feeding {
     font-size: 1em;
     color: #555;
     margin: 0.5em 0;
-    animation: animal-slideInFromBottom 1.5s ease-out;
+    animation: animal-animal-slideInFromBottom 1.5s ease-out;
     padding: 0.5em;
     background-color: #f4f4f4;
     border: 0.125em solid #ddd;
@@ -170,36 +178,37 @@
     box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
 }
 
-.animal-feeding strong {
+.animal-animal-feeding strong {
     color: #000;
 }
 
 /* --- DODATKOWE INFORMACJE --- */
-.animal-additional-info {
+.animal-animal-additional-info {
     opacity: 0;
-    transition: opacity 0.6s ease-out, max-height 0.6s ease-out; 
+    transition: opacity 0.6s ease-out, max-height 0.6s ease-out;
     max-height: 0;
     overflow: hidden;
 }
 
-.animal-additional-info.open {
+.animal-animal-additional-info.open {
     opacity: 1;
     max-height: 500px;
 }
 
-.animal-profile-container.open-details {
+.animal-animal-profile-container.open-details {
     padding-bottom: 2em;
 }
 
 /* --- MENU ZAKŁADEK --- */
-.animal-tabs {
+.animal-animal-tabs {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 1em;
+    border-bottom: 2px solid #ddd;
 }
 
-.animal-menu-item {
+.animal-animal-menu-item {
     background-color: white;
     color: #2ecc71;
     border: 2px solid #2ecc71;
@@ -212,56 +221,177 @@
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.animal-menu-item.active {
+.animal-animal-menu-item.active {
     background-color: #2ecc71;
     color: white;
 }
 
-.animal-menu-item:hover {
+.animal-animal-menu-item:hover {
     background-color: #27ae60;
     color: white;
 }
 
-.animal-tab-content {
+.animal-animal-tab-content {
     background-color: white;
     padding: 1em;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     font-size: 1em;
     color: #333;
+    border-top: 1px solid #ddd;
 }
 
 /* --- RESPONSYWNOŚĆ --- */
 @media screen and (max-width: 768px) {
-    .animal-profile-container {
+    .animal-animal-profile-container {
         padding: 1.5em;
         max-width: 95%;
     }
 
-    .animal-profile-image {
+    .animal-animal-profile-image {
         max-width: 80%;
     }
 
-    .animal-basic-info-container {
+    .animal-animal-basic-info-container {
         padding: 0.5em;
     }
 
-    .animal-name {
+    .animal-animal-name {
         font-size: 1.25em;
     }
 
-    .animal-description,
-    .animal-gender,
-    .animal-dob {
+    .animal-animal-description,
+    .animal-animal-gender,
+    .animal-animal-dob {
         font-size: 0.9em;
     }
 
-    .animal-tools-container {
+    .animal-animal-tools-container {
         gap: 0.5em;
     }
 
-    .animal-tools-button {
+    .animal-animal-tools-button {
         font-size: 0.8em;
         padding: 0.4em 0.8em;
     }
+}
+
+/* FORMULARZ WIZYTY --- */
+.animal-visit-form-container {
+    background-color: #fff;
+    padding: 2em;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 2em auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+    font-family: Arial, sans-serif;
+}
+
+.animal-visit-form-container h2 {
+    font-size: 1.5em;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.animal-visit-form-label {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 0.5em;
+}
+
+.animal-visit-form-input,
+.animal-visit-form-select,
+.animal-visit-form-textarea {
+    width: 100%;
+    padding: 0.8em;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    color: #555;
+    transition: border 0.3s ease;
+}
+
+.animal-visit-form-input:focus,
+.animal-visit-form-select:focus,
+.animal-visit-form-textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.animal-visit-form-textarea {
+    height: 150px;
+    resize: none;
+}
+
+.animal-visit-form-button {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1.1em;
+    padding: 0.8em;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.animal-visit-form-button:hover {
+    background-color: #0056b3;
+}
+
+.animal-visit-form-button:active {
+    background-color: #004080;
+}
+
+/* FORMULARZ DODAWANIA KARMIENIA --- */
+.add-food-form {
+    background-color: #f4f4f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 20px auto;
+}
+
+.add-food-form h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+.add-food-form input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.add-food-form textarea {
+    width: 100%;
+    padding: 8px;
+    height: 100px;
+    margin: 10px 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.add-food-form button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.add-food-form button:hover {
+    background-color: #218838;
 }
