@@ -71,7 +71,7 @@ button:disabled {
 
 button:hover:not(:disabled) {
     background-color: #45a049;
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
 }
 
 button:active {

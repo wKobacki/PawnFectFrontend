@@ -1,37 +1,31 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
-import "../../styles/dashboard/Dashboard.css";
 import Topbar from "./Topbar";
-import { useAuth } from "../../context/AuthContext";
 import { useAnimal } from "../../context/AnimalContext";
 import AnimalProfile from "../AnimalProfile";
+import "../../styles/dashboard/Dashboard.css";
 
 function Dashboard() {
-  const navigate = useNavigate();
-  const { logout } = useAuth();
-  const { setAnimals, animals } = useAnimal();
-  const { selectedAnimal, selectAnimal } = useAnimal();
-  if(selectedAnimal == null && animals?.length > 0){
-    selectAnimal(animals[0].id);
-  }
-  const handleLogout = () => {
-    logout();
-    navigate("/");
-    setAnimals([]);
+  const { selectedAnimal, selectAnimal, animals } = useAnimal();
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
+
+  useEffect(() => {
+    if (selectedAnimal == null && animals?.length > 0) {
+      selectAnimal(animals[0].id);  
+    }
+  }, [selectedAnimal, animals, selectAnimal]);  
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
   };
- 
+
   return (
     <div className="dashboard-layout">
-      <Sidebar />
-
-      <div className="main-content">
-        <Topbar />
-
-          
-        <div className="dashboard-container">
-          <AnimalProfile animalId={selectedAnimal}/>
-        </div>
+      <Sidebar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+      <Topbar toggleSidebar={toggleSidebar} isSidebarVisible={isSidebarVisible} />
+      <div className="dashboard-content">
+        {/* AnimalProfile powinien mieć przypisane animalId tylko wtedy, gdy selectedAnimal jest prawidłowe */}
+        {selectedAnimal && <AnimalProfile animalId={selectedAnimal} />}
       </div>
     </div>
   );

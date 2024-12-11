@@ -1,6 +1,6 @@
 .animal-circle {
-    width: 7em;
-    height: 7em;
+    width: clamp(5em, 8vw, 8em); /* Minimalnie 4em, maksymalnie 7em */
+    height: clamp(5em, 8vw, 8em); 
     background-color: white;
     border-radius: 50%;
     margin: 0.75em;
@@ -19,21 +19,14 @@
 }
   
 .animal-circle img {
-    width: 60%;
-    height: 60%;
+    width: 70%;
+    height: 70%;
     border-radius: 50%;
     object-fit: cover;
 }
   
 .animal-name {
     margin-top: 0.4em;
-    font-size: 14px;
+    font-size: clamp(0.8em, 2vw, 1em);
     color: #333;
-}
-
-@media(max-width: 768px){
-    .animal-circle{
-        width: 5em;
-        height: 5em;
-    }
 }
