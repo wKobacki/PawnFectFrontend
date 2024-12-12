@@ -6,7 +6,7 @@ import { useAnimal } from "../../context/AnimalContext";
 const AnimalGallery = () => {
   const [loading, setLoading] = useState(false); 
   const [error, setError] = useState(null);
-  const { animals, setAnimals } = useAnimal();
+  const { animals, setAnimals, refresh } = useAnimal();
   const userId = localStorage.getItem('userId');
 
   const compareArrays = (a, b) => 
@@ -28,7 +28,7 @@ const AnimalGallery = () => {
     }
     if(userId)
     fetchPets();
-  }, [userId])
+  }, [refresh])
   return (
     <div className="animal-gallery">
       {animals.length === 0 ? (

@@ -1,0 +1,46 @@
+.animal-animal-sidebar-menu{
+    border: 1px solid #ddd;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.animal-animal-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1em;
+    border-bottom: 2px solid #ddd;
+}
+
+.animal-animal-menu-item {
+    background-color: white;
+    color: #2ecc71;
+    border: 2px solid #2ecc71;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.animal-animal-menu-item.active {
+    background-color: #2ecc71;
+    color: white;
+}
+
+.animal-animal-menu-item:hover {
+    background-color: #27ae60;
+    color: white;
+}
+
+.animal-animal-tab-content {
+    background-color: white;
+    padding: 1em;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1em;
+    color: #333;
+    border-top: 1px solid #ddd;
+}

@@ -2,7 +2,6 @@
     background-color: #f44336;
     color: white;
     justify-content: center;
-    flex-shrink: 0;
 }
 
 .add-animal .add-icon {

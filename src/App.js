@@ -11,7 +11,6 @@ import PrivateRoute from "./components/PrivateRoute"; // Komponent PrivateRoute
 import AddAnimal from "./components/dashboard/AddAnimal";
 import ResetPasswordNotLoged from "./components/ResetPassAsNotLoged";
 import ResetPasswordLoged from "./components/ResetPassAsLoged";
-import AnimalProfile from "./components/AnimalProfile"; // Komponent profilu zwierzęcia
 import { AnimalProvider } from "./context/AnimalContext";
 import ProfilePhotoUpload from "./components/ProfilePhotoUpload"
 import AnimalPhotoUpload from "./components/AnimalPhotoUpload"

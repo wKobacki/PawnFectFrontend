@@ -38,6 +38,7 @@ const ProfilePhotoUpload = () => {
                     text: 'Twoje zdjęcie zostało pomyślnie zapisane.',
                 });
                 setShow(false); // Zamykamy modal po udanym przesłaniu
+                navigate('/dashboard');
             } catch (err) {
                 Swal.fire({
                     icon: 'error',
@@ -52,6 +53,7 @@ const ProfilePhotoUpload = () => {
         setShow(false);
         setPhoto(null);
         setPreview(null); // Czyścimy podgląd
+        navigate('/dashboard');
     };
 
     // Funkcja do przekierowania do dashboardu
