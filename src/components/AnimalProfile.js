@@ -16,7 +16,6 @@ function AnimalProfile({ animalId }) {
     });
     const [visitError, setVisitError] = useState("");
     
-    // Zmienne dla alergii i dobrego jedzenia
     const [allergies, setAllergies] = useState([]);
     const [goodFoods, setGoodFoods] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
@@ -25,8 +24,8 @@ function AnimalProfile({ animalId }) {
         isAllergen: false
     });
 
-    // Stan przechowujący istniejące wizyty
     const [visits, setVisits] = useState([]);
+    const [animationKey, setAnimationKey] = useState(0);
     
     useEffect(() => {
         const fetchAnimalDetails = async () => {
@@ -41,7 +40,7 @@ function AnimalProfile({ animalId }) {
                 setAnimal(data);
                 setAllergies(data.allergies || []);
                 setGoodFoods(data.goodFoods || []);
-                setVisits(data.visits || []); // Załadowanie wizyt
+                setVisits(data.visits || []);
                 setError(null);
             } catch (err) {
                 setError("Błąd podczas ładowania danych zwierzęcia.");
@@ -51,6 +50,10 @@ function AnimalProfile({ animalId }) {
         };
 
         fetchAnimalDetails();
+    }, [animalId]);
+
+    useEffect(() => {
+        setAnimationKey((prevKey) => prevKey + 1);
     }, [animalId]);
 
     const handleVisitInputChange = (e) => {
@@ -71,7 +74,7 @@ function AnimalProfile({ animalId }) {
 
         try {
             await addPetVisit(animalId, visitData);
-            setVisits([...visits, visitData]); // Dodanie nowej wizyty do stanu
+            setVisits([...visits, visitData]);
             setVisitData({
                 visitDate: "",
                 visitDescription: "",
@@ -84,7 +87,6 @@ function AnimalProfile({ animalId }) {
         }
     };
 
-    // Funkcja obsługująca dodanie nowego produktu
     const handleAddFood = () => {
         if (newFoodData.foodType) {
             if (newFoodData.isAllergen) {
@@ -219,7 +221,7 @@ function AnimalProfile({ animalId }) {
     }
 
     return (
-        <div className="animal-animal-profile-layout">
+        <div key={animationKey} className="animal-animal-profile-layout">
             <div className="animal-animal-details-container">
                 <img
                     src={animal?.image || 'https://placehold.co/300x300'}
@@ -227,10 +229,9 @@ function AnimalProfile({ animalId }) {
                     className="animal-animal-profile-image"
                 />
                 <h1 className="animal-animal-name">{animal?.name || 'Brak nazwy'}</h1>
-                {/* <div className="animal-animal-tools-container">
-                    <button className="animal-animal-tools-button">Dodaj zdjęcie</button>
-                    <button className="animal-animal-tools-button">Usuń zwierzaka</button>
-                </div> */}
+                <p className="animal-animal-birthdate">Data urodzenia: {animal?.birthdate || 'Nieznana'}</p>
+                <p className="animal-animal-gender">Płeć: {animal?.gender || 'Nieznana'}</p>
+                <p className="animal-animal-description">Opis: {animal?.description || 'Brak opisu'}</p>
                 <AnimalTools />
             </div>
             <div className="animal-animal-sidebar-menu">
