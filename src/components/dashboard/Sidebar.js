@@ -7,19 +7,19 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
   return (
     <div className={`sidebar-container ${isVisible ? "show" : ""}`}>
       <nav className="sidebar">
-          <h1 className="sidebar-title">Pawfect</h1>
-          <hr className="sidebar-divider" />
-        <button 
-            className={`sidebar-close-button ${!isVisible ? "hidden" : ""}`} 
-            onClick={toggleSidebar}
-          >
+        <h1 className="sidebar-title">Pawfect</h1>
+        <hr className="sidebar-divider" />
+        <button
+          className={`sidebar-close-button ${!isVisible ? "hidden" : ""}`}
+          onClick={toggleSidebar}
+        >
           ✖️
         </button>
-          <AnimalGallery/>
-          <AddAnimalCard/>
+        <AnimalGallery />
+        <AddAnimalCard />
       </nav>
     </div>
   );
-}
+};
 
 export default Sidebar;

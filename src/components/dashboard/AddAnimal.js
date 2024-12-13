@@ -98,7 +98,11 @@ const AddAnimal = () => {
             required
             aria-describedby="name-error"
           />
-          {errors.name && <span id="name-error" className="error-text">{errors.name}</span>}
+          {errors.name && (
+            <span id="name-error" className="error-text">
+              {errors.name}
+            </span>
+          )}
         </div>
 
         <div className="form-group">
@@ -115,7 +119,11 @@ const AddAnimal = () => {
             <option value="M">Samiec</option>
             <option value="F">Samica</option>
           </select>
-          {errors.gender && <span id="gender-error" className="error-text">{errors.gender}</span>}
+          {errors.gender && (
+            <span id="gender-error" className="error-text">
+              {errors.gender}
+            </span>
+          )}
         </div>
 
         <div className="form-group">
@@ -130,7 +138,11 @@ const AddAnimal = () => {
             required
             aria-describedby="dateOfBirth-error"
           />
-          {errors.dateOfBirth && <span id="dateOfBirth-error" className="error-text">{errors.dateOfBirth}</span>}
+          {errors.dateOfBirth && (
+            <span id="dateOfBirth-error" className="error-text">
+              {errors.dateOfBirth}
+            </span>
+          )}
         </div>
 
         <div className="form-group">
@@ -144,7 +156,11 @@ const AddAnimal = () => {
             required
             aria-describedby="description-error"
           />
-          {errors.description && <span id="description-error" className="error-text">{errors.description}</span>}
+          {errors.description && (
+            <span id="description-error" className="error-text">
+              {errors.description}
+            </span>
+          )}
         </div>
 
         <div className="form-group">
@@ -157,7 +173,11 @@ const AddAnimal = () => {
             rows="2"
             aria-describedby="feeding-error"
           />
-          {errors.feeding && <span id="feeding-error" className="error-text">{errors.feeding}</span>}
+          {errors.feeding && (
+            <span id="feeding-error" className="error-text">
+              {errors.feeding}
+            </span>
+          )}
         </div>
 
         <div className="button-group">
