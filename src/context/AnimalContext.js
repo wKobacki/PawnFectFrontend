@@ -6,6 +6,8 @@ const AnimalContext = createContext();
 export const AnimalProvider = ({ children }) => {
   const [animals, setAnimalsList] = useState([]);
   const [selectedAnimal, setSelectedAnimal] = useState(null);
+  const [animalPhotoDialog, setAnimalPhotoDialog] = useState(false);
+  const [refresh, setRefresh] = useState(0);
 
   const updateAnimals = (newAnimal) => {
     setAnimalsList((animals) => [...animals, newAnimal]);
@@ -26,8 +28,23 @@ export const AnimalProvider = ({ children }) => {
     await deleteAnimal(animalId);
   }
 
+  const triggerRefresh = () => {
+    setRefresh(refresh + 1);
+  }
+
+  const toggleAnimalPhotoDialog = (value) => {
+    if(value !== null && value !== undefined){
+      setAnimalPhotoDialog(value);
+    } else {
+      setAnimalPhotoDialog(!animalPhotoDialog);
+    }
+  }
+
   return (
-      <AnimalContext.Provider value={{animals, updateAnimals, setAnimals, selectedAnimal, selectAnimal, removeAnimal }}>
+      <AnimalContext.Provider value={{animals, updateAnimals, setAnimals, 
+      selectedAnimal, selectAnimal, removeAnimal, 
+      toggleAnimalPhotoDialog, animalPhotoDialog,
+      refresh, triggerRefresh }}>
         {children}
       </AnimalContext.Provider>
   );

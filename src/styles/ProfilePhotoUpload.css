@@ -118,11 +118,22 @@ button.secondary:hover {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0.1rem solid #45a049;
 }
 
 .preview-image {
     max-width: 100%;
     max-height: 200px;
+    max-width: 200px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.old-img{
+    margin-right: auto;
+}
+
+.new-img{
+    margin-left: auto;
 }

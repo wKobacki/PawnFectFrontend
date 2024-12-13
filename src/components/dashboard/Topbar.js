@@ -4,7 +4,7 @@ import { useAnimal } from "../../context/AnimalContext";
 import { useAuth } from "../../context/AuthContext";
 import "../../styles/dashboard/Topbar.css";
 
-const Topbar = ({ isSidebarVisible, toggleSidebar }) => {
+const Topbar = ({ toggleSidebar }) => {
     const navigate = useNavigate();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const {setAnimals,selectAnimal} =useAnimal();
@@ -49,7 +49,7 @@ const Topbar = ({ isSidebarVisible, toggleSidebar }) => {
                 <div className="settings-section">
                     <button
                         className="settings-button"
-                        onClick={toggleMenu}
+                        onClick={() => toggleMenu()}
                         >
                         ⚙️
                     </button>

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const AnimalTools = () => {
     const { removeAnimal, selectedAnimal, selectAnimal, animals } = useAnimal();
     const navigate = useNavigate();
+    const { toggleAnimalPhotoDialog } = useAnimal();
     const showAnimalDeletionDialog = async () => {
         const dialogResult = await Swal.fire({
             title: 'Czy na pewno chcesz usunac zwierzaka?',
@@ -20,9 +21,9 @@ const AnimalTools = () => {
     }
     return (
         <div className="animal-tools-container">
-            <button className="animal-tools-remove-btn" onClick={()=>showAnimalDeletionDialog()}>Usuń zwierzaka</button>
+            <button className="animal-tools-remove-btn" onClick={() => showAnimalDeletionDialog()}>Usuń zwierzaka</button>
             <button className="animal-tools-edit-btn">Edytuj dane</button>
-            <button className="animal-tools-upload-avatar-btn" onClick={() => navigate(`/animals/${selectedAnimal}/avatar`)}>Zmień avatar</button>
+            <button className="animal-tools-upload-avatar-btn" onClick={() => toggleAnimalPhotoDialog()}>Zmień avatar</button>
         </div>
     );
 }
