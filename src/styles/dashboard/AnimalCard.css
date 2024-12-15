@@ -35,15 +35,15 @@
 }
 
 .animal-name {
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: bold;
   color: #000000;
   margin-bottom: 0.2em;
   padding: 0.2em 0.5em;
-  /*background-color: #ffffff;
+  background-color: #ffffff;
   border-radius: 10px;
   border: 2px solid #333;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);*/
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   width: auto;
   display: inline-block;
 }
