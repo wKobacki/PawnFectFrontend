@@ -7,8 +7,7 @@ import '../styles/ProfilePhotoUpload.css';
 import { useAnimal } from '../context/AnimalContext';
 
 const AnimalPhotoUpload = () => {
-    const { animalPhotoDialog, toggleAnimalPhotoDialog, 
-        selectedAnimal, triggerRefresh, animals } = useAnimal();
+    const { selectedAnimal, triggerRefresh, animals } = useAnimal();
     const [photo, setPhoto] = useState(null);  // Stan wybranego zdjęcia
     const [preview, setPreview] = useState(null);
     const containerRef = useRef();
@@ -55,8 +54,7 @@ const AnimalPhotoUpload = () => {
 
     const handleClose = () => {
         setPhoto(null);
-        setPreview(null); // Czyścimy podgląd
-        toggleAnimalPhotoDialog(false);
+        setPreview(null); 
         triggerRefresh();
     };
     
@@ -66,8 +64,7 @@ const AnimalPhotoUpload = () => {
     return (
         <div ref={containerRef} className="profile-photo-container">
             <Modal 
-                show={animalPhotoDialog} 
-                onHide={() => handleClose}
+                show={true} 
                 container={containerRef.current}
                 scrollable
                 enforceFocus={false}
@@ -92,9 +89,6 @@ const AnimalPhotoUpload = () => {
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => handleClose()}>
-                        Zamknij
-                    </Button>
                     <Button variant="primary" onClick={handleUpload} disabled={!photo}>
                         Wyślij
                     </Button>

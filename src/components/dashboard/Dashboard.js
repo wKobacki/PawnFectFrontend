@@ -4,7 +4,6 @@ import Topbar from "./Topbar";
 import { useAnimal } from "../../context/AnimalContext";
 import AnimalProfile from "../AnimalProfile";
 import "../../styles/dashboard/Dashboard.css";
-import AnimalPhotoUpload from "../AnimalPhotoUpload";
 
 function Dashboard() {
   const { selectedAnimal, selectAnimal, animals } = useAnimal();
@@ -26,7 +25,6 @@ function Dashboard() {
       <Topbar toggleSidebar={toggleSidebar} />
       <div className="dashboard-content">
         { selectedAnimal && <AnimalProfile animalId={selectedAnimal} />}
-        { selectedAnimal && <AnimalPhotoUpload/>}
       </div>
     </div>
   );
