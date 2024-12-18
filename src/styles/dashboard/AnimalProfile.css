@@ -63,14 +63,6 @@
     border-radius: 10px;
 }
 
-.animal-animal-sidebar-menu {
-    flex: 5;
-    display: flex;
-    flex-direction: column;
-    background-color: #f4f4f4;
-    padding: 1em;
-}
-
 .animal-animal-details-container {
     flex: 3;
     display: flex;
@@ -241,4 +233,11 @@
         font-size: 0.8em;
         padding: 0.4em 0.8em;
     }
+
+    /* .animal-animal-details-container{
+        min-width: 50%;
+    }
+    .animal-animal-sidebar-menu{
+        min-width: 50%;
+    } */
 }

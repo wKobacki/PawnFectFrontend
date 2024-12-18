@@ -4,7 +4,6 @@ import Topbar from "./Topbar";
 import { useAnimal } from "../../context/AnimalContext";
 import AnimalProfile from "../AnimalProfile";
 import "../../styles/dashboard/Dashboard.css";
-import AnimalPhotoUpload from "../AnimalPhotoUpload";
 
 function Dashboard() {
   const { selectedAnimal, selectAnimal, animals } = useAnimal();
@@ -25,8 +24,12 @@ function Dashboard() {
       <Sidebar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
       <Topbar toggleSidebar={toggleSidebar} />
       <div className="dashboard-content">
+<<<<<<< HEAD
         {selectedAnimal && <AnimalProfile animalId={selectedAnimal} />}
         {selectedAnimal && <AnimalPhotoUpload />}
+=======
+        { selectedAnimal && <AnimalProfile animalId={selectedAnimal} />}
+>>>>>>> e1e19dd0c5f51c7c8641e62efaafefd0e02797de
       </div>
     </div>
   );

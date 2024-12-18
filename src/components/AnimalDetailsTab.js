@@ -3,6 +3,7 @@ import DietTab from "./DietTab";
 import VisitTab from "./VisitTab";
 import "../styles/AnimalDetailsTab.css";
 import { useAnimal } from "../context/AnimalContext";
+import AnimalPhotoUpload from "./AnimalPhotoUpload";
 
 const AnimalDetailsTab = ({ animal }) => {
     const [activeTab, setActiveTab] = useState("dieta");
@@ -17,6 +18,10 @@ const AnimalDetailsTab = ({ animal }) => {
             case "weterynarz":
                 return (
                     <VisitTab animal={animal}/>
+                )
+            case "avatar":
+                return (
+                    <AnimalPhotoUpload/>
                 )
             default:
                 return null;
@@ -37,6 +42,18 @@ const AnimalDetailsTab = ({ animal }) => {
                     onClick={() => {setActiveTab("weterynarz"); triggerRefresh()}}
                 >
                     Wizyty u weterynarza
+                </button>
+                <button
+                    className={`animal-animal-menu-item ${activeTab === "avatar" ? "active" : ""}`}
+                    onClick={() => {setActiveTab("avatar")}}
+                >
+                    Zmien zdjecie
+                </button>
+                <button 
+                    className={`animal-animal-menu-item ${activeTab === "edit" ? "active" : ""}`}
+                    onClick={() => {}}
+                >
+                    Edytuj
                 </button>
             </div>
             <div className="animal-animal-tab-content">
