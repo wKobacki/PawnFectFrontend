@@ -3,9 +3,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 2em auto; 
-  max-width: 25em; 
-  width: calc(100% - 5em); 
+  margin: 2em auto;
+  max-width: 25em;
+  width: calc(100% - 5em);
   padding: 2em;
   background-color: #ffffff;
   box-shadow: 0em 1em 2em rgba(0, 0, 0, 0.2);
@@ -16,7 +16,7 @@
 
 @media (max-width: 768px) {
   .dashboard-layout .add-animal-container {
-    margin-left: 0; 
+    margin-left: 0;
     width: 95%;
   }
 }
@@ -76,7 +76,7 @@
 }
 
 .form-group select:focus {
-  border-color: #4caf50; 
+  border-color: #4caf50;
   box-shadow: 0em 0em 0.5em rgba(76, 175, 80, 0.5);
 }
 

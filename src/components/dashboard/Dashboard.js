@@ -3,11 +3,13 @@ import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
 import { useAnimal } from "../../context/AnimalContext";
 import AnimalProfile from "../AnimalProfile";
+import AddAnimal from "./AddAnimal";
 import "../../styles/dashboard/Dashboard.css";
 
 function Dashboard() {
   const { selectedAnimal, selectAnimal, animals } = useAnimal();
   const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const [isAddingAnimal, setIsAddingAnimal] = useState(false); // Nowy stan
 
   useEffect(() => {
     if (selectedAnimal == null && animals?.length > 0) {
@@ -21,15 +23,18 @@ function Dashboard() {
 
   return (
     <div className="dashboard-layout">
-      <Sidebar isVisible={isSidebarVisible} toggleSidebar={toggleSidebar} />
+      <Sidebar
+        isVisible={isSidebarVisible}
+        toggleSidebar={toggleSidebar}
+        onAddAnimal={() => setIsAddingAnimal(true)} // Nowy callback
+      />
       <Topbar toggleSidebar={toggleSidebar} />
       <div className="dashboard-content">
-<<<<<<< HEAD
-        {selectedAnimal && <AnimalProfile animalId={selectedAnimal} />}
-        {selectedAnimal && <AnimalPhotoUpload />}
-=======
-        { selectedAnimal && <AnimalProfile animalId={selectedAnimal} />}
->>>>>>> e1e19dd0c5f51c7c8641e62efaafefd0e02797de
+        {isAddingAnimal ? (
+          <AddAnimal onCancel={() => setIsAddingAnimal(false)} /> // Przekazanie funkcji powrotu
+        ) : (
+          selectedAnimal && <AnimalProfile animalId={selectedAnimal} />
+        )}
       </div>
     </div>
   );

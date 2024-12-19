@@ -1,9 +1,8 @@
 import AnimalGallery from "./AnimalGallery";
 import AddAnimalCard from "./AddAnimalCard";
-
 import "../../styles/dashboard/Sidebar.css";
 
-const Sidebar = ({ isVisible, toggleSidebar }) => {
+const Sidebar = ({ isVisible, toggleSidebar, onAddAnimal }) => {
   return (
     <div className={`sidebar-container ${isVisible ? "show" : ""}`}>
       <nav className="sidebar">
@@ -16,7 +15,7 @@ const Sidebar = ({ isVisible, toggleSidebar }) => {
           ✖️
         </button>
         <AnimalGallery />
-        <AddAnimalCard />
+        <AddAnimalCard onClick={onAddAnimal} /> {/* Przekazanie onClick */}
       </nav>
     </div>
   );

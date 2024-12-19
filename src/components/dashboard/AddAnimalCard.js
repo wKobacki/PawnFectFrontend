@@ -1,13 +1,8 @@
 import "../../styles/dashboard/AddAnimalCard.css";
-import { useNavigate } from "react-router-dom";
 
-const AddAnimalCard = () => {
-  const navigate = useNavigate();
+const AddAnimalCard = ({ onClick }) => {
   return (
-    <div
-      className="animal-circle add-animal"
-      onClick={() => navigate("/add-animal")}
-    >
+    <div className="animal-circle add-animal" onClick={onClick}>
       <span className="add-icon">+</span>
     </div>
   );
