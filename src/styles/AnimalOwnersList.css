@@ -1,0 +1,11 @@
+.animal-share-owners-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    border: 2px solid #ddd;
+    margin: 0.25rem;
+    padding: 0.25rem;
+    max-width: 100%;
+}

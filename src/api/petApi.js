@@ -62,6 +62,10 @@ export const getAnimalDetails = async (animalId) => {
         const response = await apiClient.get(`/pets/${animalId}`);
         const animal = response.data;
         animal.image = animal.avatar_filename != null ? `${apiClient.defaults.baseURL}/pets/avatars/${animal.avatar_filename}` : null;
+        animal.shared.map((u) => {
+            u.image = u.avatar_filename != null ? `${apiClient.defaults.baseURL}/users/avatars/${u.avatar_filename}` : null;
+            return u;
+        })
         return animal;
     } catch (error) {
         console.error("Błąd podczas pobierania szczegółów zwierzęcia:", error.message);
@@ -156,3 +160,42 @@ export const addPetVisit = async (petId, visitData) => {
         );
     }
 };
+
+export const removePetVisit = async (visitId) => {
+    if (!visitId) {
+        console.error('Brak petId do addPetVisit');
+        throw new Error('petId jest wymagany');
+    }
+    try{
+        await apiClient.delete(`/pets/visits/${visitId}`);
+    } catch (error){
+        console.error(`Blad usuwania wizyty: ${visitId}`, error);
+    }
+}
+
+export const sharePetAccess = async (petId, username, accessLevel) => {
+    if(!petId || !username || !accessLevel){
+        console.error('Brak parametrow do sharepetaccess');
+        throw new Error('wszystkie parametry sa wymagane');
+    }
+    try{
+        const response = await apiClient.post(`pets/${petId}/access`, {username, accessLevel});
+        console.log(response.data);
+    } catch(error) {
+        console.error(`Blad wspoldzielenia zwierzaak: ${petId}`, error);
+    }
+}
+
+export const revokePetAccess = async (petId, userid) => {
+    if(!petId || !userid){
+        console.error('Brak parametrow do revokepetaccess');
+        throw new Error('wszystkie parametry sa wymagane');
+    }
+    
+    try{
+        const response = await apiClient.delete(`pets/${petId}/access/${userid}`);
+        console.log(response);
+    } catch (error){
+        console.error(`Blad wspoldzielenia zwierzaak: ${petId}`, error);
+    }
+}

@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { addPetVisit } from "../api/petApi";
+import { addPetVisit, removePetVisit } from "../api/petApi";
 import "../styles/VisitTab.css";
+import AnimalVisit from "./AnimalVisit";
+import { useAnimal } from "../context/AnimalContext";
 
 const VisitTab = ({ animal }) => {
+    const {refresh, triggerRefresh} = useAnimal();
     const [visits, setVisits] = useState([]);
     const [visitData, setVisitData] = useState({
             visitDate: "",
@@ -33,37 +36,39 @@ const VisitTab = ({ animal }) => {
         }
 
         try {
-            await addPetVisit(animal.id, visitData);
-            setVisits([...visits, {
-                visit_date: visitData.visitDate,
-                notes: visitData.visitDescription,
-                visit_type: visitData.visitType
-            }]);
+            const result = await addPetVisit(animal.id, visitData);
+            const visit = result.visit;
+            setVisits([...visits, visit]);
             setVisitData({
                 visitDate: "",
                 visitDescription: "",
                 visitType: ""
             });
             setVisitError("");
+            triggerRefresh();
         } catch (error) {
             setVisitError("Błąd podczas dodawania wizyty.");
         }
     };
+
+    const handleRemoveVisit = async (vis) => {
+        const idx = visits.findIndex((v) => v.id === vis.id);
+        visits.splice(idx, 1)
+        setVisits(visits);
+        await removePetVisit(vis.id);
+        triggerRefresh();
+    }
 
     return (
         <div className="animal-visit-form-container">
             <h2>Wizyty u weterynarza</h2>
             <div className="existing-visits">
                 <h3>Dotychczasowe wizyty:</h3>
-                <ul>
-                    {visits.length > 0 ? visits.map((visit, index) => (
-                        <li key={index}>
-                            <strong>Data wizyty:</strong> {visit.visit_date}<br />
-                            <strong>Opis:</strong> {visit.notes}<br />
-                            <strong>Powód:</strong> {visit.visit_type}
-                        </li>
-                    )) : <p>Brak wizyt w historii.</p>}
-                </ul>
+                
+                {visits.length > 0 ? visits.map((visit, index) => (
+                    <AnimalVisit visit={visit} key={index} handleRemove={handleRemoveVisit}/>
+                )) : <p>Brak wizyt w historii.</p>}
+                
             </div>
 
             {!showAddForm && (

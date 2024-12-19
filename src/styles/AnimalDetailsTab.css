@@ -13,12 +13,10 @@
     display: flex;
     gap: 10px;
     margin-bottom: 1em;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
     padding: 0.5em;
     border: 2px solid #ddd;
-    white-space: nowrap;
+    overflow-x: auto;
+    flex-wrap: wrap;
 }
 
 .animal-animal-tabs::-webkit-scrollbar{
@@ -36,8 +34,8 @@
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
-    flex: 0 0 auto;
-    min-width: 100px;
+    flex: 1 0 auto;
+    min-width: auto;
 }
 
 .animal-animal-menu-item.active {

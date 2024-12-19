@@ -1,0 +1,27 @@
+.animal-share-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #ddd;
+}
+
+.animal-share-input-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 0.5rem;
+}
+
+.animal-share-input{
+    width: 8rem;
+    height: 1.25rem;
+}
+
+.animal-share-access-level{
+    width: 8rem;
+    height: 1.5rem;
+}

@@ -1,0 +1,30 @@
+.animal-owner-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    margin: 0.25rem;
+    padding: 0.25rem;
+    box-sizing: border-box;
+}
+
+.animal-owner-img{
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    margin-right: auto;
+}
+
+.animal-owner-remove-btn{
+    margin-left: auto;
+}
+
+.animal-owner-details{
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    margin-right: auto;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,0 +1,8 @@
+.animal-visit{
+    display: flex;
+    gap: 0.25rem;
+    flex-wrap: wrap;
+    flex-direction: column;
+    border: 2px solid #ddd;
+    padding: 0.25rem;
+}
