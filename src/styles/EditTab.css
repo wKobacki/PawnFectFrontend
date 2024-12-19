@@ -1,0 +1,117 @@
+/* EditTab.css */
+
+/* Kontener główny dla edycji */
+.edit-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Stylizacja pola tekstowego */
+.edit-info-container input,
+.edit-info-container textarea,
+.edit-info-container select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+/* Stylizacja nagłówków sekcji */
+.edit-info-container h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Stylizacja przycisków */
+.edit-info-container .edit-form button,
+.edit-info-container .animal-info button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Przycisk Zapisz */
+.edit-info-container .save-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+.edit-info-container .save-button:hover {
+    background-color: #45a049;
+}
+
+/* Przycisk Anuluj */
+.edit-info-container .cancel-button {
+    background-color: #f44336;
+    color: white;
+}
+
+.edit-info-container .cancel-button:hover {
+    background-color: #e53935;
+}
+
+/* Przycisk Edytuj */
+.edit-info-container .edit-button {
+    background-color: #008cba;
+    color: white;
+}
+
+.edit-info-container .edit-button:hover {
+    background-color: #0077b3;
+}
+
+/* Stylizacja pól z błędami */
+.edit-info-container .error {
+    color: #f44336;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+/* Stylizacja etykiet formularza */
+.edit-info-container label {
+    font-size: 16px;
+    color: #333;
+    margin-top: 10px;
+}
+
+/* Stylizacja dla pól w stanie fokusa (focus) */
+.edit-info-container input:focus,
+.edit-info-container textarea:focus,
+.edit-info-container select:focus {
+    border-color: #4caf50;
+    outline: none;
+}
+
+/* Dodanie marginesu dla formularza */
+.edit-info-container .edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Stylizacja dla widoku danych zwierzaka */
+.edit-info-container .animal-info p {
+    margin: 10px 0;
+}
+
+.edit-info-container .animal-info button {
+    background-color: #008cba;
+    color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+}
+
+.edit-info-container .animal-info button:hover {
+    background-color: #0077b3;
+}

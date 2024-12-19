@@ -19,7 +19,6 @@ const AnimalTools = () => {
     return (
         <div className="animal-tools-container">
             <button className="animal-tools-remove-btn" onClick={() => showAnimalDeletionDialog()}>Usuń zwierzaka</button>
-            <button className="animal-tools-edit-btn">Edytuj dane</button>
         </div>
     );
 }

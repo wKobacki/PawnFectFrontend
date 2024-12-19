@@ -4,7 +4,7 @@ import { createNewPet } from "../../api/petApi";
 import { useNavigate } from "react-router-dom";
 import { useAnimal } from "../../context/AnimalContext";
 
-const AddAnimal = () => {
+const AddAnimal = ({ onCancel }) => {
   const { updateAnimals } = useAnimal();
 
   const onSubmit = async (newAnimal) => {
@@ -13,24 +13,22 @@ const AddAnimal = () => {
       const response = await createNewPet({ ...newAnimal, userId });
       const newPet = response.newPet;
       updateAnimals(newPet);
+      onCancel(); // Powrót do widoku głównego po sukcesie
     } catch (error) {
       console.error(error.message || "Błąd podczas dodawania zwierzęcia.");
     }
   };
-
-  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
     gender: "",
     dateOfBirth: "",
     description: "",
-    feeding: "", // Pole dla diety
+    feeding: "",
   });
 
   const [errors, setErrors] = useState({});
 
-  // Funkcja obsługująca zmiany w polach formularza
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -39,7 +37,6 @@ const AddAnimal = () => {
     }));
   };
 
-  // Funkcja walidująca dane formularza
   const validate = () => {
     const newErrors = {};
     if (!formData.name) newErrors.name = "Nazwa zwierzaka jest wymagana.";
@@ -68,21 +65,8 @@ const AddAnimal = () => {
         description: "",
         feeding: "",
       });
-      navigate("/dashboard");
     }
   };
-
-  const handleClose = () => {
-    setFormData({
-      name: "",
-      gender: "",
-      dateOfBirth: "",
-      description: "",
-      feeding: "",
-    });
-    navigate("/dashboard");
-  };
-
   return (
     <div className="add-animal-container">
       <h2>Dodaj zwierzaka</h2>
@@ -98,7 +82,11 @@ const AddAnimal = () => {
             required
             aria-describedby="name-error"
           />
-          {errors.name && <span id="name-error" className="error-text">{errors.name}</span>}
+          {errors.name && (
+            <span id="name-error" className="error-text">
+              {errors.name}
+            </span>
+          )}
         </div>
 
         <div className="form-group">
@@ -115,7 +103,11 @@ const AddAnimal = () => {
             <option value="M">Samiec</option>
             <option value="F">Samica</option>
           </select>
-          {errors.gender && <span id="gender-error" className="error-text">{errors.gender}</span>}
+          {errors.gender && (
+            <span id="gender-error" className="error-text">
+              {errors.gender}
+            </span>
+          )}
         </div>
 
         <div className="form-group">
@@ -130,7 +122,11 @@ const AddAnimal = () => {
             required
             aria-describedby="dateOfBirth-error"
           />
-          {errors.dateOfBirth && <span id="dateOfBirth-error" className="error-text">{errors.dateOfBirth}</span>}
+          {errors.dateOfBirth && (
+            <span id="dateOfBirth-error" className="error-text">
+              {errors.dateOfBirth}
+            </span>
+          )}
         </div>
 
         <div className="form-group">
@@ -144,7 +140,11 @@ const AddAnimal = () => {
             required
             aria-describedby="description-error"
           />
-          {errors.description && <span id="description-error" className="error-text">{errors.description}</span>}
+          {errors.description && (
+            <span id="description-error" className="error-text">
+              {errors.description}
+            </span>
+          )}
         </div>
 
         <div className="form-group">
@@ -157,14 +157,18 @@ const AddAnimal = () => {
             rows="2"
             aria-describedby="feeding-error"
           />
-          {errors.feeding && <span id="feeding-error" className="error-text">{errors.feeding}</span>}
+          {errors.feeding && (
+            <span id="feeding-error" className="error-text">
+              {errors.feeding}
+            </span>
+          )}
         </div>
 
         <div className="button-group">
           <button type="submit" className="submit-button">
             Dodaj zwierzaka
           </button>
-          <button type="button" className="cancel-button" onClick={handleClose}>
+          <button type="button" className="cancel-button" onClick={onCancel}>
             Anuluj
           </button>
         </div>
