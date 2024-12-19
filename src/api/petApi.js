@@ -156,3 +156,58 @@ export const addPetVisit = async (petId, visitData) => {
         );
     }
 };
+
+export const updatePet = async (petId, updatedData) => {
+    if (!petId) {
+        console.error('Brak petId do updatePet');
+        throw new Error('petId jest wymagany');
+    }
+
+    if (Object.keys(updatedData).length === 0) {
+        console.error("Brak danych do zaktualizowania.");
+        throw new Error("Brak danych do zaktualizowania.");
+    }
+
+    const accessToken = localStorage.getItem('accessToken');
+    if (!accessToken) {
+        console.error("Brak tokenu dostępu");
+        throw new Error("Brak tokenu dostępu");
+    }
+
+    try {
+        const response = await apiClient.patch(`/pets/${petId}`, updatedData, {
+            headers: {
+                'Authorization': `Bearer ${accessToken}` 
+            }
+        });
+
+        if (!response || !response.data) {
+            throw new Error("Niepoprawna odpowiedź serwera.");
+        }
+
+        console.log("Zaktualizowano dane zwierzaka. Odpowiedź serwera:", response.data);
+        return response.data;
+
+    } catch (error) {
+        if (error.response) {
+            console.error("Błąd w updatePet - odpowiedź serwera:", {
+                status: error.response.status,
+                data: error.response.data,
+                headers: error.response.headers
+            });
+
+            if (error.response.status === 403) {
+                throw new Error("Brak uprawnień do edytowania danych zwierzaka.");
+            }
+
+        } else {
+            console.error("Błąd w updatePet - klient:", error.message);
+        }
+
+        throw new Error(
+            error.response
+                ? error.response.data.message || "Nieznany błąd serwera."
+                : "Błąd podczas aktualizacji danych zwierzaka po stronie klienta."
+        );
+    }
+};

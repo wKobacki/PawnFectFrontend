@@ -4,25 +4,49 @@ import VisitTab from "./VisitTab";
 import "../styles/AnimalDetailsTab.css";
 import { useAnimal } from "../context/AnimalContext";
 import AnimalPhotoUpload from "./AnimalPhotoUpload";
+import EditTab from "./EditTab";
+import { updatePet } from "../api/petApi"; 
+
 
 const AnimalDetailsTab = ({ animal }) => {
     const [activeTab, setActiveTab] = useState("dieta");
     const { triggerRefresh } = useAnimal();
 
+    const handleUpdateAnimal = async (updatedAnimal) => {
+        try {
+            const petId = animal.id; 
+            const updatedData = {
+                name: updatedAnimal.name,
+                gender: updatedAnimal.gender,
+                dateOfBirth: updatedAnimal.dateOfBirth,
+                description: updatedAnimal.description,
+                avatarFilename: updatedAnimal.avatarFilename,
+                feeding: updatedAnimal.feeding,
+            };
+            const response = await updatePet(petId, updatedData);
+            console.log(updatedData);
+            console.log("Zaktualizowano dane zwierzaka:", response);
+            triggerRefresh(); 
+        } catch (error) {
+            console.error("Błąd podczas aktualizacji zwierzaka:", error);
+        }
+    };    
+
     const renderTabContent = () => {
         switch (activeTab) {
             case "dieta":
-                return (
-                    <DietTab animal={animal}/>
-                );
+                return <DietTab animal={animal} />;
             case "weterynarz":
-                return (
-                    <VisitTab animal={animal}/>
-                )
+                return <VisitTab animal={animal} />;
             case "avatar":
+                return <AnimalPhotoUpload />;
+            case "edit":
                 return (
-                    <AnimalPhotoUpload/>
-                )
+                    <EditTab
+                        animal={animal}
+                        onUpdate={handleUpdateAnimal}
+                    />
+                );
             default:
                 return null;
         }
@@ -33,34 +57,38 @@ const AnimalDetailsTab = ({ animal }) => {
             <div className="animal-animal-tabs">
                 <button
                     className={`animal-animal-menu-item ${activeTab === "dieta" ? "active" : ""}`}
-                    onClick={() => {setActiveTab("dieta"); triggerRefresh()}}
+                    onClick={() => {
+                        setActiveTab("dieta");
+                        triggerRefresh();
+                    }}
                 >
                     Dieta
                 </button>
                 <button
                     className={`animal-animal-menu-item ${activeTab === "weterynarz" ? "active" : ""}`}
-                    onClick={() => {setActiveTab("weterynarz"); triggerRefresh()}}
+                    onClick={() => {
+                        setActiveTab("weterynarz");
+                        triggerRefresh();
+                    }}
                 >
                     Wizyty u weterynarza
                 </button>
                 <button
                     className={`animal-animal-menu-item ${activeTab === "avatar" ? "active" : ""}`}
-                    onClick={() => {setActiveTab("avatar")}}
+                    onClick={() => setActiveTab("avatar")}
                 >
-                    Zmien zdjecie
+                    Zmień zdjęcie
                 </button>
-                <button 
+                <button
                     className={`animal-animal-menu-item ${activeTab === "edit" ? "active" : ""}`}
-                    onClick={() => {}}
+                    onClick={() => setActiveTab("edit")}
                 >
                     Edytuj
                 </button>
             </div>
-            <div className="animal-animal-tab-content">
-                {renderTabContent()}
-            </div>
+            <div className="animal-animal-tab-content">{renderTabContent()}</div>
         </div>
     );
-}
+};
 
 export default AnimalDetailsTab;

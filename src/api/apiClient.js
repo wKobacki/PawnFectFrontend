@@ -34,7 +34,6 @@ apiClient.interceptors.response.use(
                 }
             } catch(refreshErr){
                 console.error('Token refresh failed: ', refreshErr);
-                // wylogowac tutaj trzeba
             }
         }
 });
