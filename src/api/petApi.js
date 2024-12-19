@@ -176,7 +176,6 @@ export const removePetVisit = async (visitId) => {
 export const sharePetAccess = async (petId, username, accessLevel) => {
     if(!petId || !username || !accessLevel){
         console.error('Brak parametrow do sharepetaccess');
-        throw new Error('wszystkie parametry sa wymagane');
     }
     try{
         const response = await apiClient.post(`pets/${petId}/access`, {username, accessLevel});
