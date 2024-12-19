@@ -4,32 +4,12 @@ import VisitTab from "./VisitTab";
 import "../styles/AnimalDetailsTab.css";
 import { useAnimal } from "../context/AnimalContext";
 import AnimalPhotoUpload from "./AnimalPhotoUpload";
-import EditTab from "./EditTab";
-import { updatePet } from "../api/petApi"; 
+import EditTab from "./EditTab"; 
 import AnimalShare from "./AnimalShare";
 
 const AnimalDetailsTab = ({ animal }) => {
     const [activeTab, setActiveTab] = useState("dieta");
     const { triggerRefresh } = useAnimal();
-    const handleUpdateAnimal = async (updatedAnimal) => {
-        try {
-            const petId = animal.id; 
-            const updatedData = {
-                name: updatedAnimal.name,
-                gender: updatedAnimal.gender,
-                dateOfBirth: updatedAnimal.dateOfBirth,
-                description: updatedAnimal.description,
-                avatarFilename: updatedAnimal.avatarFilename,
-                feeding: updatedAnimal.feeding,
-            };
-            const response = await updatePet(petId, updatedData);
-            console.log(updatedData);
-            console.log("Zaktualizowano dane zwierzaka:", response);
-            triggerRefresh(); 
-        } catch (error) {
-            console.error("Błąd podczas aktualizacji zwierzaka:", error);
-        }
-    };
 
     const renderTabContent = () => {
         switch (activeTab) {
@@ -40,16 +20,10 @@ const AnimalDetailsTab = ({ animal }) => {
             case "avatar":
                 return <AnimalPhotoUpload />;
             case "edit":
-                return (
-                    <EditTab
-                        animal={animal}
-                        onUpdate={handleUpdateAnimal}
-                    />
-                )
+                return <EditTab animal={animal} />
             case "share":
-                return (
-                    <AnimalShare animal={animal}/>
-                )
+                return <AnimalShare animal={animal} />
+                
             default:
                 return null;
         }

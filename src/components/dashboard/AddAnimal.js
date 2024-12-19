@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "../../styles/dashboard/AddAnimal.css";
 import { createNewPet } from "../../api/petApi";
-import { useNavigate } from "react-router-dom";
 import { useAnimal } from "../../context/AnimalContext";
 
 const AddAnimal = ({ onCancel }) => {

@@ -54,7 +54,7 @@ function AnimalProfile({ animalId }) {
                     className="animal-animal-profile-image"
                 />
                 <h1 className="animal-animal-name">{animal?.name || 'Brak nazwy'}</h1>
-                <p className="animal-animal-birthdate">Data urodzenia: {animal?.birthdate || 'Nieznana'}</p>
+                <p className="animal-animal-birthdate">Data urodzenia: {animal?.date_of_birth || 'Nieznana'}</p>
                 <p className="animal-animal-gender">Płeć: {animal?.gender || 'Nieznana'}</p>
                 <p className="animal-animal-description">Opis: {animal?.description || 'Brak opisu'}</p>
                 <AnimalTools />

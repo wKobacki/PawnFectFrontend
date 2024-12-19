@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { updatePet } from "../api/petApi"; 
 import "../styles/EditTab.css";
+import { useAnimal } from "../context/AnimalContext";
 
-const EditTab = ({ animal = {}, onUpdate = () => {} }) => {
+const EditTab = ({ animal = {}}) => {
+    const { triggerRefresh } = useAnimal();
     const [animalData, setAnimalData] = useState({
         name: '',
         gender: '',
@@ -16,7 +18,7 @@ const EditTab = ({ animal = {}, onUpdate = () => {} }) => {
         setAnimalData({
             name: animal.name || '',
             gender: animal.gender || '',
-            dateOfBirth: animal.dateOfBirth || "",
+            dateOfBirth: animal.date_of_birth || "",
             description: animal.description || "",
         });
     }, [animal]);
@@ -42,11 +44,8 @@ const EditTab = ({ animal = {}, onUpdate = () => {} }) => {
             const response = await updatePet(petId, animalData);
             console.log("Zaktualizowano dane zwierzaka:", response);
 
-            if (typeof onUpdate === "function") {
-                onUpdate(response); 
-            }
-
             setIsEditing(false); 
+            triggerRefresh(); 
         } catch (error) {
             console.error("Błąd podczas aktualizacji zwierzaka:", error);
             alert("Wystąpił błąd podczas zapisywania danych zwierzaka.");
@@ -86,7 +85,8 @@ const EditTab = ({ animal = {}, onUpdate = () => {} }) => {
                         <input
                             type="date"
                             name="dateOfBirth"
-                            value={animalData.dateOfBirth}
+                            placeholder="wybierz date"
+                            value={animalData.date_of_birth}
                             onChange={handleInputChange}
                         />
                     </label>
@@ -99,7 +99,7 @@ const EditTab = ({ animal = {}, onUpdate = () => {} }) => {
                         />
                     </label>
                     <button
-                        onClick={handleSaveChanges}
+                        onClick={() => handleSaveChanges()}
                         className="save-button"
                         disabled={loading} 
                     >

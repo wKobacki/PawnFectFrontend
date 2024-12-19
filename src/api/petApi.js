@@ -61,6 +61,7 @@ export const getAnimalDetails = async (animalId) => {
     try {
         const response = await apiClient.get(`/pets/${animalId}`);
         const animal = response.data;
+        animal.date_of_birth = animal.date_of_birth.split('T')[0];
         animal.image = animal.avatar_filename != null ? `${apiClient.defaults.baseURL}/pets/avatars/${animal.avatar_filename}` : null;
         animal.shared.map((u) => {
             u.image = u.avatar_filename != null ? `${apiClient.defaults.baseURL}/users/avatars/${u.avatar_filename}` : null;
@@ -217,6 +218,7 @@ export const updatePet = async (petId, updatedData) => {
     }
 
     try {
+        updatedData.dateOfBirth = updatedData.dateOfBirth.split('T')[0];
         const response = await apiClient.patch(`/pets/${petId}`, updatedData, {
             headers: {
                 'Authorization': `Bearer ${accessToken}` 
