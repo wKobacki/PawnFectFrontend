@@ -1,6 +1,6 @@
 import { loginUser } from '../api/authApi';
 import Swal from 'sweetalert2';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom'; 
 import '../styles/LoginPage.css';
 
@@ -9,6 +9,15 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false); // Stan do kontrolowania widoczności hasła
     const navigate = useNavigate(); 
+
+    useEffect(() => {
+        // prosta logika zeby przenosil do dashboarda jak jestes zalogowany juz
+        const storedToken = localStorage.getItem("accessToken");  
+        const storedUserId = localStorage.getItem("userId");
+        if(storedToken && storedUserId){
+            navigate('/dashboard');
+        }
+    })
 
     const handleSubmit = async (e) => {
         e.preventDefault();

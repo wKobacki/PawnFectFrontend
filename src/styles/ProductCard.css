@@ -1,0 +1,11 @@
+.product-card{
+    display: flex;
+    gap: 1rem;
+    margin: 0.5rem;
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+}
+
+.product-card button{
+    margin-left: auto;
+}

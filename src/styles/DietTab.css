@@ -46,3 +46,8 @@
 .add-food-form button:hover {
     background-color: #218838;
 }
+
+.diet-column ul {
+    max-height: 250px;
+    overflow: auto;
+}

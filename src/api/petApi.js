@@ -161,6 +161,7 @@ export const addPetVisit = async (petId, visitData) => {
         );
     }
 };
+
 export const removePetVisit = async (visitId) => {
     if (!visitId) {
         console.error('Brak petId do addPetVisit');
@@ -254,3 +255,26 @@ export const updatePet = async (petId, updatedData) => {
         );
     }
 };
+
+export const removePetProduct = async (productId) => {
+    if (!productId) {
+        throw new Error('product jest wymagany');
+    }
+    try{
+        await apiClient.delete(`/pets/products/${productId}`);
+    } catch (error){
+        console.error(`Blad usuwania produktu: ${productId}`, error);
+    }
+}
+
+export const addPetProduct = async (petId, productData) => {
+    if (!petId) {
+        throw new Error('productId jest wymagany');
+    }
+    try{
+        const product = await apiClient.post(`/pets/${petId}/products`, productData);
+        return product;
+    } catch (error){
+        console.error(`Blad usuwania wizyty: ${petId}`, error);
+    }
+}
