@@ -1,8 +1,39 @@
-.animal-visit{
-    display: flex;
-    gap: 0.25rem;
-    flex-wrap: wrap;
-    flex-direction: column;
-    border: 2px solid #ddd;
-    padding: 0.25rem;
+.animal-visit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 8px; /* Zaokrąglone rogi */
+  border: 1px solid #ddd;
+  background: #f9f9f9; /* Jasne tło */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtelny cień */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efekt podświetlenia po najechaniu */
+.animal-visit:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Stylowanie tekstu */
+.animal-visit span {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Przycisk "Usuń wizytę" */
+.animal-visit button {
+  background: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.animal-visit button:hover {
+  background: #e60000;
 }
