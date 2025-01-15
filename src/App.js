@@ -1,19 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./styles/App.css";
-
-import { AuthProvider } from "./context/AuthContext"; // Importuj AuthProvider
-import HomePage from "./components/HomePage";
-import LoginPage from "./components/LoginPage";
-import RegistrationPage from "./components/RegistrationPage";
-import Dashboard from "./components/dashboard/Dashboard";
-import PrivateRoute from "./components/PrivateRoute"; // Komponent PrivateRoute
-import AddAnimal from "./components/dashboard/AddAnimal";
-import ResetPasswordNotLoged from "./components/ResetPassAsNotLoged";
-import ResetPasswordLoged from "./components/ResetPassAsLoged";
 import { AnimalProvider } from "./context/AnimalContext";
+import { AuthProvider } from "./context/AuthContext"; // Importuj AuthProvider
+import HomePage from "./components/homePage/HomePage";
+import LoginPage from "./components/loginPage/LoginPage";
+import RegisterPage from "./components/registerPage/RegisterPage";
+import Dashboard from "./components/dashboard/Dashboard";
+import PrivateRoute from "./context/PrivateRoute"; // Komponent PrivateRoute
+import ResetPasswordNotLoged from "./components/resetPasswordPage/ResetPassAsNotLoged";
+import ResetPasswordLoged from "./components/resetPasswordPage/ResetPassAsLoged";
 import ProfilePhotoUpload from "./components/ProfilePhotoUpload"
-import AnimalPhotoUpload from "./components/AnimalPhotoUpload"
+import "./App.css";
+// import AnimalPhotoUpload from ".components\dashboard\animalProfile\animalDetailsTab\animalPhotoUpload\AnimalPhotoUpload"
 
 function App() {
   return (
@@ -23,7 +21,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegistrationPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           
             {/* Chronione trasy */}
           <Route
@@ -34,25 +32,17 @@ function App() {
               </PrivateRoute>
             }
           />
-          <Route
-            path="/add-animal"
-            element={
-              <PrivateRoute> {/* Tylko zalogowani użytkownicy mogą dodawać zwierzęta */}
-                <AddAnimal />
-              </PrivateRoute>
-            }
-          />
           <Route path="/resetPass" element={<ResetPasswordNotLoged />} />
           <Route path="/profile" element={
             <PrivateRoute>
               <ProfilePhotoUpload />
             </PrivateRoute>
             } />
-          <Route path="/animals/:animalId/avatar" element={
+          {/* <Route path="/animals/:animalId/avatar" element={
             <PrivateRoute>
               <AnimalPhotoUpload/>
             </PrivateRoute>
-          }/>
+          }/> */}
           <Route path="/resetPass/Loged" element={<ResetPasswordLoged />} />
           {/* <Route
             path="/animal/:animalId" // Dynamiczna trasa dla profilu zwierzęcia

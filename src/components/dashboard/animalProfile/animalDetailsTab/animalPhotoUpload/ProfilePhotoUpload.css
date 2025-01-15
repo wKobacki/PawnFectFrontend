@@ -1,0 +1,139 @@
+.profile-photo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* Zmiana na kolumnowy układ */
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.dropzone-container {
+    border: 2px dashed #4caf50;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fafafa;
+}
+
+.dropzone-container:hover {
+    background-color: #f1f1f1;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.dropzone-container p {
+    color: #333;
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+.dropzone-container input {
+    display: none;
+}
+
+.modal-header {
+    background-color: #4caf50;
+    color: white;
+    border-radius: 10px 10px 0 0;
+    padding: 15px;
+}
+
+.modal-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;
+    border-radius: 0 0 10px 10px;
+}
+
+button {
+    font-weight: bold;
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+button:hover:not(:disabled) {
+    background-color: #45a049;
+    /* transform: scale(1.05); */
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button.primary {
+    background-color: #4caf50;
+    color: white;
+}
+
+button.secondary {
+    background-color: #ddd;
+    color: #333;
+}
+
+button.secondary:hover {
+    background-color: #ccc;
+}
+
+/* Stylizacja przycisku powrotu do dashboardu */
+.back-to-dashboard-btn {
+    margin-top: 20px;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-to-dashboard-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.back-to-dashboard-btn:active {
+    transform: scale(0.98);
+}
+
+.preview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0.1rem solid #45a049;
+}
+
+.preview-image {
+    max-width: 100%;
+    max-height: 200px;
+    max-width: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.old-img{
+    margin-right: auto;
+}
+
+.new-img{
+    margin-left: auto;
+}

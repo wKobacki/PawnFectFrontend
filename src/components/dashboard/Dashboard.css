@@ -1,0 +1,55 @@
+.dashboard-layout {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-template-columns: auto 1fr;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.dashboard-layout::-webkit-scrollbar{
+  width: 0em;
+}
+
+.dashboard-layout::-webkit-scrollbar-thumb{
+  display: none;
+}
+
+/* Główna zawartość */
+.dashboard-content {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  color: #333;
+  box-sizing: border-box;
+}
+
+/* Maska przyciemnienia */
+.dashboard-mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 30em;
+  height: auto;
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+}
+
+@media (min-width: 769px) {
+  .sidebar-container {
+      transform: translateX(0); 
+      position: relative;
+      width: auto;
+  }
+
+  .topbar-container {
+      grid-column: 2 / 3; 
+  }
+}

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import Sidebar from "./Sidebar";
-import Topbar from "./Topbar";
 import { useAnimal } from "../../context/AnimalContext";
-import AnimalProfile from "../AnimalProfile";
+import Sidebar from "../sidebar/Sidebar";
+import Topbar from "../topbar/Topbar";
+import AnimalProfile from "./animalProfile/AnimalProfile";
 import AddAnimal from "./AddAnimal";
-import "../../styles/dashboard/Dashboard.css";
+import "./Dashboard.css";
 
 function Dashboard() {
   const { selectedAnimal, selectAnimal, animals } = useAnimal();

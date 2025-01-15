@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../../styles/dashboard/AddAnimal.css";
 import { createNewPet } from "../../api/petApi";
 import { useAnimal } from "../../context/AnimalContext";
+import "./AddAnimal.css";
 
 const AddAnimal = ({ onCancel }) => {
   const { updateAnimals } = useAnimal();

@@ -1,17 +1,22 @@
-import { useState } from 'react';
+import Swal from 'sweetalert2';
+import { useEffect, useRef, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import { useDropzone } from 'react-dropzone';
-import { useNavigate } from 'react-router-dom'; // Importujemy hook useNavigate
-import Swal from 'sweetalert2';
-import { uploadUserAvatar } from '../api/userApi'; 
+import { uploadPetAvatar } from '../../../../../api/petApi';
+import { useAnimal } from '../../../../../context/AnimalContext';
 import './ProfilePhotoUpload.css'; 
 
-const ProfilePhotoUpload = () => {
-    const [show, setShow] = useState(false);  // Stan modalu
+const AnimalPhotoUpload = () => {
+    const { selectedAnimal, triggerRefresh, animals } = useAnimal();
     const [photo, setPhoto] = useState(null);  // Stan wybranego zdjęcia
-    const navigate = useNavigate(); // Hook do nawigacji
     const [preview, setPreview] = useState(null);
+    const containerRef = useRef();
     // Hook Dropzone
+
+    useEffect(() => {
+        handleClose();
+    }, [selectedAnimal])
+
     const { getRootProps, getInputProps } = useDropzone({
         accept: 'image/*', // Akceptujemy tylko obrazy
         onDrop: (acceptedFiles) => {
@@ -26,19 +31,17 @@ const ProfilePhotoUpload = () => {
             }
         }
     });
-
+    
     const handleUpload = async () => {
-        const userId = localStorage.getItem('userId'); // Pobieramy ID użytkownika z localStorage
         if (photo) {
             try {
-                const response = await uploadUserAvatar(userId, photo); // Funkcja do wysłania zdjęcia
+                await uploadPetAvatar(selectedAnimal, photo); // Funkcja do wysłania zdjęcia
                 Swal.fire({
                     icon: 'success',
                     title: 'Zdjęcie przesłane!',
                     text: 'Twoje zdjęcie zostało pomyślnie zapisane.',
                 });
-                setShow(false); // Zamykamy modal po udanym przesłaniu
-                navigate('/dashboard');
+                handleClose();
             } catch (err) {
                 Swal.fire({
                     icon: 'error',
@@ -50,30 +53,26 @@ const ProfilePhotoUpload = () => {
     };
 
     const handleClose = () => {
-        setShow(false);
         setPhoto(null);
-        setPreview(null); // Czyścimy podgląd
-        navigate('/dashboard');
+        setPreview(null); 
+        triggerRefresh();
     };
-
-    // Funkcja do przekierowania do dashboardu
-    const handleGoToDashboard = () => {
-        navigate('/dashboard');
-    };
+    
+    const animal = animals.find((a) => a.id === selectedAnimal);
+    const animalImg = animal.image ? animal.image : "https://placehold.co/200"
 
     return (
-        <div className="profile-photo-container">
-            <Button variant="primary" onClick={() => setShow(true)}>
-                Dodaj zdjęcie profilowe
-            </Button>
-
-            {/* Modal z formularzem przesyłania zdjęcia */}
-            <Modal show={show} onHide={() => handleClose} centered>
-                <Modal.Header closeButton>
+        <div ref={containerRef} className="profile-photo-container">
+            <Modal 
+                show={true} 
+                container={containerRef.current}
+                scrollable
+                enforceFocus={false}
+            >
+                <Modal.Header>
                     <Modal.Title>Dodaj zdjęcie profilowe</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* React Dropzone */}
                     <div {...getRootProps()} className="dropzone-container">
                         <input {...getInputProps()} />
                         <p>Przeciągnij i upuść plik, lub kliknij, aby wybrać zdjęcie.</p>
@@ -81,26 +80,22 @@ const ProfilePhotoUpload = () => {
                     </div>
                     {preview && (
                         <div className="preview-container">
-                        <img src={preview} alt="Podgląd zdjęcia" className="preview-image" />
+                        <img src={animalImg} alt="Stare zdjecie" className='preview-image old-img'/>
+                        <svg width="30" height="30" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+                            <path d="M21.883 12l-7.527 6.235.644.765 9-7.521-9-7.479-.645.764 7.529 6.236h-21.884v1h21.883z"/>
+                        </svg>
+                        <img src={preview} alt="Podgląd zdjęcia" className="preview-image new-img"/>
                         </div>
                     )}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => handleClose()}>
-                        Zamknij
-                    </Button>
                     <Button variant="primary" onClick={handleUpload} disabled={!photo}>
                         Wyślij
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-            {/* Nowy przycisk do powrotu do dashboardu */}
-            <Button variant="secondary" className="back-to-dashboard-btn" onClick={handleGoToDashboard}>
-                Powrót do Dashboardu
-            </Button>
         </div>
     );
 };
 
-export default ProfilePhotoUpload;
+export default AnimalPhotoUpload;
