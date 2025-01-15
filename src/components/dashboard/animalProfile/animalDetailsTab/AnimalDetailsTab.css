@@ -1,59 +1,62 @@
-.animal-animal-sidebar-menu{
-    border: 1px solid #ddd;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    background-color: #f4f4f4;
-    padding: 1em;
+.animal-animal-sidebar-menu {
+  position: sticky;
+  top: 70px; /* Dostosuj do wysokości Twojego topbaru */
+  z-index: 10;
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f4f4;
+  padding: 1em;
 }
 
 .animal-animal-tabs {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 1em;
-    padding: 0.5em;
-    border: 2px solid #ddd;
-    overflow-x: auto;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 1em;
+  padding: 0.5em;
+  border: 2px solid #ddd;
+  overflow-x: auto;
+  flex-wrap: wrap;
 }
 
-.animal-animal-tabs::-webkit-scrollbar{
-    display: none;
+.animal-animal-tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .animal-animal-menu-item {
-    background-color: white;
-    color: #2ecc71;
-    border: 2px solid #2ecc71;
-    border-radius: 8px;
-    padding: 10px;
-    text-align: center;
-    font-size: 1em;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    flex: 1 0 auto;
-    min-width: auto;
+  background-color: white;
+  color: #2ecc71;
+  border: 2px solid #2ecc71;
+  border-radius: 8px;
+  padding: 10px;
+  text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  flex: 1 0 auto;
+  min-width: auto;
 }
 
 .animal-animal-menu-item.active {
-    background-color: #2ecc71;
-    color: white;
+  background-color: #2ecc71;
+  color: white;
 }
 
 .animal-animal-menu-item:hover {
-    background-color: #27ae60;
-    color: white;
+  background-color: #27ae60;
+  color: white;
 }
 
 .animal-animal-tab-content {
-    background-color: white;
-    padding: 1em;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    font-size: 1em;
-    color: #333;
-    border-top: 1px solid #ddd;
+  background-color: white;
+  padding: 1em;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  color: #333;
+  border-top: 1px solid #ddd;
 }

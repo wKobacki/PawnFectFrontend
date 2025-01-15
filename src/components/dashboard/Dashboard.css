@@ -8,11 +8,11 @@
   overflow-x: hidden;
 }
 
-.dashboard-layout::-webkit-scrollbar{
+.dashboard-layout::-webkit-scrollbar {
   width: 0em;
 }
 
-.dashboard-layout::-webkit-scrollbar-thumb{
+.dashboard-layout::-webkit-scrollbar-thumb {
   display: none;
 }
 
@@ -23,8 +23,6 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   padding: 1em;
   color: #333;
   box-sizing: border-box;
@@ -44,12 +42,12 @@
 
 @media (min-width: 769px) {
   .sidebar-container {
-      transform: translateX(0); 
-      position: relative;
-      width: auto;
+    transform: translateX(0);
+    position: relative;
+    width: auto;
   }
 
   .topbar-container {
-      grid-column: 2 / 3; 
+    grid-column: 2 / 3;
   }
 }

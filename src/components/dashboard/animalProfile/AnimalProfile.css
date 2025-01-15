@@ -1,249 +1,246 @@
 /* --- ANIMACJE --- */
 @keyframes animal-animal-slideInFromBottom {
-    0% {
-        transform: translateY(100%) scale(0.9);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
+  0% {
+    transform: translateY(100%) scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes animal-animal-fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 @keyframes animal-animal-slideDown {
-    0% {
-        max-height: 0;
-        opacity: 0;
-    }
-    100% {
-        max-height: 500px;
-        opacity: 1;
-    }
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+  100% {
+    max-height: 500px;
+    opacity: 1;
+  }
 }
 
 /* --- GŁÓWNE KONTENERY --- */
 .animal-animal-profile-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border: 0.125em solid #ccc;
-    border-radius: 1em;
-    padding: 2em;
-    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
-    max-width: 80%;
-    margin: 0 auto;
-    box-sizing: border-box;
-    opacity: 1;
-    transition: padding-bottom 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  border: 0.125em solid #ccc;
+  border-radius: 1em;
+  padding: 2em;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
+  max-width: 80%;
+  margin: 0 auto;
+  box-sizing: border-box;
+  opacity: 1;
+  transition: padding-bottom 0.3s ease;
 }
 
 .animal-animal-profile-layout {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    /* display: grid;
-    grid-template-rows: auto auto;
-    row-gap: 0.5rem; */
-    width: 100%;
-    padding: 1em;
-    border-bottom: 2px solid #ccc;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 1em;
+  border-bottom: 2px solid #ccc;
 }
 
 .animal-animal-details-container {
-    border: 1px solid #ddd;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    flex: 3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1em;
-    background-color: white;
-    border-radius: 10px;
-    margin-right: 1em;
-    max-width: 40%;
+  border: 1px solid #ddd;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1em;
+  background-color: white;
+  border-radius: 10px;
+  margin-right: 1em;
+  max-width: 40%;
 }
 
 /* --- ZDJĘCIE ZWIERZAKA --- */
 .animal-animal-profile-image {
-    width: 100%;
-    height: auto;
-    max-width: 350px;
-    border-radius: 0.5em;
-    margin-bottom: 1em;
-    animation: animal-animal-slideInFromBottom 1.5s ease-out forwards;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    border: 2px solid #ccc;
+  width: 100%;
+  height: auto;
+  max-width: 350px;
+  border-radius: 0.5em;
+  margin-bottom: 1em;
+  animation: animal-animal-slideInFromBottom 1.5s ease-out forwards;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px solid #ccc;
 }
 
 /* --- INFORMACJE PODSTAWOWE --- */
 .animal-animal-basic-info-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    border: 0.125em solid #ccc;
-    border-radius: 1em;
-    padding: 1.5em; 
-    background-color: #f9f9f9;
-    box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
-    animation: animal-animal-fadeIn 2s ease-out forwards;
-    opacity: 0;
-    max-width: 90%;
-    animation-delay: 1s;
-    margin-bottom: 3em; 
-    height: auto; 
-    min-height: 400px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 0.125em solid #ccc;
+  border-radius: 1em;
+  padding: 1.5em;
+  background-color: #f9f9f9;
+  box-shadow: 0 0.5em 1em rgba(0, 0, 0, 0.1);
+  animation: animal-animal-fadeIn 2s ease-out forwards;
+  opacity: 0;
+  max-width: 90%;
+  animation-delay: 1s;
+  margin-bottom: 3em;
+  height: auto;
+  min-height: 400px;
 }
 
 .animal-animal-name {
-    font-size: 2em;
-    font-weight: bold;
-    color: #333;
-    text-align: center;
-    margin-bottom: 0.5em;
-    animation: animal-animal-fadeIn 1.5s ease-out forwards;
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 0.5em;
+  animation: animal-animal-fadeIn 1.5s ease-out forwards;
 }
 
 .animal-animal-description,
 .animal-animal-gender,
 .animal-animal-dob {
-    font-size: 1em;
-    color: #555;
-    margin: 0.15em 0;
-    animation: animal-animal-fadeIn 2s ease-out forwards;
-    opacity: 0;
-    animation-delay: 2s;
+  font-size: 1em;
+  color: #555;
+  margin: 0.15em 0;
+  animation: animal-animal-fadeIn 2s ease-out forwards;
+  opacity: 0;
+  animation-delay: 2s;
 }
 
 /* --- NARZĘDZIA --- */
 .animal-animal-tools-container {
-    display: flex;
-    justify-content: center;
-    gap: 1.5em; 
-    margin-top: 2em; 
-    border-top: 2px solid #ddd;
-    padding-top: 1em;
+  display: flex;
+  justify-content: center;
+  gap: 1.5em;
+  margin-top: 2em;
+  border-top: 2px solid #ddd;
+  padding-top: 1em;
 }
 
 /* Przyciski */
 .animal-animal-tools-container button {
-    padding: 0.7em 2em;
-    font-size: 1em;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 0.5em;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-bottom: 1em; 
+  padding: 0.7em 2em;
+  font-size: 1em;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 0.5em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 1em;
 }
 
 .animal-animal-tools-container button:hover {
-    background-color: #45a049;
+  background-color: #45a049;
 }
 
 .animal-animal-tools-button:hover {
-    background-color: #0056b3;
-    transform: scale(1.05);
+  background-color: #0056b3;
+  transform: scale(1.05);
 }
 
 .animal-animal-tools-button:active {
-    background-color: #004080;
-    transform: scale(0.95);
+  background-color: #004080;
+  transform: scale(0.95);
 }
 
 /* --- KARMIENIE --- */
 .animal-animal-feeding {
-    font-size: 1em;
-    color: #555;
-    margin: 0.5em 0;
-    animation: animal-animal-slideInFromBottom 1.5s ease-out;
-    padding: 0.5em;
-    background-color: #f4f4f4;
-    border: 0.125em solid #ddd;
-    border-radius: 0.5em;
-    width: 90%;
-    box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
+  font-size: 1em;
+  color: #555;
+  margin: 0.5em 0;
+  animation: animal-animal-slideInFromBottom 1.5s ease-out;
+  padding: 0.5em;
+  background-color: #f4f4f4;
+  border: 0.125em solid #ddd;
+  border-radius: 0.5em;
+  width: 90%;
+  box-shadow: 0 0.25em 0.5em rgba(0, 0, 0, 0.1);
 }
 
 .animal-animal-feeding strong {
-    color: #000;
+  color: #000;
 }
 
 /* --- DODATKOWE INFORMACJE --- */
 .animal-animal-additional-info {
-    opacity: 0;
-    transition: opacity 0.6s ease-out, max-height 0.6s ease-out;
-    max-height: 0;
-    overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.6s ease-out, max-height 0.6s ease-out;
+  max-height: 0;
+  overflow: hidden;
 }
 
 .animal-animal-additional-info.open {
-    opacity: 1;
-    max-height: 500px;
+  opacity: 1;
+  max-height: 500px;
 }
 
 .animal-animal-profile-container.open-details {
-    padding-bottom: 2em;
+  padding-bottom: 2em;
 }
 
 /* --- RESPONSYWNOŚĆ --- */
-@media screen and (max-width: 960px){
-    .animal-animal-profile-layout {
-        display: grid;
-        grid-template-rows: auto auto;
-        row-gap: 0.5rem;
-    }
+@media screen and (max-width: 960px) {
+  .animal-animal-profile-layout {
+    display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 0.5rem;
+  }
 
-    .animal-animal-details-container {
-        max-width: 100%;
-    }
+  .animal-animal-details-container {
+    max-width: 100%;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    .animal-animal-profile-container {
-        padding: 1.5em;
-        max-width: 95%;
-    }
+  .animal-animal-profile-container {
+    padding: 1.5em;
+    max-width: 95%;
+  }
 
-    .animal-animal-profile-image {
-        max-width: 80%;
-    }
+  .animal-animal-profile-image {
+    max-width: 80%;
+  }
 
-    .animal-animal-basic-info-container {
-        padding: 0.5em;
-    }
+  .animal-animal-basic-info-container {
+    padding: 0.5em;
+  }
 
-    .animal-animal-name {
-        font-size: 1.25em;
-    }
+  .animal-animal-name {
+    font-size: 1.25em;
+  }
 
-    .animal-animal-description,
-    .animal-animal-gender,
-    .animal-animal-dob {
-        font-size: 0.9em;
-    }
+  .animal-animal-description,
+  .animal-animal-gender,
+  .animal-animal-dob {
+    font-size: 0.9em;
+  }
 
-    .animal-animal-tools-container {
-        gap: 0.5em;
-    }
+  .animal-animal-tools-container {
+    gap: 0.5em;
+  }
 
-    .animal-animal-tools-button {
-        font-size: 0.8em;
-        padding: 0.4em 0.8em;
-    }
+  .animal-animal-tools-button {
+    font-size: 0.8em;
+    padding: 0.4em 0.8em;
+  }
 }
