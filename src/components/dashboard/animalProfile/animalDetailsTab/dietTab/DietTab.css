@@ -66,6 +66,6 @@
 }
 
 .diet-column ul {
-  max-height: 250px;
+  max-height: 500px;
   overflow: auto;
 }

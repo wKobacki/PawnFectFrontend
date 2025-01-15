@@ -10,15 +10,17 @@ const AnimalVisit = ({ visit, handleRemove }) => {
 
   return (
     <div className="animal-visit">
-      <span>
-        <strong>Data wizyty:</strong> {parseDate(visit.visit_date)}
-      </span>
-      <span>
-        <strong>Opis:</strong> {visit.notes}
-      </span>
-      <span>
-        <strong>Powód:</strong> {visit.visit_type}
-      </span>
+      <div className="animal-visit-details">
+        <span>
+          <strong>Data wizyty:</strong> {parseDate(visit.visit_date)}
+        </span>
+        <span>
+          <strong>Opis:</strong> {visit.notes}
+        </span>
+        <span>
+          <strong>Powód:</strong> {visit.visit_type}
+        </span>
+      </div>
       <button onClick={() => handleRemove(visit)}>Usuń wizytę</button>
     </div>
   );

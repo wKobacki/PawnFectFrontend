@@ -1,7 +1,6 @@
 .product-card {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-wrap: wrap;
   gap: 1rem;
   margin: 0.5rem;
   padding: 1rem;
@@ -12,6 +11,8 @@
 }
 
 .product-details {
+  display: flex;
+  flex-direction: column;
   flex-grow: 1;
   font-size: 1rem;
   color: #333;

@@ -52,6 +52,9 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    /* display: grid;
+    grid-template-rows: auto auto;
+    row-gap: 0.5rem; */
     width: 100%;
     padding: 1em;
     border-bottom: 2px solid #ccc;
@@ -61,9 +64,6 @@
     border: 1px solid #ddd;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-}
-
-.animal-animal-details-container {
     flex: 3;
     display: flex;
     flex-direction: column;
@@ -72,6 +72,7 @@
     background-color: white;
     border-radius: 10px;
     margin-right: 1em;
+    max-width: 40%;
 }
 
 /* --- ZDJĘCIE ZWIERZAKA --- */
@@ -201,6 +202,18 @@
 }
 
 /* --- RESPONSYWNOŚĆ --- */
+@media screen and (max-width: 960px){
+    .animal-animal-profile-layout {
+        display: grid;
+        grid-template-rows: auto auto;
+        row-gap: 0.5rem;
+    }
+
+    .animal-animal-details-container {
+        max-width: 100%;
+    }
+}
+
 @media screen and (max-width: 768px) {
     .animal-animal-profile-container {
         padding: 1.5em;
@@ -232,9 +245,5 @@
     .animal-animal-tools-button {
         font-size: 0.8em;
         padding: 0.4em 0.8em;
-    }
-
-    .animal-animal-details-container{
-        min-width: 51%;
     }
 }

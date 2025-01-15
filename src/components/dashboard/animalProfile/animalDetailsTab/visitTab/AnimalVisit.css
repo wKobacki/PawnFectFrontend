@@ -1,6 +1,5 @@
 .animal-visit {
   display: flex;
-  flex-direction: column;
   gap: 0.5rem;
   padding: 1rem;
   border-radius: 8px; /* Zaokrąglone rogi */
@@ -8,6 +7,11 @@
   background: #f9f9f9; /* Jasne tło */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtelny cień */
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.animal-visit-details {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Efekt podświetlenia po najechaniu */
@@ -32,6 +36,7 @@
   cursor: pointer;
   font-size: 14px;
   transition: background 0.2s ease;
+  margin-left: auto;
 }
 
 .animal-visit button:hover {

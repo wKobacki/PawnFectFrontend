@@ -28,6 +28,12 @@ const AnimalDetailsTab = ({ animal }) => {
         return null;
     }
   };
+  
+  const checkPermission = () => {
+    const userId = Number.parseInt(localStorage.getItem("userId"));
+    const hasPermission = (u) => u.user_id === userId && u.access_level <= 1;
+    return animal.shared.find((u) => hasPermission(u)) ? true : false;
+  }
 
   return (
     <div className="animal-animal-sidebar-menu">
@@ -64,22 +70,26 @@ const AnimalDetailsTab = ({ animal }) => {
         >
           Współdzielenie
         </button>
-        <button
-          className={`animal-animal-menu-item ${
-            activeTab === "avatar" ? "active" : ""
-          }`}
-          onClick={() => setActiveTab("avatar")}
-        >
-          Zmień zdjęcie
-        </button>
-        <button
-          className={`animal-animal-menu-item ${
-            activeTab === "edit" ? "active" : ""
-          }`}
-          onClick={() => setActiveTab("edit")}
-        >
-          Edytuj
-        </button>
+        {checkPermission() && 
+        <>
+          <button
+            className={`animal-animal-menu-item ${
+              activeTab === "avatar" ? "active" : ""
+            }`}
+            onClick={() => setActiveTab("avatar")}
+          >
+            Zmień zdjęcie
+          </button>
+          <button
+            className={`animal-animal-menu-item ${
+              activeTab === "edit" ? "active" : ""
+            }`}
+            onClick={() => setActiveTab("edit")}
+          >
+            Edytuj
+          </button>
+        </>
+        }
       </div>
       <div className="animal-animal-tab-content">{renderTabContent()}</div>
     </div>

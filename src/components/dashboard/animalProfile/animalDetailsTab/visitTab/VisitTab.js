@@ -5,7 +5,7 @@ import AnimalVisit from "./AnimalVisit";
 import "./VisitTab.css";
 
 const VisitTab = ({ animal }) => {
-  const { refresh, triggerRefresh } = useAnimal();
+  const { triggerRefresh } = useAnimal();
   const [visits, setVisits] = useState([]);
   const [visitData, setVisitData] = useState({
     visitDate: "",
@@ -17,7 +17,7 @@ const VisitTab = ({ animal }) => {
 
   useEffect(() => {
     setVisits(animal.visits || []);
-  }, []);
+  }, [animal.visits]);
 
   const handleVisitInputChange = (e) => {
     const { name, value } = e.target;
@@ -61,10 +61,7 @@ const VisitTab = ({ animal }) => {
 
   return (
     <div className="animal-visit-form-container">
-      <h2>Wizyty u weterynarza</h2>
       <div className="existing-visits">
-        <h3>Dotychczasowe wizyty:</h3>
-
         {visits.length > 0 ? (
           visits.map((visit, index) => (
             <AnimalVisit
