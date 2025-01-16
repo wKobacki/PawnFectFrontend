@@ -1,29 +1,31 @@
 import { useState, useEffect } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { uploadUserAvatar, getUserInfo } from "../api/userApi";
-import "../components/ProfilePhotoUpload.css";
+import { uploadUserAvatar, getUserInfo, deleteUser } from "../api/userApi";
+import "./ProfilePhotoUpload.css";
 
 const ProfilePhotoUpload = () => {
     const [show, setShow] = useState(false);
     const [photo, setPhoto] = useState(null);
     const [preview, setPreview] = useState(null);
     const [userInfo, setUserInfo] = useState({});
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
-    // Pobierz URL avatara z localStorage
     const avatarUrl = localStorage.getItem("avatar_url");
 
     useEffect(() => {
         const fetchUserInfo = async () => {
             const userId = localStorage.getItem("userId");
-            console.log("UserID from localStorage:", userId);
+            setIsLoading(true);
             try {
                 const info = await getUserInfo(userId);
                 setUserInfo(info);
             } catch (err) {
                 Swal.fire("Błąd!", "Nie udało się pobrać danych użytkownika.", "error");
+            } finally {
+                setIsLoading(false);
             }
         };
         fetchUserInfo();
@@ -44,6 +46,7 @@ const ProfilePhotoUpload = () => {
     const handleUpload = async () => {
         const userId = localStorage.getItem("userId");
         if (photo) {
+            setIsLoading(true);
             try {
                 const response = await uploadUserAvatar(userId, photo);
                 Swal.fire({
@@ -52,10 +55,10 @@ const ProfilePhotoUpload = () => {
                     text: "Twoje zdjęcie zostało pomyślnie zapisane.",
                 });
                 setShow(false);
-                localStorage.setItem("avatar_url", URL.createObjectURL(photo)); // Zaktualizuj avatar w localStorage
+                localStorage.setItem("avatar_url", URL.createObjectURL(photo));
                 setUserInfo((prevState) => ({
                     ...prevState,
-                    avatar_filename: response.data.fileName, // Aktualizuj dane avatara
+                    avatar_filename: response.data.fileName,
                 }));
                 navigate("/dashboard");
             } catch (err) {
@@ -64,7 +67,25 @@ const ProfilePhotoUpload = () => {
                     title: "Błąd!",
                     text: err.message,
                 });
+            } finally {
+                setIsLoading(false);
             }
+        }
+    };
+
+    const handleDeleteUser = async () => {
+        const userId = localStorage.getItem("userId");
+        setIsLoading(true);
+        try {
+            await deleteUser(userId);
+            Swal.fire("Sukces!", "Twoje konto zostało usunięte.", "success");
+            localStorage.removeItem("userId");
+            localStorage.removeItem("avatar_url");
+            navigate("/login");
+        } catch (err) {
+            Swal.fire("Błąd!", "Nie udało się usunąć konta.", "error");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -76,7 +97,29 @@ const ProfilePhotoUpload = () => {
 
     return (
         <div className="profile-page-container">
-            {/* Zdjęcie profilowe */}
+            {isLoading && (
+                <div className="loading-overlay">
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden">Ładowanie...</span>
+                    </Spinner>
+                </div>
+            )}
+
+            <div className="profile-buttons">
+                <Button variant="secondary" onClick={() => navigate("/dashboard")} className="back-to-dashboard-btn">
+                    Powrót do dashboardu
+                </Button>
+                <Button variant="primary" onClick={() => setShow(true)} className="edit-photo-btn">
+                    Zmień zdjęcie profilowe
+                </Button>
+                <Button variant="secondary" onClick={() => navigate("/update-user-info")} className="edit-info-btn">
+                    Zmień informacje o koncie
+                </Button>
+                <Button variant="danger" onClick={handleDeleteUser} className="delete-user-btn">
+                    Usuń konto
+                </Button>
+            </div>
+
             <div className="profile-photo">
                 <img
                     src={preview || avatarUrl || `https://via.placeholder.com/150`}
@@ -85,18 +128,11 @@ const ProfilePhotoUpload = () => {
                 />
             </div>
 
-            {/* Informacje o użytkowniku */}
             <div className="profile-info">
-                <h2>{userInfo.username || "Username"}</h2> {/* Zaktualizuj na userInfo.username, jeśli odpowiedni klucz */}
+                <h2>{userInfo.username || "Username"}</h2>
                 <p>Email: {userInfo.email || "Email"}</p>
             </div>
 
-            {/* Przycisk edycji zdjęcia */}
-            <Button variant="primary" onClick={() => setShow(true)} className="edit-photo-btn">
-                Zmień zdjęcie profilowe
-            </Button>
-
-            {/* Modal */}
             <Modal show={show} onHide={handleClose} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>Dodaj zdjęcie profilowe</Modal.Title>
@@ -116,16 +152,11 @@ const ProfilePhotoUpload = () => {
                     <Button variant="secondary" onClick={handleClose}>
                         Zamknij
                     </Button>
-                    <Button variant="primary" onClick={handleUpload} disabled={!photo}>
-                        Wyślij
+                    <Button variant="primary" onClick={handleUpload} disabled={!photo || isLoading}>
+                        {isLoading ? "Wysyłanie..." : "Wyślij"}
                     </Button>
                 </Modal.Footer>
             </Modal>
-
-            {/* Powrót do dashboardu */}
-            <Button variant="secondary" className="back-to-dashboard-btn" onClick={() => navigate("/dashboard")}>
-                Powrót do Dashboardu
-            </Button>
         </div>
     );
 };

@@ -31,3 +31,25 @@ export const getUserInfo = async (userId) => {
         throw new Error(error.response?.data?.message || 'Błąd pobierania informacji o użytkowniku.');
     }
 };
+
+// Funkcja do usuwania użytkownika
+export const deleteUser = async (userId) => {
+    try {
+        const response = await apiClient.delete(`/users/${userId}`);
+        return response.data;  // Zwraca dane odpowiedzi po usunięciu użytkownika
+    } catch (error) {
+        throw new Error(error.response?.data?.message || 'Błąd usuwania użytkownika.');
+    }
+};
+
+export const editUserInfo = async (userId, updatedData) => {
+    try {
+        // Wysyłamy zaktualizowane dane na serwer
+        const response = await apiClient.put(`/users/${userId}`, updatedData);
+        
+        return response.data; // Zwraca zaktualizowane dane użytkownika
+    } catch (error) {
+        // Obsługa błędów
+        throw new Error(error.response?.data?.message || 'Błąd edycji danych użytkownika.');
+    }
+};

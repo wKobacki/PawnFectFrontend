@@ -1,106 +1,158 @@
-.profile-photo-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column; /* Zmiana na kolumnowy układ */
+.profile-page-container {
+    width: 100%;
+    max-width: 800px;
+    margin: 40px auto;
     padding: 20px;
-    margin-top: 20px;
-}
-
-.dropzone-container {
-    border: 2px dashed #4caf50;
-    border-radius: 10px;
-    padding: 40px;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fafafa;
-}
-
-.dropzone-container:hover {
-    background-color: #f1f1f1;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.dropzone-container p {
-    color: #333;
-    font-size: 1.1rem;
-    margin: 0;
-}
-
-.dropzone-container input {
-    display: none;
-}
-
-.modal-header {
-    background-color: #4caf50;
-    color: white;
-    border-radius: 10px 10px 0 0;
-    padding: 15px;
-}
-
-.modal-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.modal-footer {
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: center;
-    padding: 15px;
-    border-top: 1px solid #ddd;
-    background-color: #f9f9f9;
-    border-radius: 0 0 10px 10px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
 }
 
-button {
-    font-weight: bold;
-    border-radius: 5px;
+.profile-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.edit-photo-btn,
+.edit-info-btn,
+.delete-user-btn,
+.back-to-dashboard-btn {
     padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+    background-color: #4caf50;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    transform: none;
-}
-
-button:hover:not(:disabled) {
+.edit-photo-btn:hover,
+.edit-info-btn:hover,
+.delete-user-btn:hover,
+.back-to-dashboard-btn:hover {
     background-color: #45a049;
-    /* transform: scale(1.05); */
+    transform: scale(1.05);
 }
 
-button:active {
-    transform: scale(0.98);
+.edit-photo-btn:active,
+.edit-info-btn:active,
+.delete-user-btn:active,
+.back-to-dashboard-btn:active {
+    transform: scale(0.95);
 }
 
-button.primary {
-    background-color: #4caf50;
-    color: white;
+.delete-user-btn {
+    background-color: #f44336;
 }
 
-button.secondary {
-    background-color: #ddd;
+.delete-user-btn:hover {
+    background-color: #e53935;
+}
+
+.profile-photo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid #4caf50;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.profile-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    width: 100%;
+    text-align: center;
     color: #333;
 }
 
-button.secondary:hover {
-    background-color: #ccc;
+.profile-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
 }
 
-/* Stylizacja przycisku powrotu do dashboardu */
+.profile-info p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.preview-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.preview-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    border: 2px solid #4caf50;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 500px; /* Dopasowanie szerokości do głównej formy */
+    margin: 0 auto;
+}
+
+.upload-container input[type="file"] {
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px dashed #4caf50;
+    border-radius: 8px;
+    background-color: #fafafa;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s ease;
+    width: 100%; /* Rozciągnięcie pola do szerokości kontenera */
+    max-width: 300px; /* Ograniczenie maksymalnej szerokości */
+}
+
+.upload-container input[type="file"]:hover {
+    background-color: #f0f9f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.upload-container p {
+    margin: 0;
+    font-size: 1rem;
+    color: #4caf50;
+    font-weight: 500;
+}
+
 .back-to-dashboard-btn {
     margin-top: 20px;
-    font-weight: bold;
     padding: 10px 20px;
-    background-color: #4caf50;
+    font-size: 1rem;
+    font-weight: 500;
     color: white;
+    background-color: #4caf50;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
+    cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
@@ -110,30 +162,48 @@ button.secondary:hover {
 }
 
 .back-to-dashboard-btn:active {
-    transform: scale(0.98);
+    transform: scale(0.95);
 }
 
-.preview-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border: 0.1rem solid #45a049;
+.modal-container {
+    width: 100%;
+    max-width: 600px; /* Dopasowanie szerokości modalu */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.preview-image {
-    max-width: 100%;
-    max-height: 200px;
-    max-width: 200px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
+@media (max-width: 768px) {
+    .profile-page-container {
+        padding: 15px;
+    }
 
-.old-img{
-    margin-right: auto;
-}
+    .profile-photo {
+        width: 120px;
+        height: 120px;
+    }
 
-.new-img{
-    margin-left: auto;
+    .preview-image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .profile-info h2 {
+        font-size: 1.5rem;
+    }
+
+    .profile-buttons button {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+
+    .modal-container {
+        padding: 15px;
+    }
+
+    .upload-container input[type="file"] {
+        max-width: 100%; 
+    }
 }
