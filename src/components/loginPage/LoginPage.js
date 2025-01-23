@@ -10,25 +10,25 @@ const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate(); 
 
-    useEffect(() => {
-        // jak juz byles zalogowany to nie musisz sie logowac
-        // chyba ze refreshToken wygasl
-        const storedToken = localStorage.getItem("accessToken");  
-        const storedUserId = localStorage.getItem("userId");
-        const verifyLogin = async () => {
-            const isTokenValid = await refreshAccessToken();
-            if(!isTokenValid){
-                localStorage.setItem("accessToken", '');
-                localStorage.setItem("userId", '');
-                return;
-            }
-            navigate('/dashboard');
-        }
+    // useEffect(() => {
+    //     // jak juz byles zalogowany to nie musisz sie logowac
+    //     // chyba ze refreshToken wygasl
+    //     const storedToken = localStorage.getItem("accessToken");  
+    //     const storedUserId = localStorage.getItem("userId");
+    //     const verifyLogin = async () => {
+    //         const isTokenValid = await refreshAccessToken();
+    //         if(!isTokenValid){
+    //             localStorage.setItem("accessToken", '');
+    //             localStorage.setItem("userId", '');
+    //             return;
+    //         }
+    //         navigate('/dashboard');
+    //     }
         
-        if(storedToken && storedUserId){
-            verifyLogin();
-        }
-    })
+    //     if(storedToken && storedUserId){
+    //         verifyLogin();
+    //     }
+    // })
 
     const handleSubmit = async (e) => {
         e.preventDefault();

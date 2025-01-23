@@ -9,7 +9,6 @@ export const createNewPet = async (petData) => {
             description: petData.description,
             name: petData.name,
             userId: petData.userId,
-            feeding: petData.feeding
         });
         console.log("Zwierzę dodane. Odpowiedź serwera:", response?.data);
         return response.data;

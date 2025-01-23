@@ -5,8 +5,15 @@ const AnimalVisit = ({ visit, handleRemove }) => {
     const splitted = visitDate.split("T");
     const day = splitted[0];
     const hour = splitted[1].split(".")[0];
-    return `${day} ${hour}`;
+
+    const parseHour = (visitHour) => {
+      const splitted = visitHour.split(":");
+      return `${Number.parseInt(splitted[0])+2}:${splitted[1]}`;
+    }
+
+    return `${day} ${parseHour(hour)}`;
   };
+
 
   return (
     <div className="animal-visit">

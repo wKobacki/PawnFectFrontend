@@ -63,7 +63,8 @@ const VisitTab = ({ animal }) => {
     <div className="animal-visit-form-container">
       <div className="existing-visits">
         {visits.length > 0 ? (
-          visits.map((visit, index) => (
+          visits.sort((a, b) => new Date(b.visit_date) - new Date(a.visit_date))
+          .map((visit, index) => (
             <AnimalVisit
               visit={visit}
               key={index}
