@@ -143,19 +143,6 @@
     font-weight: 500;
 }
 
-.back-to-dashboard-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    font-weight: 500;
-    color: white;
-    background-color: #4caf50;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
 .back-to-dashboard-btn:hover {
     background-color: #45a049;
     transform: scale(1.05);

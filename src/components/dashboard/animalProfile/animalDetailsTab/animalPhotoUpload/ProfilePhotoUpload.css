@@ -94,7 +94,6 @@ button.secondary:hover {
 
 /* Stylizacja przycisku powrotu do dashboardu */
 .back-to-dashboard-btn {
-  margin-top: 20px;
   font-weight: bold;
   padding: 10px 20px;
   background-color: #4caf50;

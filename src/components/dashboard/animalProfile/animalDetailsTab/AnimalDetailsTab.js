@@ -8,8 +8,14 @@ import AnimalShare from "./animalShare/AnimalShare";
 import "./AnimalDetailsTab.css";
 
 const AnimalDetailsTab = ({ animal }) => {
-  const [activeTab, setActiveTab] = useState("dieta");
+  const [activeTab, setActiveTab] = useState("profile");
   const { triggerRefresh } = useAnimal();
+
+  const checkPermission = () => {
+    const userId = Number.parseInt(localStorage.getItem("userId"));
+    const hasPermission = (u) => u.user_id === userId && u.access_level <= 1;
+    return animal.shared.find((u) => hasPermission(u)) ? true : false;
+  };
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -33,31 +39,27 @@ const AnimalDetailsTab = ({ animal }) => {
             />
             <h1>Nazwa: {animal?.name}</h1>
             <p>Opis: {animal?.description}</p>
-            <div className="animal-profile-buttons">
-              <button
-                className="animal-animal-menu-item"
-                onClick={() => setActiveTab("avatar")}
-              >
-                Zmień zdjęcie
-              </button>
-              <button
-                className="animal-animal-menu-item"
-                onClick={() => setActiveTab("edit")}
-              >
-                Edytuj
-              </button>
+            {checkPermission() && 
+              <div className="animal-profile-buttons">
+                <button
+                  className="animal-animal-menu-item"
+                  onClick={() => setActiveTab("avatar")}
+                >
+                  Zmień zdjęcie
+                </button>
+                <button
+                  className="animal-animal-menu-item"
+                  onClick={() => setActiveTab("edit")}
+                >
+                  Edytuj
+                </button>
+              </div>
+            }
             </div>
-          </div>
         );
       default:
         return null;
     }
-  };
-
-  const checkPermission = () => {
-    const userId = Number.parseInt(localStorage.getItem("userId"));
-    const hasPermission = (u) => u.user_id === userId && u.access_level <= 1;
-    return animal.shared.find((u) => hasPermission(u)) ? true : false;
   };
 
   return (
@@ -72,7 +74,7 @@ const AnimalDetailsTab = ({ animal }) => {
             triggerRefresh();
           }}
         >
-          {animal?.name} - Profil
+          Ogólne
         </button>
         <button
           className={`animal-animal-menu-item ${
@@ -106,26 +108,6 @@ const AnimalDetailsTab = ({ animal }) => {
         >
           Współdzielenie
         </button>
-        {/* {checkPermission() && (
-          <>
-            <button
-              className={`animal-animal-menu-item ${
-                activeTab === "avatar" ? "active" : ""
-              }`}
-              onClick={() => setActiveTab("avatar")}
-            >
-              Zmień zdjęcie
-            </button>
-            <button
-              className={`animal-animal-menu-item ${
-                activeTab === "edit" ? "active" : ""
-              }`}
-              onClick={() => setActiveTab("edit")}
-            >
-              Edytuj
-            </button>
-          </>
-        )} */}
       </div>
       <div className="animal-animal-tab-content">{renderTabContent()}</div>
     </div>

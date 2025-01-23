@@ -106,10 +106,10 @@ const ProfilePhotoUpload = () => {
             )}
 
             <div className="profile-buttons">
-                <Button variant="secondary" onClick={() => navigate("/dashboard")} className="back-to-dashboard-btn">
+                <Button variant="primary" onClick={() => navigate("/dashboard")} className="back-to-dashboard-btn">
                     Powrót do dashboardu
                 </Button>
-                <Button variant="primary" onClick={() => setShow(true)} className="edit-photo-btn">
+                <Button variant="secondary" onClick={() => setShow(true)} className="edit-photo-btn">
                     Zmień zdjęcie profilowe
                 </Button>
                 <Button variant="secondary" onClick={() => navigate("/update-user-info")} className="edit-info-btn">

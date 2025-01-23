@@ -11,7 +11,6 @@ function AnimalProfile({ animalId }) {
   const [error, setError] = useState(null);
   const { refresh } = useAnimal();
   const [animationKey, setAnimationKey] = useState(0);
-  const [activeTab, setActiveTab] = useState("profile"); // Dodajemy stan aktywnej zakładki
 
   useEffect(() => {
     const fetchAnimalDetails = async () => {
@@ -46,19 +45,9 @@ function AnimalProfile({ animalId }) {
     return <p>{error}</p>;
   }
 
-  const checkPermission = () => {
-    const userId = Number.parseInt(localStorage.getItem("userId"));
-    const hasPermission = (u) => u.user_id === userId && u.access_level <= 1;
-    return animal.shared.find((u) => hasPermission(u)) ? true : false;
-  };
-
   return (
     <div key={animationKey} className="animal-profile-container">
-      <AnimalDetailsTab
-        animal={animal}
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-      />
+      <AnimalDetailsTab animal={animal} />
     </div>
   );
 }
