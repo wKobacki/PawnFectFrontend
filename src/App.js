@@ -9,7 +9,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./context/PrivateRoute"; // Komponent PrivateRoute
 import ResetPasswordNotLoged from "./components/resetPasswordPage/ResetPassAsNotLoged";
 import ResetPasswordLoged from "./components/resetPasswordPage/ResetPassAsLoged";
-import ProfilePhotoUpload from "./components/ProfilePhotoUpload"
+import ProfilPage from "./components/ProfilPage"
 import "./App.css";
 // import AnimalPhotoUpload from ".components\dashboard\animalProfile\animalDetailsTab\animalPhotoUpload\AnimalPhotoUpload"
 
@@ -35,7 +35,7 @@ function App() {
           <Route path="/resetPass" element={<ResetPasswordNotLoged />} />
           <Route path="/profile" element={
             <PrivateRoute>
-              <ProfilePhotoUpload />
+              <ProfilPage />
             </PrivateRoute>
             } />
           {/* <Route path="/animals/:animalId/avatar" element={
