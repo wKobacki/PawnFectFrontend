@@ -12,6 +12,7 @@
 .animal-visit-details {
   display: flex;
   flex-direction: column;
+  text-align: left;
 }
 
 /* Efekt podświetlenia po najechaniu */

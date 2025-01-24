@@ -31,14 +31,15 @@
   color: #2ecc71;
   border: 2px solid #2ecc71;
   border-radius: 8px;
-  padding: 10px;
+  padding: 10px 16px; /* Dopasuj wielkość przycisków */
   text-align: center;
   font-size: 1em;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
-  flex: 1 0 auto;
-  min-width: auto;
+  flex: 0 0 auto; /* Zmniejszenie elastyczności przycisków */
+  min-width: auto; /* Ustawienie minimalnej szerokości */
+  width: auto; /* Przyciski dostosują się do treści */
 }
 
 .animal-animal-menu-item.active {
@@ -59,9 +60,65 @@
   font-size: 1em;
   color: #333;
   border-top: 1px solid #ddd;
+  text-align: center;
 }
 
-.animal-profile-buttons {
+
+ .animal-profile-buttons {
   display: flex;
-  gap: 5%;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 1em; 
+} 
+
+.change-animal-photo-button
+.edit-animal-profile-button{
+  padding: 8px 16px; /* Zmniejszenie przycisków */
+  font-size: 0.9em; /* Mniejszy rozmiar tekstu w przyciskach */
+  border-radius: 8px;
+  gap: 10px;
+  background-color: white;
+  border: 2px solid #2ecc71;
+  color: #2ecc71;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.change-animal-photo-button:hover
+.edit-animal-profile-button:hover {
+  background-color: #27ae60;
+  color: white;
+} 
+
+.change-animal-photo-button:active
+.edit-animal-profile-button:active {
+  background-color: #27ae60;
+  color: white;
+} 
+
+
+
+.delete-animal-profile-button {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-animal-profile-button:hover {
+  background-color: #c0392b;
+}
+
+
+
+.animal-date-of-birth-container{
+  font-size: medium;
+  font-weight: 500;
 }

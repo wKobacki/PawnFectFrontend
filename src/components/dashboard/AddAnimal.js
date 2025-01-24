@@ -146,7 +146,7 @@ const AddAnimal = ({ onCancel }) => {
           )}
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="feeding">Dieta</label>
           <textarea
             id="feeding"
@@ -161,7 +161,7 @@ const AddAnimal = ({ onCancel }) => {
               {errors.feeding}
             </span>
           )}
-        </div>
+        </div> */}
 
         <div className="button-group">
           <button type="submit" className="submit-button">

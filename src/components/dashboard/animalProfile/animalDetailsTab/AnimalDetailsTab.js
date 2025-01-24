@@ -6,15 +6,32 @@ import AnimalPhotoUpload from "./animalPhotoUpload/AnimalPhotoUpload";
 import EditTab from "./editTab/EditTab";
 import AnimalShare from "./animalShare/AnimalShare";
 import "./AnimalDetailsTab.css";
+import React from 'react';
+import { deleteAnimal } from "../../../../api/petApi";
 
 const AnimalDetailsTab = ({ animal }) => {
   const [activeTab, setActiveTab] = useState("profile");
   const { triggerRefresh } = useAnimal();
 
   const checkPermission = () => {
+    if (!animal.shared) return false; // Obsługa przypadku, gdy `shared` jest niezdefiniowane
     const userId = Number.parseInt(localStorage.getItem("userId"));
     const hasPermission = (u) => u.user_id === userId && u.access_level <= 1;
-    return animal.shared.find((u) => hasPermission(u)) ? true : false;
+    return animal.shared.some((u) => hasPermission(u));
+  };
+
+  const handleDeleteClick = async () => {
+    const confirmDelete = window.confirm("Czy na pewno chcesz usunąć to zwierzę?");
+    if (!confirmDelete) return;
+
+    try {
+      await deleteAnimal(animal.id); // Poprawione użycie `animal.id`
+      alert("Zwierzę zostało usunięte.");
+      triggerRefresh(); // Odświeżenie widoku po usunięciu
+    } catch (error) {
+      console.error("Błąd podczas usuwania zwierzęcia:", error.message);
+      alert("Nie udało się usunąć zwierzęcia. Spróbuj ponownie.");
+    }
   };
 
   const renderTabContent = () => {
@@ -37,25 +54,32 @@ const AnimalDetailsTab = ({ animal }) => {
               alt={animal?.name || "Zwierzę"}
               className="animal-animal-profile-image"
             />
-            <h1>Nazwa: {animal?.name}</h1>
+            <h1> {animal?.name}</h1>
+            { <h1 className="animal-date-of-birth-container">{animal?.date_of_birth}</h1> }
             <p>Opis: {animal?.description}</p>
             {checkPermission() && 
               <div className="animal-profile-buttons">
                 <button
-                  className="animal-animal-menu-item"
+                  className="change-animal-photo-button"
                   onClick={() => setActiveTab("avatar")}
                 >
                   Zmień zdjęcie
                 </button>
                 <button
-                  className="animal-animal-menu-item"
+                  className="edit-animal-profile-button"
                   onClick={() => setActiveTab("edit")}
                 >
                   Edytuj
                 </button>
+                <button 
+                  className="delete-animal-profile-button"
+                  onClick={handleDeleteClick}
+                >
+                  Usuń
+                </button>
               </div>
             }
-            </div>
+          </div>
         );
       default:
         return null;

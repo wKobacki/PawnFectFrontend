@@ -52,9 +52,10 @@
 .animal-visit-form-button {
   background-color: #007bff;
   color: #fff;
-  font-size: 1.1em;
+  font-size: 0.9em;
   padding: 0.8em;
   border: none;
+  margin-top: 0.4em;
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -72,4 +73,21 @@
   max-height: 500px;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.cancel-visit-button{
+  background-color: #d62721;
+  color: #fff;
+  font-size: 0.9em;
+  padding: 0.8em;
+  margin-left: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.cancel-visit-button:hover{
+  background-color: #8e1d1a;
+
 }
