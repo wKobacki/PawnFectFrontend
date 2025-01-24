@@ -56,7 +56,7 @@ const AnimalDetailsTab = ({ animal }) => {
             />
             <h1> {animal?.name}</h1>
             { <h1 className="animal-date-of-birth-container">{animal?.date_of_birth}</h1> }
-            <p>Opis: {animal?.description}</p>
+            <p>{animal?.description}</p>
             {checkPermission() && 
               <div className="animal-profile-buttons">
                 <button

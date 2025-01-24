@@ -28,7 +28,7 @@ const AnimalVisit = ({ visit, handleRemove }) => {
           <strong>Powód:</strong> {visit.visit_type}
         </span>
       </div>
-      <button onClick={() => handleRemove(visit)}>Usuń wizytę</button>
+      <button onClick={() => handleRemove(visit)}>Usuń</button>
     </div>
   );
 };

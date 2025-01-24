@@ -115,9 +115,9 @@ const ProfilPage = () => {
                 <Button variant="secondary" onClick={() => setShow(true)} className="edit-photo-btn">
                     Zmień zdjęcie profilowe
                 </Button>
-                <Button variant="danger" onClick={handleDeleteUser} className="delete-user-btn">
+                {/* <Button variant="danger" onClick={handleDeleteUser} className="delete-user-btn">
                     Usuń konto
-                </Button>
+                </Button> */}
             </div>
 
             <div className="profile-photo">

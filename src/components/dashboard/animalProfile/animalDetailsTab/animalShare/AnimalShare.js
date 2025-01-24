@@ -33,14 +33,14 @@ const AnimalShare = ({ animal }) => {
                     value={user}
                     onChange={handleShareInputChange}
                     className="animal-share-input"
-                    placeholder="username"
+                    placeholder="nazwa profilu"
                 />
                 <select 
                     className="animal-share-access-level"
                     onChange={handleAccessInputChange}
                 >
-                    <option value={1}>Co-owner</option>
-                    <option value={2}>Read-only</option>
+                    <option value={1}>Współwłaściciel</option>
+                    <option value={2}>Tylko wgląd</option>
                 </select>
                 <button
                     className="animal-share-submit"
