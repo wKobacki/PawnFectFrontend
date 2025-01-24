@@ -146,23 +146,6 @@ const AddAnimal = ({ onCancel }) => {
           )}
         </div>
 
-        {/* <div className="form-group">
-          <label htmlFor="feeding">Dieta</label>
-          <textarea
-            id="feeding"
-            name="feeding"
-            value={formData.feeding}
-            onChange={handleChange}
-            rows="2"
-            aria-describedby="feeding-error"
-          />
-          {errors.feeding && (
-            <span id="feeding-error" className="error-text">
-              {errors.feeding}
-            </span>
-          )}
-        </div> */}
-
         <div className="button-group">
           <button type="submit" className="submit-button">
             Dodaj zwierzaka
