@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAnimal } from "../../context/AnimalContext";
 import { useAuth } from "../../context/AuthContext";
 import "./Topbar.css";
+import LogoutImage from "../../assets/logout.png"
 
 const Topbar = ({ toggleSidebar }) => {
   const navigate = useNavigate();
@@ -42,28 +43,9 @@ const Topbar = ({ toggleSidebar }) => {
           />
         </div>
 
-        <div className="profile-name">
-          <span onClick={() => navigate("/profile")}>Twój Profil</span>
-        </div>
-
-        <div className="settings-section">
-          <button className="settings-button" onClick={() => toggleMenu()}>
-            ⚙️
+          <button className="settings-button" onClick={() => handleLogout()}>
+            <img src={LogoutImage} alt="LogOutImage" className="image-logout" />
           </button>
-
-          {isMenuOpen && (
-            <ul className="settings-menu">
-              <li onClick={() => navigate("/resetPass/Loged")}>Zmień hasło</li>
-              <li onClick={() => navigate("/profile")}>Zmiana profilowego</li>
-              <li
-                onClick={() => handleLogout()}
-                className="settings-menu-logout"
-              >
-                Wyloguj się
-              </li>
-            </ul>
-          )}
-        </div>
       </header>
     </div>
   );

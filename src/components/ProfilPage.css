@@ -24,7 +24,8 @@
 .edit-photo-btn,
 .edit-info-btn,
 .delete-user-btn,
-.back-to-dashboard-btn {
+.back-tooooo-dashboard-btn
+.reset-pass-as-log-btn {
     padding: 10px 20px;
     font-size: 1rem;
     font-weight: 500;
@@ -39,7 +40,8 @@
 .edit-photo-btn:hover,
 .edit-info-btn:hover,
 .delete-user-btn:hover,
-.back-to-dashboard-btn:hover {
+.back-tooooo-dashboard-btn:hover
+.reset-pass-as-log-btn:hover {
     background-color: #45a049;
     transform: scale(1.05);
 }
@@ -47,7 +49,8 @@
 .edit-photo-btn:active,
 .edit-info-btn:active,
 .delete-user-btn:active,
-.back-to-dashboard-btn:active {
+.back-tooooo-dashboard-btn:active 
+.reset-pass-as-log-btn:active{
     transform: scale(0.95);
 }
 
@@ -143,12 +146,12 @@
     font-weight: 500;
 }
 
-.back-to-dashboard-btn:hover {
+.back-tooooo-dashboard-btn:hover {
     background-color: #45a049;
     transform: scale(1.05);
 }
 
-.back-to-dashboard-btn:active {
+.back-tooooo-dashboard-btn:active {
     transform: scale(0.95);
 }
 

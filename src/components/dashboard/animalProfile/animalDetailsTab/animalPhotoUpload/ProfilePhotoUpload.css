@@ -58,6 +58,8 @@ button {
   font-weight: bold;
   border-radius: 5px;
   padding: 10px 20px;
+  background-color: #45a049;
+  color: white;
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
@@ -67,11 +69,6 @@ button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
   transform: none;
-}
-
-button:hover:not(:disabled) {
-  background-color: #45a049;
-  /* transform: scale(1.05); */
 }
 
 button:active {

@@ -3,9 +3,9 @@ import { Button, Modal, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { uploadUserAvatar, getUserInfo, deleteUser } from "../api/userApi";
-import "./ProfilePhotoUpload.css";
+import "./ProfilPage.css";
 
-const ProfilePhotoUpload = () => {
+const ProfilPage = () => {
     const [show, setShow] = useState(false);
     const [photo, setPhoto] = useState(null);
     const [preview, setPreview] = useState(null);
@@ -106,14 +106,14 @@ const ProfilePhotoUpload = () => {
             )}
 
             <div className="profile-buttons">
-                <Button variant="primary" onClick={() => navigate("/dashboard")} className="back-to-dashboard-btn">
+                <Button variant="primary" onClick={() => navigate("/dashboard")} className="back-tooooo-dashboard-btn">
                     Powrót do dashboardu
+                </Button>
+                <Button variant="secondary" onClick={() => navigate("/resetPass/Loged")} className="reset-pass-as-log-btn">
+                    Reset hasła
                 </Button>
                 <Button variant="secondary" onClick={() => setShow(true)} className="edit-photo-btn">
                     Zmień zdjęcie profilowe
-                </Button>
-                <Button variant="secondary" onClick={() => navigate("/update-user-info")} className="edit-info-btn">
-                    Zmień informacje o koncie
                 </Button>
                 <Button variant="danger" onClick={handleDeleteUser} className="delete-user-btn">
                     Usuń konto
@@ -130,7 +130,7 @@ const ProfilePhotoUpload = () => {
 
             <div className="profile-info">
                 <h2>{userInfo.username || "Username"}</h2>
-                <p>Email: {userInfo.email || "Email"}</p>
+                <p>{userInfo.email || "Email"}</p>
             </div>
 
             <Modal show={show} onHide={handleClose} centered>
@@ -161,4 +161,4 @@ const ProfilePhotoUpload = () => {
     );
 };
 
-export default ProfilePhotoUpload;
+export default ProfilPage;
